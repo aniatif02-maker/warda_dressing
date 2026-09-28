@@ -14,7 +14,54 @@
 tailwind.config={theme:{extend:{colors:{brand:{wine:'#7B2D3E',wineDark:'#5A1F2D',wineLight:'#F5E8EC',gold:'#C9A961',goldDark:'#A88B45',goldLight:'#F7F0E1',cream:'#FAF6F0',dark:'#1A1A1A',gray:'#6B6B6B'}},fontFamily:{tajawal:['Tajawal','sans-serif'],amiri:['Amiri','serif']},keyframes:{fadeUp:{'0%':{opacity:0,transform:'translateY(20px)'},'100%':{opacity:1,transform:'translateY(0)'}},slideIn:{'0%':{opacity:0,transform:'translateX(40px)'},'100%':{opacity:1,transform:'translateX(0)'}},slideOut:{'0%':{opacity:1},'100%':{opacity:0,transform:'translateX(40px)'}},starPop:{'0%':{opacity:0,transform:'scale(0)'},'70%':{transform:'scale(1.2)'},'100%':{opacity:1,transform:'scale(1)'}}},animation:{fadeUp:'fadeUp .8s ease-out both',slideIn:'slideIn .5s ease-out both',starPop:'starPop .6s ease-out both'}}}}
 </script>
 <style>
-*{-webkit-tap-highlight-color:transparent}html{scroll-behavior:smooth}body{padding-bottom:80px;font-family:Tajawal,sans-serif;background:#FAF6F0}h1,h2,h3,.font-amiri{font-family:Amiri,serif}[data-reveal]{opacity:0;transform:translateY(20px);transition:all .9s cubic-bezier(.16,1,.3,1)}[data-reveal].is-visible{opacity:1;transform:none}.input{width:100%;border-radius:0.5rem;border:1.5px solid #E5DDD0;background:#FFF;padding:.75rem 1rem;font-size:15px;font-weight:400;outline:0;transition:.2s;font-family:Tajawal,sans-serif}.input:focus{border-color:#7B2D3E;box-shadow:0 0 0 3px rgba(123,45,62,.1)}.divider-gold{width:60px;height:2px;background:linear-gradient(90deg,transparent,#C9A961,transparent);margin:1rem auto}.color-chip{border:1.5px solid #E5DDD0;background:#FFF;cursor:pointer;transition:.25s;position:relative;border-radius:0.5rem}.color-chip:hover{border-color:#C9A961}.color-chip.is-active{border-color:#7B2D3E;background:#F5E8EC;box-shadow:0 4px 12px -4px rgba(123,45,62,.3)}.color-chip.is-soldout{opacity:.45;pointer-events:none}.color-chip.is-soldout::after{content:'نفذ';position:absolute;inset:0;background:rgba(26,26,26,.85);color:#C9A961;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;letter-spacing:1px;border-radius:0.5rem}.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:inline-block}@keyframes spin{to{transform:rotate(360deg)}}.faq-body{max-height:0;overflow:hidden;transition:max-height .4s ease}.faq-item.is-open .faq-body{max-height:320px}.faq-item.is-open .faq-icon{transform:rotate(45deg);background:#7B2D3E;color:#fff;border-color:#7B2D3E}@keyframes goldShine{0%,100%{box-shadow:0 0 0 0 rgba(201,169,97,.5)}50%{box-shadow:0 0 0 8px rgba(201,169,97,0)}}.btn-gold{animation:goldShine 2.5s infinite}#adminPanel{display:none}#adminPanel.show{display:block}.admin-tab{background:#262626;color:#C9A961;border:1px solid #333;padding:8px 5px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:10.5px;font-weight:700;flex:1;transition:.2s}.admin-tab.active{background:#C9A961;color:#1A1A1A;border-color:#C9A961}.admin-section{display:none}.admin-section.active{display:block}.admin-row{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #262626;font-size:13px}.admin-row:last-child{border-bottom:0}.admin-input{width:100%;background:#1a1a1a;border:1px solid #333;color:#fff;padding:9px 10px;border-radius:0.5rem;font-size:13px;outline:0;font-family:Tajawal;margin-bottom:8px}.admin-input:focus{border-color:#C9A961}.admin-textarea{width:100%;background:#1a1a1a;border:1px solid #333;color:#fff;padding:9px 10px;border-radius:0.5rem;font-size:12.5px;outline:0;font-family:Tajawal;margin-bottom:8px;resize:vertical;min-height:80px;line-height:1.6}.admin-textarea:focus{border-color:#C9A961}.admin-img-input{flex:1;background:#1a1a1a;border:1px solid #333;color:#fff;padding:7px 9px;border-radius:0.5rem;font-size:11px;outline:0;font-family:monospace;direction:ltr;min-width:0}.admin-color-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;border:2px solid #444}.admin-del{background:transparent;border:0;color:#ef4444;cursor:pointer;font-size:15px;padding:0 4px}.admin-add-btn{background:#C9A961;color:#1A1A1A;font-weight:800;border:0;padding:11px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:13px;width:100%;margin-top:4px}.admin-sync-btn{background:#4A5568;color:#fff;font-weight:700;border:0;padding:11px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:13px;width:100%;margin-top:4px}.admin-status{font-size:11px;padding:6px 8px;border-radius:0.5rem;margin-bottom:8px;text-align:center;font-weight:700}.admin-status.ok{background:rgba(74,222,128,.15);color:#4ade80}.admin-status.warn{background:rgba(201,169,97,.2);color:#C9A961}.admin-status.err{background:rgba(239,68,68,.15);color:#ef4444}.admin-label{display:block;font-size:11.5px;font-weight:700;margin-bottom:5px;color:#C9A961}.admin-hint{font-size:10.5px;color:#888;margin-bottom:6px;line-height:1.5}.badge-luxury{display:inline-block;padding:6px 16px;border:1px solid #C9A961;color:#7B2D3E;font-size:12px;font-weight:600;letter-spacing:1.5px;border-radius:2rem}
+*{-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{padding-bottom:80px;font-family:Tajawal,sans-serif;background:#FAF6F0}
+h1,h2,h3,.font-amiri{font-family:Amiri,serif}
+[data-reveal]{opacity:0;transform:translateY(20px);transition:all .9s cubic-bezier(.16,1,.3,1)}
+[data-reveal].is-visible{opacity:1;transform:none}
+.input{width:100%;border-radius:0.5rem;border:1.5px solid #E5DDD0;background:#FFF;padding:.75rem 1rem;font-size:15px;font-weight:400;outline:0;transition:.2s;font-family:Tajawal,sans-serif}
+.input:focus{border-color:#7B2D3E;box-shadow:0 0 0 3px rgba(123,45,62,.1)}
+.divider-gold{width:60px;height:2px;background:linear-gradient(90deg,transparent,#C9A961,transparent);margin:1rem auto}
+.color-chip{border:1.5px solid #E5DDD0;background:#FFF;cursor:pointer;transition:.25s;position:relative;border-radius:0.5rem}
+.color-chip:hover{border-color:#C9A961}
+.color-chip.is-active{border-color:#7B2D3E;background:#F5E8EC;box-shadow:0 4px 12px -4px rgba(123,45,62,.3)}
+.color-chip.is-soldout{opacity:.45;pointer-events:none}
+.color-chip.is-soldout::after{content:'نفذ';position:absolute;inset:0;background:rgba(26,26,26,.85);color:#C9A961;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;letter-spacing:1px;border-radius:0.5rem}
+.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.faq-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.faq-item.is-open .faq-body{max-height:320px}
+.faq-item.is-open .faq-icon{transform:rotate(45deg);background:#7B2D3E;color:#fff;border-color:#7B2D3E}
+@keyframes goldShine{0%,100%{box-shadow:0 0 0 0 rgba(201,169,97,.5)}50%{box-shadow:0 0 0 8px rgba(201,169,97,0)}}
+.btn-gold{animation:goldShine 2.5s infinite}
+#adminPanel{display:none}
+#adminPanel.show{display:block}
+.admin-tab{background:#262626;color:#C9A961;border:1px solid #333;padding:8px 5px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:10.5px;font-weight:700;flex:1;transition:.2s}
+.admin-tab.active{background:#C9A961;color:#1A1A1A;border-color:#C9A961}
+.admin-section{display:none}
+.admin-section.active{display:block}
+.admin-row{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #262626;font-size:13px}
+.admin-row:last-child{border-bottom:0}
+.admin-input{width:100%;background:#1a1a1a;border:1px solid #333;color:#fff;padding:9px 10px;border-radius:0.5rem;font-size:13px;outline:0;font-family:Tajawal;margin-bottom:8px}
+.admin-input:focus{border-color:#C9A961}
+.admin-textarea{width:100%;background:#1a1a1a;border:1px solid #333;color:#fff;padding:9px 10px;border-radius:0.5rem;font-size:12.5px;outline:0;font-family:Tajawal;margin-bottom:8px;resize:vertical;min-height:80px;line-height:1.6}
+.admin-textarea:focus{border-color:#C9A961}
+.admin-img-input{flex:1;background:#1a1a1a;border:1px solid #333;color:#fff;padding:7px 9px;border-radius:0.5rem;font-size:11px;outline:0;font-family:monospace;direction:ltr;min-width:0}
+.admin-color-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;border:2px solid #444}
+.admin-del{background:transparent;border:0;color:#ef4444;cursor:pointer;font-size:15px;padding:0 4px}
+.admin-add-btn{background:#C9A961;color:#1A1A1A;font-weight:800;border:0;padding:11px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:13px;width:100%;margin-top:4px}
+.admin-sync-btn{background:#4A5568;color:#fff;font-weight:700;border:0;padding:11px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:13px;width:100%;margin-top:4px}
+.admin-status{font-size:11px;padding:6px 8px;border-radius:0.5rem;margin-bottom:8px;text-align:center;font-weight:700}
+.admin-status.ok{background:rgba(74,222,128,.15);color:#4ade80}
+.admin-status.warn{background:rgba(201,169,97,.2);color:#C9A961}
+.admin-status.err{background:rgba(239,68,68,.15);color:#ef4444}
+.admin-label{display:block;font-size:11.5px;font-weight:700;margin-bottom:5px;color:#C9A961}
+.admin-hint{font-size:10.5px;color:#888;margin-bottom:6px;line-height:1.5}
+.badge-luxury{display:inline-block;padding:6px 16px;border:1px solid #C9A961;color:#7B2D3E;font-size:12px;font-weight:600;letter-spacing:1.5px;border-radius:2rem}
+.image-frame{width:100%;height:420px;background:#FFF;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.image-frame img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+@media(min-width:640px){.image-frame{height:560px}}
 </style>
 </head>
 <body class="text-brand-dark antialiased overflow-x-hidden">
@@ -41,10 +88,12 @@ tailwind.config={theme:{extend:{colors:{brand:{wine:'#7B2D3E',wineDark:'#5A1F2D'
   <div class="relative max-w-6xl mx-auto px-4 py-12 sm:py-16 grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
     <div data-reveal class="relative">
       <div class="relative">
-        <div class="absolute -top-3 -right-3 w-24 h-24 border-t-2 border-r-2 border-brand-gold/50"></div>
-        <div class="absolute -bottom-3 -left-3 w-24 h-24 border-b-2 border-l-2 border-brand-gold/50"></div>
-        <div class="relative rounded-sm overflow-hidden bg-white shadow-[0_30px_80px_-30px_rgba(123,45,62,.4)]">
-          <img id="mainImage" src="" alt="موديل" class="w-full h-[380px] sm:h-[500px] object-cover transition-all duration-700">
+        <div class="absolute -top-3 -right-3 w-24 h-24 border-t-2 border-r-2 border-brand-gold/50 pointer-events-none z-10"></div>
+        <div class="absolute -bottom-3 -left-3 w-24 h-24 border-b-2 border-l-2 border-brand-gold/50 pointer-events-none z-10"></div>
+        <div class="relative rounded-sm overflow-hidden shadow-[0_30px_80px_-30px_rgba(123,45,62,.4)]">
+          <div class="image-frame">
+            <img id="mainImage" src="" alt="موديل" loading="eager">
+          </div>
         </div>
       </div>
       <div class="mt-5 text-center"><div class="inline-block border border-brand-wine/20 bg-white px-4 py-2 rounded-sm"><span class="text-[12.5px] text-brand-wine font-semibold tracking-wide" data-text="stockAlert"></span></div></div>
@@ -245,9 +294,11 @@ tailwind.config={theme:{extend:{colors:{brand:{wine:'#7B2D3E',wineDark:'#5A1F2D'
   </div>
   <div class="admin-section" data-section="add">
     <label class="admin-label">اسم اللون</label><input id="adminNewName" type="text" class="admin-input" placeholder="مثال: أخضر">
-    <label class="admin-label">اللون</label><input id="adminNewHex" type="color" value="#7B2D3E" style="width:100%;height:42px;background:#1a1a1a;border:1px solid #333;border-radius:0.5rem;cursor:pointer;margin-bottom:8px">
+    <label class="admin-label">اللون</label>
+    <input id="adminNewHex" type="color" value="#7B2D3E" style="width:100%;height:42px;background:#1a1a1a;border:1px solid #333;border-radius:0.5rem;cursor:pointer;margin-bottom:8px">
+    <button type="button" id="adminDetectColor" style="background:#4A5568;color:#fff;font-weight:700;border:0;padding:8px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:12px;width:100%;margin-bottom:8px">🎨 استخراج اللون من الصورة</button>
     <label class="admin-label">رابط الصورة</label><input id="adminNewImg" type="text" class="admin-input" placeholder="https://i.ibb.co/..." style="direction:ltr;font-family:monospace;font-size:11px">
-    <div id="adminNewPreview" style="width:100%;height:90px;background:#1a1a1a;border:1px dashed #333;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;font-size:11px;color:#666;margin-bottom:8px;overflow:hidden">معاينة</div>
+    <div id="adminNewPreview" style="width:100%;height:120px;background:#1a1a1a;border:1px dashed #333;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;font-size:11px;color:#666;margin-bottom:8px;overflow:hidden;position:relative">معاينة</div>
     <button type="button" id="adminAddColor" class="admin-add-btn">إضافة اللون</button>
   </div>
   <div style="margin-top:14px"><button type="button" id="adminSync" class="admin-sync-btn">تحميل من السيرفر</button></div>
@@ -259,14 +310,11 @@ tailwind.config={theme:{extend:{colors:{brand:{wine:'#7B2D3E',wineDark:'#5A1F2D'
 </div>
 
 <script>
-/* ✅ أسماء جديدة كلياً — ما غاديش يقرا البيانات القديمة */
 var STORAGE_COLORS = 'wd_warda_colors_v3';
 var STORAGE_TEXTS = 'wd_warda_texts_v3';
 var STORAGE_PRICE = 'wd_warda_price_v3';
 var STORAGE_OLD_PRICE = 'wd_warda_oldprice_v3';
 
-/* ✅ Google Sheet جديد — خاصك تبدلو بواحد جديد */
-/* ⚠️ مهم: خاصك تصنع Google Sheet جديد ونشر Apps Script جديد */
 var SHEET_URL = "https://script.google.com/macros/s/AKfycbxYnErbWRpdLD7h1sIA5Ky0b_PARtr6lfNkEo6E8KzK8ulDSzRMPwIQzhu7xw-pDrmC0Q/exec";
 var BRAND_MARKER = "warda_dressing_v3";
 
@@ -306,6 +354,58 @@ var DEFAULT_TEXTS = {
 };
 
 var IS_ADMIN = new URLSearchParams(location.search).has('admin');
+
+/* 🎨 استخراج اللون السائد من الصورة */
+async function extractDominantColor(imgUrl){
+  try {
+    var proxies = ['https://corsproxy.io/?url=', 'https://api.allorigins.win/raw?url='];
+    var dataUrl = imgUrl;
+    for(var i = 0; i < proxies.length; i++){
+      try {
+        var r = await fetch(proxies[i] + encodeURIComponent(imgUrl));
+        if(r.ok){ var blob = await r.blob(); dataUrl = URL.createObjectURL(blob); break; }
+      } catch(e){}
+    }
+    return await new Promise(function(resolve){
+      var img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function(){
+        try {
+          var canvas = document.createElement('canvas');
+          var ctx = canvas.getContext('2d');
+          canvas.width = 60; canvas.height = 60;
+          ctx.drawImage(img, 0, 0, 60, 60);
+          var data = ctx.getImageData(0, 0, 60, 60).data;
+          var buckets = {};
+          for(var j = 0; j < data.length; j += 4){
+            var rr = data[j], gg = data[j+1], bb = data[j+2], aa = data[j+3];
+            if(aa < 128) continue;
+            var max = Math.max(rr,gg,bb), min = Math.min(rr,gg,bb);
+            var brightness = (rr+gg+bb)/3;
+            var sat = max === 0 ? 0 : (max-min)/max;
+            if(brightness > 235 || brightness < 25) continue;
+            if(sat < 0.12) continue;
+            var key = (Math.round(rr/25)*25) + ',' + (Math.round(gg/25)*25) + ',' + (Math.round(bb/25)*25);
+            buckets[key] = (buckets[key] || 0) + 1;
+          }
+          var best = null, bestN = 0;
+          for(var k in buckets){ if(buckets[k] > bestN){ bestN = buckets[k]; best = k; } }
+          if(best){
+            var p = best.split(',').map(Number);
+            var hex = '#' + p.map(function(v){ return Math.max(0, Math.min(255, v)).toString(16).padStart(2,'0'); }).join('');
+            console.log('🎨 اللون المكتشف:', hex);
+            resolve(hex);
+          } else resolve(null);
+        } catch(e) { console.warn('color detect:', e); resolve(null); }
+      };
+      img.onerror = function(){ resolve(null); };
+      img.src = dataUrl;
+    });
+  } catch(e) {
+    console.warn('color extract error:', e);
+    return null;
+  }
+}
 
 function getTexts(){
   try {
@@ -447,7 +547,6 @@ function applyStockVisibility(){
   });
 }
 
-/* ========== حفظ/تحميل من السيرفر مع brand marker ========== */
 async function saveToServer(){
   if(!SHEET_URL || SHEET_URL.indexOf('ضع هنا') !== -1) return {ok:false, msg:'SHEET_URL غير مضبوط'};
   try {
@@ -463,7 +562,6 @@ async function fetchFromServer(){
     var r = await fetch(SHEET_URL + '?t=' + Date.now(), {method:'GET', cache:'no-store'});
     var d = await r.json();
     if(!d) return null;
-    /* ✅ ما نقبلوش البيانات إلا كانت ديال وردة دريسينغ */
     if(d.brand !== BRAND_MARKER) { console.log('ℹ️ بيانات قديمة من براند آخر — تجاهل'); return null; }
     return d;
   } catch(e) { return null; }
@@ -480,7 +578,6 @@ function applyServerData(d){
   return c;
 }
 
-/* مسح البيانات القديمة تلقائياً */
 (function(){
   try {
     localStorage.removeItem('admin_texts');
@@ -497,15 +594,12 @@ function migrateOld(){
   if(!localStorage.getItem(STORAGE_TEXTS)) saveTextsLocal(JSON.parse(JSON.stringify(DEFAULT_TEXTS)));
 }
 
-/* ========== منع الهبوط + الشريط السفلي ========== */
 (function(){ if(location.hash) history.replaceState(null,'',location.pathname+location.search); window.scrollTo(0,0); window.addEventListener('load',function(){ window.scrollTo(0,0); if(document.activeElement && document.activeElement !== document.body) document.activeElement.blur(); }); setTimeout(function(){window.scrollTo(0,0);},300); setTimeout(function(){window.scrollTo(0,0);},800); })();
 (function(){ var b = document.getElementById('stickyBar'); var s = false; function u(){ var y = window.scrollY > 400; if(y !== s){ s = y; b.classList.toggle('translate-y-full', !y); } } window.addEventListener('scroll', u, {passive:true}); u(); })();
 
-/* ========== المدن ========== */
 var CITIES = ["الدار البيضاء","الرباط","مراكش","فاس","طنجة","أكادير","مكناس","وجدة","القنيطرة","تطوان","سلا","آسفي","الجديدة","الناظور","بني ملال","المحمدية","خريبكة","الصويرة","العيون","الداخلة","ورزازات","الرشيدية","تازة","سطات","بركان","العرائش","القصر الكبير","كلميم","تيزنيت","طانطان","الحسيمة","إفران","أزرو","شفشاون","سيدي سليمان","وادي زم","اليوسفية","مرتيل","أصيلة","زاكورة","تنغير","ميدلت","تارودانت","خنيفرة","سيدي قاسم","بوزنيقة","الصخيرات","تمارة","أزمور","سيدي بنور","الفقيه بن صالح","جرادة","فكيك","بولمان","الخميسات","بوجدور","أسا الزاك","سيدي إفني"];
 (function(){ var s = document.getElementById('fCity'); CITIES.forEach(function(c){ var o = document.createElement('option'); o.value = c; o.textContent = c; s.appendChild(o); }); })();
 
-/* ========== الإشعارات + التقييمات + FAQ ========== */
 var NOTIFS = [{n:"فاطمة",c:"الدار البيضاء",t:"قبل دقيقة"},{n:"سلمى",c:"الرباط",t:"قبل 3 دقائق"},{n:"ياسمين",c:"مراكش",t:"قبل دقيقتين"},{n:"هند",c:"طنجة",t:"قبل 5 دقائق"},{n:"مريم",c:"أكادير",t:"قبل دقيقة"},{n:"نور",c:"فاس",t:"قبل 4 دقائق"},{n:"إيمان",c:"مكناس",t:"قبل دقيقتين"},{n:"خديجة",c:"وجدة",t:"قبل 6 دقائق"},{n:"زينب",c:"تطوان",t:"قبل 3 دقائق"},{n:"أمينة",c:"القنيطرة",t:"قبل دقيقة"}];
 
 var REVIEWS = [
@@ -654,46 +748,127 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
       if(tab.dataset.tab === 'texts') renderAdminTexts();
     });
   });
-  var ni = document.getElementById('adminNewImg'); var np = document.getElementById('adminNewPreview');
-  ni.addEventListener('input', async function(){ var v = ni.value.trim(); if(v.indexOf('http') !== 0){ np.textContent = 'معاينة'; return; } np.textContent = 'جاري التحميل...'; var d = await toDirectImgBB(v); np.innerHTML = '<img src="' + d + '" style="max-width:100%;max-height:100%;object-fit:contain" onerror="this.parentElement.textContent=\'فشل\'">'; });
-  document.getElementById('adminAddColor').addEventListener('click', async function(){
-    var n = document.getElementById('adminNewName').value.trim(); var h = document.getElementById('adminNewHex').value; var im = document.getElementById('adminNewImg').value.trim();
-    if(!n){ alert('اكتب اسم اللون'); return; } if(!im || im.indexOf('http') !== 0){ alert('حط رابط صورة'); return; }
-    var b = document.getElementById('adminAddColor'); b.textContent = 'جاري...'; b.disabled = true;
-    im = await toDirectImgBB(im); b.textContent = 'إضافة اللون'; b.disabled = false;
-    var cs = getColors(); if(cs.find(function(x){ return x.name === n; })){ alert('اللون موجود!'); return; }
-    cs.push({name:n, hex:h, img:im, available:true}); saveColorsLocal(cs);
-    document.getElementById('adminNewName').value = ''; document.getElementById('adminNewImg').value = ''; np.textContent = 'معاينة';
-    state.color = n; state.userPicked = true; applyAll(); renderAdminPanel();
-    var r = await saveToServer(); var m = document.getElementById('adminMsg'); m.textContent = r.ok ? '✓ تمت الإضافة' : '⚠ فشل الحفظ'; m.style.color = r.ok ? '#4ade80' : '#fbbf24'; m.style.opacity = '1'; setTimeout(function(){ m.style.opacity = '0'; }, 3000);
+  
+  var ni = document.getElementById('adminNewImg');
+  var np = document.getElementById('adminNewPreview');
+  
+  /* ✅ التعديل 1: معاينة + استخراج اللون تلقائياً */
+  ni.addEventListener('input', async function(){
+    var v = ni.value.trim();
+    if(v.indexOf('http') !== 0){ np.textContent = 'معاينة'; return; }
+    np.textContent = '⏳ جاري التحميل...';
+    
+    var d = await toDirectImgBB(v);
+    np.innerHTML = '<img src="' + d + '" style="max-width:100%;max-height:100%;object-fit:contain" onerror="this.parentElement.textContent=\'فشل\'">';
+    
+    /* 🎨 استخراج اللون السائد تلقائياً */
+    np.style.position = 'relative';
+    var oldBadge = document.getElementById('autoColorBadge');
+    if(oldBadge) oldBadge.remove();
+    var colorBadge = document.createElement('div');
+    colorBadge.id = 'autoColorBadge';
+    colorBadge.style.cssText = 'position:absolute;bottom:4px;right:4px;background:rgba(26,26,26,.9);color:#C9A961;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700';
+    colorBadge.textContent = '🎨 جاري استخراج اللون...';
+    np.appendChild(colorBadge);
+    
+    var detectedColor = await extractDominantColor(d);
+    if(detectedColor){
+      document.getElementById('adminNewHex').value = detectedColor;
+      colorBadge.textContent = '🎨 ' + detectedColor;
+      colorBadge.style.background = detectedColor;
+      colorBadge.style.color = '#fff';
+      setTimeout(function(){ if(colorBadge.parentElement) colorBadge.remove(); }, 3500);
+    } else {
+      colorBadge.textContent = '⚠️ تعذر استخراج اللون';
+      colorBadge.style.color = '#fbbf24';
+      setTimeout(function(){ if(colorBadge.parentElement) colorBadge.remove(); }, 3000);
+    }
   });
+  
+  /* ✅ التعديل 2: زر استخراج اللون يدوياً */
+  document.getElementById('adminDetectColor').addEventListener('click', async function(){
+    var url = document.getElementById('adminNewImg').value.trim();
+    if(!url || url.indexOf('http') !== 0){ alert('حط رابط صورة أولاً'); return; }
+    var btn = document.getElementById('adminDetectColor');
+    btn.textContent = '⏳ جاري...'; btn.disabled = true;
+    var direct = await toDirectImgBB(url);
+    var color = await extractDominantColor(direct);
+    btn.textContent = '🎨 استخراج اللون من الصورة'; btn.disabled = false;
+    if(color){
+      document.getElementById('adminNewHex').value = color;
+      btn.textContent = '✓ تم: ' + color;
+      setTimeout(function(){ btn.textContent = '🎨 استخراج اللون من الصورة'; }, 2500);
+    } else {
+      alert('تعذر استخراج اللون — الصورة يمكن محمية بـ CORS');
+    }
+  });
+  
+  document.getElementById('adminAddColor').addEventListener('click', async function(){
+    var n = document.getElementById('adminNewName').value.trim();
+    var h = document.getElementById('adminNewHex').value;
+    var im = document.getElementById('adminNewImg').value.trim();
+    if(!n){ alert('اكتب اسم اللون'); return; }
+    if(!im || im.indexOf('http') !== 0){ alert('حط رابط صورة'); return; }
+    var b = document.getElementById('adminAddColor');
+    b.textContent = 'جاري...'; b.disabled = true;
+    im = await toDirectImgBB(im);
+    b.textContent = 'إضافة اللون'; b.disabled = false;
+    var cs = getColors();
+    if(cs.find(function(x){ return x.name === n; })){ alert('اللون موجود!'); return; }
+    cs.push({name:n, hex:h, img:im, available:true}); saveColorsLocal(cs);
+    document.getElementById('adminNewName').value = '';
+    document.getElementById('adminNewImg').value = '';
+    np.textContent = 'معاينة';
+    state.color = n; state.userPicked = true;
+    applyAll(); renderAdminPanel();
+    var r = await saveToServer();
+    var m = document.getElementById('adminMsg');
+    m.textContent = r.ok ? '✓ تمت الإضافة' : '⚠ فشل الحفظ';
+    m.style.color = r.ok ? '#4ade80' : '#fbbf24';
+    m.style.opacity = '1';
+    setTimeout(function(){ m.style.opacity = '0'; }, 3000);
+  });
+  
   document.getElementById('adminSave').addEventListener('click', async function(){
     var npz = Number(document.getElementById('adminPriceInput').value) || DEFAULT_PRICE;
     var nop = Number(document.getElementById('adminOldPriceInput').value) || DEFAULT_OLD_PRICE;
-    localStorage.setItem(STORAGE_PRICE, npz); localStorage.setItem(STORAGE_OLD_PRICE, nop);
+    localStorage.setItem(STORAGE_PRICE, npz);
+    localStorage.setItem(STORAGE_OLD_PRICE, nop);
     PRICE = npz; OLD_PRICE = nop;
-    var t = getTexts(); var g = function(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; };
+    var t = getTexts();
+    var g = function(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; };
     t.brandName = g('txtBrandName') || t.brandName; t.brandSub = g('txtBrandSub') || t.brandSub;
     t.heroTitle = g('txtHeroTitle') || t.heroTitle; t.heroDesc = g('txtHeroDesc') || t.heroDesc;
     t.productName = g('txtProductName') || t.productName; t.orderTitle = g('txtOrderTitle') || t.orderTitle;
     t.featuresTitle = g('txtFeaturesTitle') || t.featuresTitle; t.reviewsTitle = g('txtReviewsTitle') || t.reviewsTitle;
     t.stockAlert = g('txtStockAlert') || t.stockAlert;
-    var fR = g('txtFeatures'); if(fR){ t.features = fR.split('\n').filter(function(l){ return l.trim(); }); }
+    var fR = g('txtFeatures');
+    if(fR){ t.features = fR.split('\n').filter(function(l){ return l.trim(); }); }
     saveTextsLocal(t); applyAll();
-    var m = document.getElementById('adminMsg'); m.textContent = 'جاري الحفظ...'; m.style.color = '#C9A961'; m.style.opacity = '1';
+    var m = document.getElementById('adminMsg');
+    m.textContent = 'جاري الحفظ...'; m.style.color = '#C9A961'; m.style.opacity = '1';
     var r = await saveToServer();
     if(r.ok){ m.textContent = '✓ تم الحفظ'; m.style.color = '#4ade80'; st.className = 'admin-status ok'; st.textContent = '✓ متزامن'; }
     else { m.textContent = '× فشل: ' + r.msg; m.style.color = '#ef4444'; st.className = 'admin-status err'; st.textContent = '× ' + r.msg; }
     setTimeout(function(){ m.style.opacity = '0'; }, 4000);
   });
+  
   document.getElementById('adminSync').addEventListener('click', async function(){
-    var m = document.getElementById('adminMsg'); m.textContent = 'جاري التحميل...'; m.style.color = '#C9A961'; m.style.opacity = '1';
+    var m = document.getElementById('adminMsg');
+    m.textContent = 'جاري التحميل...'; m.style.color = '#C9A961'; m.style.opacity = '1';
     var d = await fetchFromServer();
-    if(d){ applyServerData(d); PRICE = getPrice(); OLD_PRICE = getOldPrice(); applyAll(); renderAdminPanel(); m.textContent = '✓ تم التحميل'; m.style.color = '#4ade80'; }
-    else { m.textContent = '× لا توجد بيانات'; m.style.color = '#ef4444'; }
+    if(d){
+      applyServerData(d); PRICE = getPrice(); OLD_PRICE = getOldPrice();
+      applyAll(); renderAdminPanel();
+      m.textContent = '✓ تم التحميل'; m.style.color = '#4ade80';
+    } else { m.textContent = '× لا توجد بيانات'; m.style.color = '#ef4444'; }
     setTimeout(function(){ m.style.opacity = '0'; }, 3000);
   });
-  document.getElementById('adminClose').addEventListener('click', function(){ panel.classList.remove('show'); history.replaceState(null, '', location.pathname); });
+  
+  document.getElementById('adminClose').addEventListener('click', function(){
+    panel.classList.remove('show');
+    history.replaceState(null, '', location.pathname);
+  });
 })();
 </script>
 </body>
