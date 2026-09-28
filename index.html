@@ -328,67 +328,12 @@ var WHATSAPP_NUMBER = "2126XXXXXXXX";
 var DEFAULT_PRICE = 299;
 var DEFAULT_OLD_PRICE = 450;
 
-/* ✅✅✅ قاموس أسماء الألوان العربية حسب الألوان الشائعة في البيع */
-var COLOR_NAMES = [
-  {name:"أسود",           r:0,   g:0,   b:0},
-  {name:"أبيض",           r:255, g:255, b:255},
-  {name:"رمادي",          r:128, g:128, b:128},
-  {name:"رمادي فاتح",     r:200, g:200, b:200},
-  {name:"رمادي غامق",     r:80,  g:80,  b:80},
-  {name:"بيج",            r:232, g:213, b:183},
-  {name:"بيج غامق",       r:200, g:180, b:140},
-  {name:"كريمي",          r:255, g:253, b:208},
-  {name:"أوف وايت",       r:250, g:240, b:230},
-  {name:"بني",            r:139, g:69,  b:19},
-  {name:"بني فاتح",       r:198, g:142, b:90},
-  {name:"كراميل",         r:210, g:166, b:121},
-  {name:"بني غامق",       r:101, g:67,  b:33},
-  {name:"شوكولا",         r:123, g:63,  b:0},
-  {name:"نحاسي",          r:184, g:115, b:51},
-  {name:"كحلي",           r:27,  g:42,  b:74},
-  {name:"كحلي غامق",      r:15,  g:25,  b:50},
-  {name:"أزرق",           r:0,   g:0,   b:255},
-  {name:"أزرق فاتح",      r:135, g:206, b:235},
-  {name:"أزرق ملكي",      r:65,  g:105, b:225},
-  {name:"سماوي",          r:135, g:206, b:250},
-  {name:"تركواز",         r:64,  g:224, b:208},
-  {name:"أخضر",           r:0,   g:128, b:0},
-  {name:"أخضر فاتح",      r:144, g:238, b:144},
-  {name:"زيتي",           r:128, g:128, b:0},
-  {name:"زمردي",          r:80,  g:200, b:120},
-  {name:"نعناعي",         r:152, g:255, b:152},
-  {name:"أحمر",           r:255, g:0,   b:0},
-  {name:"نبيتي",          r:128, g:0,   b:32},
-  {name:"خمري",           r:123, g:45,  b:62},
-  {name:"بورجوندي",       r:128, g:0,   b:32},
-  {name:"أحمر غامق",      r:139, g:0,   b:0},
-  {name:"طماطمي",         r:255, g:99,  b:71},
-  {name:"مرجاني",         r:255, g:127, b:80},
-  {name:"وردي",           r:255, g:192, b:203},
-  {name:"وردي غامق",      r:255, g:105, b:180},
-  {name:"وردي بودرة",     r:255, g:228, b:225},
-  {name:"فوشيا",          r:255, g:0,   b:255},
-  {name:"ماجنتا",         r:255, g:0,   b:144},
-  {name:"برتقالي",        r:255, g:165, b:0},
-  {name:"برتقالي غامق",   r:255, g:140, b:0},
-  {name:"خوخي",           r:255, g:218, b:185},
-  {name:"بنفسجي",         r:128, g:0,   b:128},
-  {name:"لافندر",         r:181, g:126, b:220},
-  {name:"أرجواني",        r:155, g:89,  b:182},
-  {name:"ليلكي",          r:200, g:162, b:200},
-  {name:"أصفر",           r:255, g:255, b:0},
-  {name:"ذهبي",           r:218, g:165, b:32},
-  {name:"خردلي",          r:225, g:200, b:60},
-  {name:"فضي",            r:192, g:192, b:192},
-  {name:"بلاتيني",        r:229, g:228, b:226}
-];
-
 var DEFAULT_COLORS = [
-  {name:"أسود",     hex:"#000000", img:"https://placehold.co/600x800/1A1A1A/C9A961?text=Black", available:true},
-  {name:"بيج",      hex:"#E8D5B7", img:"https://placehold.co/600x800/E8D5B7/7B2D3E?text=Beige", available:true},
-  {name:"بني",      hex:"#8B4513", img:"https://placehold.co/600x800/8B4513/C9A961?text=Brown", available:true},
-  {name:"كحلي",     hex:"#1B2A4A", img:"https://placehold.co/600x800/1B2A4A/C9A961?text=Navy", available:true},
-  {name:"بورجوندي", hex:"#800020", img:"https://placehold.co/600x800/800020/C9A961?text=Burgundy", available:true}
+  {name:"أسود",   hex:"#000000", img:"https://placehold.co/600x800/1A1A1A/C9A961?text=Black", available:true},
+  {name:"بيج",    hex:"#E8D5B7", img:"https://placehold.co/600x800/E8D5B7/7B2D3E?text=Beige", available:true},
+  {name:"بني",    hex:"#8B4513", img:"https://placehold.co/600x800/8B4513/C9A961?text=Brown", available:true},
+  {name:"كحلي",   hex:"#1B2A4A", img:"https://placehold.co/600x800/1B2A4A/C9A961?text=Navy", available:true},
+  {name:"خمري",   hex:"#7B2D3E", img:"https://placehold.co/600x800/7B2D3E/C9A961?text=Wine", available:true}
 ];
 
 var DEFAULT_TEXTS = {
@@ -416,26 +361,131 @@ var DEFAULT_TEXTS = {
 
 var IS_ADMIN = new URLSearchParams(location.search).has('admin');
 
-/* ✅✅✅ دالة تحويل hex → اسم عربي */
+/* ✅✅✅✅✅ خوارزمية HSV محسّنة — ذكية و دقيقة ✅✅✅✅✅ */
 function getColorName(hex){
   if(!hex || hex.length < 7) return null;
   try {
-    var r = parseInt(hex.substr(1,2), 16);
-    var g = parseInt(hex.substr(3,2), 16);
-    var b = parseInt(hex.substr(5,2), 16);
+    var r = parseInt(hex.substr(1,2), 16) / 255;
+    var g = parseInt(hex.substr(3,2), 16) / 255;
+    var b = parseInt(hex.substr(5,2), 16) / 255;
     if(isNaN(r) || isNaN(g) || isNaN(b)) return null;
-    
-    var best = null, bestDist = Infinity;
-    for(var i = 0; i < COLOR_NAMES.length; i++){
-      var c = COLOR_NAMES[i];
-      // مسافة إقليدية بالأوزان (الإنسان أكثر حساسية للأخضر)
-      var dr = r - c.r;
-      var dg = g - c.g;
-      var db = b - c.b;
-      var dist = (dr*dr)*2 + (dg*dg)*4 + (db*db)*3;
-      if(dist < bestDist){ bestDist = dist; best = c.name; }
+
+    var max = Math.max(r,g,b), min = Math.min(r,g,b);
+    var v = max;                          // Value (السطوع)
+    var d = max - min;
+    var s = max === 0 ? 0 : d / max;      // Saturation (التشبع)
+
+    var h = 0;                             // Hue (درجة اللون)
+    if(d !== 0){
+      if(max === r) h = ((g - b) / d) % 6;
+      else if(max === g) h = (b - r) / d + 2;
+      else h = (r - g) / d + 4;
+      h = h * 60;
+      if(h < 0) h += 360;
     }
-    return best;
+
+    // ============ 1) ألوان بلا تشبع (رمادي/أبيض/أسود) ============
+    if(s < 0.10){
+      if(v < 0.12) return "أسود";
+      if(v < 0.30) return "رمادي غامق";
+      if(v < 0.55) return "رمادي";
+      if(v < 0.82) return "رمادي فاتح";
+      return "أبيض";
+    }
+
+    // ============ 2) البني (لون خاص: hue 10-45 + value منخفض) ============
+    if(h >= 10 && h < 50 && v < 0.55){
+      if(v < 0.25) return "بني غامق";
+      return "بني";
+    }
+
+    // ============ 3) البيج (hue 25-55 + تشبع متوسط) ============
+    if(h >= 25 && h < 55 && s >= 0.10 && s < 0.45 && v >= 0.70){
+      return "بيج";
+    }
+    // بيج فاتح
+    if(h >= 20 && h < 60 && s < 0.20 && v >= 0.85){
+      return "أوف وايت";
+    }
+
+    // ============ 4) ألوان الباستيل (تشبع منخفض) ============
+    if(s < 0.25){
+      if((h >= 330 || h < 20) && v > 0.75) return "وردي بودرة";
+      if(h >= 20 && h < 50 && v > 0.85) return "بيج";
+      if(v > 0.85) return "أبيض";
+      if(v < 0.45) return "رمادي غامق";
+      return "رمادي فاتح";
+    }
+
+    // ============ 5) الأحمر والخمري والنبيتي ============
+    if(h < 15 || h >= 340){
+      if(v < 0.35) return "نبيتي";        // أحمر غامق جداً
+      if(v < 0.55) return "خمري";          // بني-محمر غامق
+      if(s < 0.50 && v < 0.75) return "بورجوندي";
+      if(s < 0.45 && v >= 0.75) return "وردي";
+      return "أحمر";
+    }
+
+    // ============ 6) البرتقالي ============
+    if(h < 40){
+      if(v < 0.40) return "بني غامق";
+      if(v < 0.55) return "بني";
+      if(s < 0.40) return "بيج";
+      if(s < 0.65) return "كراميل";
+      return "برتقالي";
+    }
+
+    // ============ 7) الأصفر والذهبي والخردلي ============
+    if(h < 65){
+      if(s < 0.40){
+        if(v < 0.60) return "خردلي";
+        return "بيج";
+      }
+      if(v < 0.55) return "خردلي";
+      if(v < 0.85) return "ذهبي";
+      return "أصفر";
+    }
+
+    // ============ 8) الأخضر ============
+    if(h < 170){
+      if(v < 0.30) return "زيتي";
+      if(s < 0.35) return "زيتي";
+      if(h >= 140) return "تركواز";
+      if(v < 0.55) return "أخضر غامق";
+      return "أخضر";
+    }
+
+    // ============ 9) السماوي والتركواز ============
+    if(h < 200){
+      if(v < 0.40) return "كحلي";
+      return "سماوي";
+    }
+
+    // ============ 10) الأزرق ============
+    if(h < 250){
+      if(v < 0.30) return "كحلي غامق";
+      if(v < 0.50) return "كحلي";
+      if(s < 0.35) return "رمادي";
+      return "أزرق";
+    }
+
+    // ============ 11) البنفسجي ============
+    if(h < 290){
+      if(v < 0.35) return "بنفسجي غامق";
+      if(s < 0.30) return "لافندر";
+      return "بنفسجي";
+    }
+
+    // ============ 12) الوردي والماجنتا ============
+    if(h < 340){
+      if(v < 0.35) return "بنفسجي غامق";
+      if(v < 0.55) return "ماجنتا";
+      if(s < 0.35) return "وردي بودرة";
+      if(v < 0.80) return "وردي غامق";
+      return "وردي";
+    }
+
+    return "رمادي";
   } catch(e){
     return null;
   }
@@ -445,27 +495,23 @@ function getColorName(hex){
 async function extractDominantColor(imgUrl){
   if(!imgUrl) return null;
   console.log('🎨 بدء استخراج اللون من:', imgUrl);
-  
+
   var cleanUrl = imgUrl.replace(/^https?:\/\//, '');
   var attempts = [
     'https://images.weserv.nl/?url=' + cleanUrl,
     'https://images.weserv.nl/?url=' + encodeURIComponent(cleanUrl),
     imgUrl,
-    'https://wsrv.nl/?url=' + cleanUrl,
-    'https://images.weserv.nl/?url=' + cleanUrl + '&n=-1'
+    'https://wsrv.nl/?url=' + cleanUrl
   ];
-  
+
   for(var i = 0; i < attempts.length; i++){
-    var url = attempts[i];
-    console.log('🔄 محاولة ' + (i+1) + ':', url);
-    var result = await tryLoadAndExtract(url);
+    console.log('🔄 محاولة ' + (i+1) + ':', attempts[i]);
+    var result = await tryLoadAndExtract(attempts[i]);
     if(result){
-      console.log('✅ نجحت المحاولة ' + (i+1) + ' — اللون:', result);
+      console.log('✅ نجحت — اللون:', result);
       return result;
     }
   }
-  
-  console.warn('❌ فشلت كل الطرق');
   return null;
 }
 
@@ -474,11 +520,11 @@ function tryLoadAndExtract(url){
     var img = new Image();
     img.crossOrigin = 'anonymous';
     var done = false;
-    
+
     var timeout = setTimeout(function(){
-      if(!done){ done = true; console.warn('⏱️ timeout'); resolve(null); }
+      if(!done){ done = true; resolve(null); }
     }, 8000);
-    
+
     img.onload = function(){
       if(done) return;
       done = true;
@@ -490,50 +536,52 @@ function tryLoadAndExtract(url){
         canvas.height = 100;
         ctx.drawImage(img, 0, 0, 100, 100);
         var data = ctx.getImageData(0, 0, 100, 100).data;
-        
+
+        // نجمعو البكسلات في buckets
         var buckets = {};
         for(var y = 20; y < 80; y++){
-          for(var x = 25; x < 75; x++){
+          for(var x = 20; x < 80; x++){
             var idx = (y * 100 + x) * 4;
             var rr = data[idx], gg = data[idx+1], bb = data[idx+2], aa = data[idx+3];
             if(aa < 128) continue;
-            
+
             var max = Math.max(rr,gg,bb), min = Math.min(rr,gg,bb);
             var brightness = (rr+gg+bb)/3;
             var sat = max === 0 ? 0 : (max-min)/max;
-            
-            if(brightness > 240 || brightness < 20) continue;
-            if(gg > rr + 30 && gg > bb + 30) continue;
-            if(sat < 0.08) continue;
-            
-            var key = (Math.round(rr/20)*20) + ',' + (Math.round(gg/20)*20) + ',' + (Math.round(bb/20)*20);
+
+            // تجاهل الأبيض جداً والأسود جداً فقط
+            if(brightness > 245 || brightness < 12) continue;
+            // تجاهل الأخضر (نباتات/إضاءة استوديو)
+            if(gg > rr + 35 && gg > bb + 35) continue;
+
+            // bucket بحجم 15 بدل 20 (أدق)
+            var key = (Math.round(rr/15)*15) + ',' + (Math.round(gg/15)*15) + ',' + (Math.round(bb/15)*15);
             buckets[key] = (buckets[key] || 0) + 1;
           }
         }
-        
+
         var best = null, bestN = 0;
         for(var k in buckets){ if(buckets[k] > bestN){ bestN = buckets[k]; best = k; } }
-        
+
         if(best){
           var p = best.split(',').map(Number);
-          var hex = '#' + p.map(function(v){ return Math.max(0, Math.min(255, v)).toString(16).padStart(2,'0'); }).join('');
+          var hex = '#' + p.map(function(x){ return Math.max(0, Math.min(255, x)).toString(16).padStart(2,'0'); }).join('');
           resolve(hex);
         } else {
           resolve(null);
         }
       } catch(e) {
-        console.warn('canvas error:', e);
         resolve(null);
       }
     };
-    
+
     img.onerror = function(){
       if(done) return;
       done = true;
       clearTimeout(timeout);
       resolve(null);
     };
-    
+
     img.src = url;
   });
 }
@@ -552,15 +600,13 @@ async function toDirectImgBB(url){
   return url;
 }
 
-/* ✅✅✅ تحديث الألوان + الأسماء */
 async function autoUpdateAllColors(){
   var colors = getColors();
   var updated = 0, skipped = 0, failed = 0;
-  
+
   for(var i = 0; i < colors.length; i++){
     var c = colors[i];
     if(!c.img || c.img.indexOf('placehold.co') !== -1){ skipped++; continue; }
-    
     try {
       var direct = await toDirectImgBB(c.img);
       var detected = await extractDominantColor(direct);
@@ -569,36 +615,23 @@ async function autoUpdateAllColors(){
         var changed = false;
         if(detected !== c.hex){ c.hex = detected; changed = true; }
         if(newName && newName !== c.name){ c.name = newName; changed = true; }
-        if(changed){
-          console.log('🔄 تحديث: ' + newName + ' (' + detected + ')');
-          updated++;
-        } else {
-          skipped++;
-        }
-      } else {
-        failed++;
-      }
+        if(changed) updated++; else skipped++;
+      } else failed++;
     } catch(e) { failed++; }
   }
-  
+
   if(updated > 0){
     saveColorsLocal(colors);
     applyAll();
     renderAdminPanel();
     await saveToServer();
   }
-  
   return {updated: updated, skipped: skipped, failed: failed};
 }
 
 function getTexts(){
-  try {
-    var saved = JSON.parse(localStorage.getItem(STORAGE_TEXTS) || 'null');
-    if(saved && typeof saved === 'object') {
-      var m = JSON.parse(JSON.stringify(DEFAULT_TEXTS));
-      Object.keys(saved).forEach(function(k){ if(saved[k]) m[k] = saved[k]; });
-      return m;
-    }
+  try { var s = JSON.parse(localStorage.getItem(STORAGE_TEXTS) || 'null');
+    if(s && typeof s === 'object'){ var m = JSON.parse(JSON.stringify(DEFAULT_TEXTS)); Object.keys(s).forEach(function(k){ if(s[k]) m[k] = s[k]; }); return m; }
   } catch(e){}
   return JSON.parse(JSON.stringify(DEFAULT_TEXTS));
 }
@@ -691,8 +724,6 @@ function renderAdminImageRows(){
         var oldName = x.name;
         cs.forEach(function(y){ if(y.name === oldName) y.img = d; });
         saveColorsLocal(cs); applyAll();
-        
-        // ✅ استخراج اللون + الاسم تلقائياً
         var detected = await extractDominantColor(d);
         if(detected){
           var newName = getColorName(detected);
@@ -774,16 +805,7 @@ function applyServerData(d){
   return c;
 }
 
-(function(){
-  try {
-    localStorage.removeItem('admin_texts');
-    localStorage.removeItem('admin_colors');
-    localStorage.removeItem('admin_price');
-    localStorage.removeItem('admin_old_price');
-    localStorage.removeItem('admin_stock');
-    localStorage.removeItem('admin_images');
-  } catch(e){}
-})();
+(function(){ try { localStorage.removeItem('admin_texts'); localStorage.removeItem('admin_colors'); localStorage.removeItem('admin_price'); localStorage.removeItem('admin_old_price'); localStorage.removeItem('admin_stock'); localStorage.removeItem('admin_images'); } catch(e){} })();
 
 function migrateOld(){
   if(!localStorage.getItem(STORAGE_COLORS)) saveColorsLocal(JSON.parse(JSON.stringify(DEFAULT_COLORS)));
@@ -950,8 +972,7 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
         st.textContent = '✓ كل شي محدّث';
       }
     } catch(e){
-      st.className = 'admin-status warn';
-      st.textContent = '⚠️ خطأ';
+      st.className = 'admin-status warn'; st.textContent = '⚠️ خطأ';
     }
   }, 500);
 
@@ -967,11 +988,9 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
 
   document.getElementById('adminRefreshAllColors').addEventListener('click', async function(){
     var btn = this;
-    btn.textContent = '⏳ جاري التحديث...';
-    btn.disabled = true;
+    btn.textContent = '⏳ جاري التحديث...'; btn.disabled = true;
     var result = await autoUpdateAllColors();
-    btn.textContent = '🔄 تحديث الألوان والأسماء تلقائياً';
-    btn.disabled = false;
+    btn.textContent = '🔄 تحديث الألوان والأسماء تلقائياً'; btn.disabled = false;
     var m = document.getElementById('adminMsg');
     m.textContent = '✓ تحديث ' + result.updated + ' | فشل ' + result.failed + ' | تخطي ' + result.skipped;
     m.style.color = result.updated > 0 ? '#4ade80' : '#fbbf24';
@@ -1036,30 +1055,15 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     var h = document.getElementById('adminNewHex').value;
     var im = document.getElementById('adminNewImg').value.trim();
     if(!im || im.indexOf('http') !== 0){ alert('حط رابط صورة'); return; }
-    
     var b = document.getElementById('adminAddColor');
     b.textContent = 'جاري...'; b.disabled = true;
     im = await toDirectImgBB(im);
-    
-    // إلا ما كانش الاسم، كنجيبوه من اللون تلقائياً
-    if(!n){
-      var autoName = getColorName(h);
-      if(autoName) n = autoName;
-    }
-    
+    if(!n){ var auto = getColorName(h); if(auto) n = auto; }
     b.textContent = 'إضافة اللون'; b.disabled = false;
-    
     if(!n){ alert('اكتب اسم اللون'); return; }
-    
     var cs = getColors();
-    // إلا كان الاسم موجود، زيد رقم
-    var baseName = n;
-    var counter = 2;
-    while(cs.find(function(x){ return x.name === n; })){
-      n = baseName + ' ' + counter;
-      counter++;
-    }
-    
+    var baseName = n, counter = 2;
+    while(cs.find(function(x){ return x.name === n; })){ n = baseName + ' ' + counter; counter++; }
     cs.push({name:n, hex:h, img:im, available:true}); saveColorsLocal(cs);
     document.getElementById('adminNewName').value = '';
     document.getElementById('adminNewImg').value = '';
@@ -1102,11 +1106,8 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     var m = document.getElementById('adminMsg');
     m.textContent = 'جاري التحميل...'; m.style.color = '#C9A961'; m.style.opacity = '1';
     var d = await fetchFromServer();
-    if(d){
-      applyServerData(d); PRICE = getPrice(); OLD_PRICE = getOldPrice();
-      applyAll(); renderAdminPanel();
-      m.textContent = '✓ تم التحميل'; m.style.color = '#4ade80';
-    } else { m.textContent = '× لا توجد بيانات'; m.style.color = '#ef4444'; }
+    if(d){ applyServerData(d); PRICE = getPrice(); OLD_PRICE = getOldPrice(); applyAll(); renderAdminPanel(); m.textContent = '✓ تم التحميل'; m.style.color = '#4ade80'; }
+    else { m.textContent = '× لا توجد بيانات'; m.style.color = '#ef4444'; }
     setTimeout(function(){ m.style.opacity = '0'; }, 3000);
   });
 
