@@ -59,9 +59,11 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 .admin-label{display:block;font-size:11.5px;font-weight:700;margin-bottom:5px;color:#C9A961}
 .admin-hint{font-size:10.5px;color:#888;margin-bottom:6px;line-height:1.5}
 .badge-luxury{display:inline-block;padding:6px 16px;border:1px solid #C9A961;color:#7B2D3E;font-size:12px;font-weight:600;letter-spacing:1.5px;border-radius:2rem}
-.image-frame{width:100%;height:420px;background:#FFF;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.image-frame img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
-@media(min-width:640px){.image-frame{height:560px}}
+/* ✅ الإطار الجديد: نسبة ذكية 4:5 على الديسكتوب، مربع على الموبايل */
+.image-frame{width:100%;aspect-ratio:4/5;background:#F5F0E8;overflow:hidden;position:relative}
+.image-frame img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .5s ease}
+.image-frame:hover img{transform:scale(1.03)}
+@media(max-width:640px){.image-frame{aspect-ratio:1/1}}
 </style>
 </head>
 <body class="text-brand-dark antialiased overflow-x-hidden">
@@ -752,16 +754,12 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
   var ni = document.getElementById('adminNewImg');
   var np = document.getElementById('adminNewPreview');
   
-  /* ✅ التعديل 1: معاينة + استخراج اللون تلقائياً */
   ni.addEventListener('input', async function(){
     var v = ni.value.trim();
     if(v.indexOf('http') !== 0){ np.textContent = 'معاينة'; return; }
     np.textContent = '⏳ جاري التحميل...';
-    
     var d = await toDirectImgBB(v);
     np.innerHTML = '<img src="' + d + '" style="max-width:100%;max-height:100%;object-fit:contain" onerror="this.parentElement.textContent=\'فشل\'">';
-    
-    /* 🎨 استخراج اللون السائد تلقائياً */
     np.style.position = 'relative';
     var oldBadge = document.getElementById('autoColorBadge');
     if(oldBadge) oldBadge.remove();
@@ -770,7 +768,6 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     colorBadge.style.cssText = 'position:absolute;bottom:4px;right:4px;background:rgba(26,26,26,.9);color:#C9A961;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700';
     colorBadge.textContent = '🎨 جاري استخراج اللون...';
     np.appendChild(colorBadge);
-    
     var detectedColor = await extractDominantColor(d);
     if(detectedColor){
       document.getElementById('adminNewHex').value = detectedColor;
@@ -785,7 +782,6 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     }
   });
   
-  /* ✅ التعديل 2: زر استخراج اللون يدوياً */
   document.getElementById('adminDetectColor').addEventListener('click', async function(){
     var url = document.getElementById('adminNewImg').value.trim();
     if(!url || url.indexOf('http') !== 0){ alert('حط رابط صورة أولاً'); return; }
