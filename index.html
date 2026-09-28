@@ -59,7 +59,6 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 .admin-label{display:block;font-size:11.5px;font-weight:700;margin-bottom:5px;color:#C9A961}
 .admin-hint{font-size:10.5px;color:#888;margin-bottom:6px;line-height:1.5}
 .badge-luxury{display:inline-block;padding:6px 16px;border:1px solid #C9A961;color:#7B2D3E;font-size:12px;font-weight:600;letter-spacing:1.5px;border-radius:2rem}
-/* ✅ الإطار الجديد: نسبة ذكية 4:5 على الديسكتوب، مربع على الموبايل */
 .image-frame{width:100%;aspect-ratio:4/5;background:#F5F0E8;overflow:hidden;position:relative}
 .image-frame img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .5s ease}
 .image-frame:hover img{transform:scale(1.03)}
@@ -357,7 +356,7 @@ var DEFAULT_TEXTS = {
 
 var IS_ADMIN = new URLSearchParams(location.search).has('admin');
 
-/* 🎨 استخراج اللون السائد من الصورة */
+/* 🎨 استخراج اللون السائد من وسط الصورة (الملابس فقط) */
 async function extractDominantColor(imgUrl){
   try {
     var proxies = ['https://corsproxy.io/?url=', 'https://api.allorigins.win/raw?url='];
@@ -375,29 +374,47 @@ async function extractDominantColor(imgUrl){
         try {
           var canvas = document.createElement('canvas');
           var ctx = canvas.getContext('2d');
-          canvas.width = 60; canvas.height = 60;
-          ctx.drawImage(img, 0, 0, 60, 60);
-          var data = ctx.getImageData(0, 0, 60, 60).data;
+          canvas.width = 100; canvas.height = 100;
+          ctx.drawImage(img, 0, 0, 100, 100);
+          var data = ctx.getImageData(0, 0, 100, 100).data;
+
+          /* ✅ نركزو على وسط الصورة فقط (منطقة الملابس) */
           var buckets = {};
-          for(var j = 0; j < data.length; j += 4){
-            var rr = data[j], gg = data[j+1], bb = data[j+2], aa = data[j+3];
-            if(aa < 128) continue;
-            var max = Math.max(rr,gg,bb), min = Math.min(rr,gg,bb);
-            var brightness = (rr+gg+bb)/3;
-            var sat = max === 0 ? 0 : (max-min)/max;
-            if(brightness > 235 || brightness < 25) continue;
-            if(sat < 0.12) continue;
-            var key = (Math.round(rr/25)*25) + ',' + (Math.round(gg/25)*25) + ',' + (Math.round(bb/25)*25);
-            buckets[key] = (buckets[key] || 0) + 1;
+          for(var y = 30; y < 75; y++){
+            for(var x = 30; x < 70; x++){
+              var idx = (y * 100 + x) * 4;
+              var rr = data[idx], gg = data[idx+1], bb = data[idx+2], aa = data[idx+3];
+              if(aa < 128) continue;
+
+              var max = Math.max(rr,gg,bb), min = Math.min(rr,gg,bb);
+              var brightness = (rr+gg+bb)/3;
+              var sat = max === 0 ? 0 : (max-min)/max;
+
+              /* تجاهل الأبيض جداً والأسود جداً */
+              if(brightness > 235 || brightness < 25) continue;
+
+              /* تجاهل الأخضر (نباتات، إضاءة) */
+              if(gg > rr + 25 && gg > bb + 25) continue;
+
+              /* نقبل حتى الألوان الباهتة (بيج، كريمي) */
+              if(sat < 0.05) continue;
+
+              var key = (Math.round(rr/20)*20) + ',' + (Math.round(gg/20)*20) + ',' + (Math.round(bb/20)*20);
+              buckets[key] = (buckets[key] || 0) + 1;
+            }
           }
+
           var best = null, bestN = 0;
           for(var k in buckets){ if(buckets[k] > bestN){ bestN = buckets[k]; best = k; } }
           if(best){
             var p = best.split(',').map(Number);
             var hex = '#' + p.map(function(v){ return Math.max(0, Math.min(255, v)).toString(16).padStart(2,'0'); }).join('');
-            console.log('🎨 اللون المكتشف:', hex);
+            console.log('🎨 اللون المكتشف:', hex, '| عدد العينات:', bestN);
             resolve(hex);
-          } else resolve(null);
+          } else {
+            console.warn('⚠️ ما لقاش لون — كل البكسلات مستثناة');
+            resolve(null);
+          }
         } catch(e) { console.warn('color detect:', e); resolve(null); }
       };
       img.onerror = function(){ resolve(null); };
@@ -750,10 +767,10 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
       if(tab.dataset.tab === 'texts') renderAdminTexts();
     });
   });
-  
+
   var ni = document.getElementById('adminNewImg');
   var np = document.getElementById('adminNewPreview');
-  
+
   ni.addEventListener('input', async function(){
     var v = ni.value.trim();
     if(v.indexOf('http') !== 0){ np.textContent = 'معاينة'; return; }
@@ -765,7 +782,7 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     if(oldBadge) oldBadge.remove();
     var colorBadge = document.createElement('div');
     colorBadge.id = 'autoColorBadge';
-    colorBadge.style.cssText = 'position:absolute;bottom:4px;right:4px;background:rgba(26,26,26,.9);color:#C9A961;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700';
+    colorBadge.style.cssText = 'position:absolute;bottom:4px;right:4px;background:rgba(26,26,26,.9);color:#C9A961;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;z-index:5';
     colorBadge.textContent = '🎨 جاري استخراج اللون...';
     np.appendChild(colorBadge);
     var detectedColor = await extractDominantColor(d);
@@ -774,14 +791,14 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
       colorBadge.textContent = '🎨 ' + detectedColor;
       colorBadge.style.background = detectedColor;
       colorBadge.style.color = '#fff';
-      setTimeout(function(){ if(colorBadge.parentElement) colorBadge.remove(); }, 3500);
+      setTimeout(function(){ if(colorBadge.parentElement) colorBadge.remove(); }, 4000);
     } else {
-      colorBadge.textContent = '⚠️ تعذر استخراج اللون';
+      colorBadge.textContent = '⚠️ ما لقاش لون — استعمل الزر';
       colorBadge.style.color = '#fbbf24';
-      setTimeout(function(){ if(colorBadge.parentElement) colorBadge.remove(); }, 3000);
+      setTimeout(function(){ if(colorBadge.parentElement) colorBadge.remove(); }, 3500);
     }
   });
-  
+
   document.getElementById('adminDetectColor').addEventListener('click', async function(){
     var url = document.getElementById('adminNewImg').value.trim();
     if(!url || url.indexOf('http') !== 0){ alert('حط رابط صورة أولاً'); return; }
@@ -795,10 +812,10 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
       btn.textContent = '✓ تم: ' + color;
       setTimeout(function(){ btn.textContent = '🎨 استخراج اللون من الصورة'; }, 2500);
     } else {
-      alert('تعذر استخراج اللون — الصورة يمكن محمية بـ CORS');
+      alert('تعذر استخراج اللون — جرب صورة أخرى أو استعمل color picker يدوياً');
     }
   });
-  
+
   document.getElementById('adminAddColor').addEventListener('click', async function(){
     var n = document.getElementById('adminNewName').value.trim();
     var h = document.getElementById('adminNewHex').value;
@@ -824,7 +841,7 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     m.style.opacity = '1';
     setTimeout(function(){ m.style.opacity = '0'; }, 3000);
   });
-  
+
   document.getElementById('adminSave').addEventListener('click', async function(){
     var npz = Number(document.getElementById('adminPriceInput').value) || DEFAULT_PRICE;
     var nop = Number(document.getElementById('adminOldPriceInput').value) || DEFAULT_OLD_PRICE;
@@ -848,7 +865,7 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     else { m.textContent = '× فشل: ' + r.msg; m.style.color = '#ef4444'; st.className = 'admin-status err'; st.textContent = '× ' + r.msg; }
     setTimeout(function(){ m.style.opacity = '0'; }, 4000);
   });
-  
+
   document.getElementById('adminSync').addEventListener('click', async function(){
     var m = document.getElementById('adminMsg');
     m.textContent = 'جاري التحميل...'; m.style.color = '#C9A961'; m.style.opacity = '1';
@@ -860,7 +877,7 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     } else { m.textContent = '× لا توجد بيانات'; m.style.color = '#ef4444'; }
     setTimeout(function(){ m.style.opacity = '0'; }, 3000);
   });
-  
+
   document.getElementById('adminClose').addEventListener('click', function(){
     panel.classList.remove('show');
     history.replaceState(null, '', location.pathname);
