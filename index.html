@@ -277,7 +277,7 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   <div class="admin-section active" data-section="stock"><div style="font-size:11.5px;opacity:.6;margin-bottom:8px">حدد الألوان المتوفرة + احذف</div><div id="adminStockRows"></div></div>
   <div class="admin-section" data-section="images">
     <div style="font-size:11.5px;opacity:.6;margin-bottom:8px">رابط الصورة لكل لون</div>
-    <button type="button" id="adminRefreshAllColors" style="background:#C9A961;color:#1A1A1A;font-weight:800;border:0;padding:10px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:12px;width:100%;margin-bottom:10px">🔄 تحديث ألوان كل الصور تلقائياً</button>
+    <button type="button" id="adminRefreshAllColors" style="background:#C9A961;color:#1A1A1A;font-weight:800;border:0;padding:10px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:12px;width:100%;margin-bottom:10px">🔄 تحديث الألوان والأسماء تلقائياً</button>
     <div id="adminImageRows"></div>
   </div>
   <div class="admin-section" data-section="price">
@@ -298,10 +298,11 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
     <label class="admin-label">نص المخزون المحدود</label><input id="txtStockAlert" type="text" class="admin-input">
   </div>
   <div class="admin-section" data-section="add">
-    <label class="admin-label">اسم اللون</label><input id="adminNewName" type="text" class="admin-input" placeholder="مثال: أخضر">
+    <label class="admin-label">اسم اللون (كيتعمر تلقائياً من الصورة)</label>
+    <input id="adminNewName" type="text" class="admin-input" placeholder="مثال: بني">
     <label class="admin-label">اللون</label>
     <input id="adminNewHex" type="color" value="#7B2D3E" style="width:100%;height:42px;background:#1a1a1a;border:1px solid #333;border-radius:0.5rem;cursor:pointer;margin-bottom:8px">
-    <button type="button" id="adminDetectColor" style="background:#4A5568;color:#fff;font-weight:700;border:0;padding:8px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:12px;width:100%;margin-bottom:8px">🎨 استخراج اللون من الصورة</button>
+    <button type="button" id="adminDetectColor" style="background:#4A5568;color:#fff;font-weight:700;border:0;padding:8px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:12px;width:100%;margin-bottom:8px">🎨 استخراج اللون والاسم من الصورة</button>
     <label class="admin-label">رابط الصورة</label><input id="adminNewImg" type="text" class="admin-input" placeholder="https://i.ibb.co/..." style="direction:ltr;font-family:monospace;font-size:11px">
     <div id="adminNewPreview" style="width:100%;height:120px;background:#1a1a1a;border:1px dashed #333;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;font-size:11px;color:#666;margin-bottom:8px;overflow:hidden;position:relative">معاينة</div>
     <button type="button" id="adminAddColor" class="admin-add-btn">إضافة اللون</button>
@@ -326,6 +327,61 @@ var BRAND_MARKER = "warda_dressing_v3";
 var WHATSAPP_NUMBER = "2126XXXXXXXX";
 var DEFAULT_PRICE = 299;
 var DEFAULT_OLD_PRICE = 450;
+
+/* ✅✅✅ قاموس أسماء الألوان العربية حسب الألوان الشائعة في البيع */
+var COLOR_NAMES = [
+  {name:"أسود",           r:0,   g:0,   b:0},
+  {name:"أبيض",           r:255, g:255, b:255},
+  {name:"رمادي",          r:128, g:128, b:128},
+  {name:"رمادي فاتح",     r:200, g:200, b:200},
+  {name:"رمادي غامق",     r:80,  g:80,  b:80},
+  {name:"بيج",            r:232, g:213, b:183},
+  {name:"بيج غامق",       r:200, g:180, b:140},
+  {name:"كريمي",          r:255, g:253, b:208},
+  {name:"أوف وايت",       r:250, g:240, b:230},
+  {name:"بني",            r:139, g:69,  b:19},
+  {name:"بني فاتح",       r:198, g:142, b:90},
+  {name:"كراميل",         r:210, g:166, b:121},
+  {name:"بني غامق",       r:101, g:67,  b:33},
+  {name:"شوكولا",         r:123, g:63,  b:0},
+  {name:"نحاسي",          r:184, g:115, b:51},
+  {name:"كحلي",           r:27,  g:42,  b:74},
+  {name:"كحلي غامق",      r:15,  g:25,  b:50},
+  {name:"أزرق",           r:0,   g:0,   b:255},
+  {name:"أزرق فاتح",      r:135, g:206, b:235},
+  {name:"أزرق ملكي",      r:65,  g:105, b:225},
+  {name:"سماوي",          r:135, g:206, b:250},
+  {name:"تركواز",         r:64,  g:224, b:208},
+  {name:"أخضر",           r:0,   g:128, b:0},
+  {name:"أخضر فاتح",      r:144, g:238, b:144},
+  {name:"زيتي",           r:128, g:128, b:0},
+  {name:"زمردي",          r:80,  g:200, b:120},
+  {name:"نعناعي",         r:152, g:255, b:152},
+  {name:"أحمر",           r:255, g:0,   b:0},
+  {name:"نبيتي",          r:128, g:0,   b:32},
+  {name:"خمري",           r:123, g:45,  b:62},
+  {name:"بورجوندي",       r:128, g:0,   b:32},
+  {name:"أحمر غامق",      r:139, g:0,   b:0},
+  {name:"طماطمي",         r:255, g:99,  b:71},
+  {name:"مرجاني",         r:255, g:127, b:80},
+  {name:"وردي",           r:255, g:192, b:203},
+  {name:"وردي غامق",      r:255, g:105, b:180},
+  {name:"وردي بودرة",     r:255, g:228, b:225},
+  {name:"فوشيا",          r:255, g:0,   b:255},
+  {name:"ماجنتا",         r:255, g:0,   b:144},
+  {name:"برتقالي",        r:255, g:165, b:0},
+  {name:"برتقالي غامق",   r:255, g:140, b:0},
+  {name:"خوخي",           r:255, g:218, b:185},
+  {name:"بنفسجي",         r:128, g:0,   b:128},
+  {name:"لافندر",         r:181, g:126, b:220},
+  {name:"أرجواني",        r:155, g:89,  b:182},
+  {name:"ليلكي",          r:200, g:162, b:200},
+  {name:"أصفر",           r:255, g:255, b:0},
+  {name:"ذهبي",           r:218, g:165, b:32},
+  {name:"خردلي",          r:225, g:200, b:60},
+  {name:"فضي",            r:192, g:192, b:192},
+  {name:"بلاتيني",        r:229, g:228, b:226}
+];
 
 var DEFAULT_COLORS = [
   {name:"أسود",     hex:"#000000", img:"https://placehold.co/600x800/1A1A1A/C9A961?text=Black", available:true},
@@ -360,23 +416,42 @@ var DEFAULT_TEXTS = {
 
 var IS_ADMIN = new URLSearchParams(location.search).has('admin');
 
-/* ✅✅✅ استخراج اللون — 4 طرق مرتبة */
+/* ✅✅✅ دالة تحويل hex → اسم عربي */
+function getColorName(hex){
+  if(!hex || hex.length < 7) return null;
+  try {
+    var r = parseInt(hex.substr(1,2), 16);
+    var g = parseInt(hex.substr(3,2), 16);
+    var b = parseInt(hex.substr(5,2), 16);
+    if(isNaN(r) || isNaN(g) || isNaN(b)) return null;
+    
+    var best = null, bestDist = Infinity;
+    for(var i = 0; i < COLOR_NAMES.length; i++){
+      var c = COLOR_NAMES[i];
+      // مسافة إقليدية بالأوزان (الإنسان أكثر حساسية للأخضر)
+      var dr = r - c.r;
+      var dg = g - c.g;
+      var db = b - c.b;
+      var dist = (dr*dr)*2 + (dg*dg)*4 + (db*db)*3;
+      if(dist < bestDist){ bestDist = dist; best = c.name; }
+    }
+    return best;
+  } catch(e){
+    return null;
+  }
+}
+
+/* ✅ استخراج اللون */
 async function extractDominantColor(imgUrl){
   if(!imgUrl) return null;
   console.log('🎨 بدء استخراج اللون من:', imgUrl);
   
-  // نبنيو لائحة الطرق — من الأسرع للأبطأ
   var cleanUrl = imgUrl.replace(/^https?:\/\//, '');
   var attempts = [
-    // 1. weserv.nl بدون encodeURIComponent
     'https://images.weserv.nl/?url=' + cleanUrl,
-    // 2. weserv.nl مع encoding
     'https://images.weserv.nl/?url=' + encodeURIComponent(cleanUrl),
-    // 3. الصورة مباشرة (إلا كانت عندها CORS)
     imgUrl,
-    // 4. wsrv.nl (نفس weserv بس نطاق أقصر)
     'https://wsrv.nl/?url=' + cleanUrl,
-    // 5. images.weserv.nl مع n=-1
     'https://images.weserv.nl/?url=' + cleanUrl + '&n=-1'
   ];
   
@@ -394,7 +469,6 @@ async function extractDominantColor(imgUrl){
   return null;
 }
 
-/* دالة مساعدة: تحميل صورة واستخراج اللون */
 function tryLoadAndExtract(url){
   return new Promise(function(resolve){
     var img = new Image();
@@ -457,7 +531,6 @@ function tryLoadAndExtract(url){
       if(done) return;
       done = true;
       clearTimeout(timeout);
-      console.warn('فشل تحميل:', url);
       resolve(null);
     };
     
@@ -479,6 +552,7 @@ async function toDirectImgBB(url){
   return url;
 }
 
+/* ✅✅✅ تحديث الألوان + الأسماء */
 async function autoUpdateAllColors(){
   var colors = getColors();
   var updated = 0, skipped = 0, failed = 0;
@@ -490,12 +564,20 @@ async function autoUpdateAllColors(){
     try {
       var direct = await toDirectImgBB(c.img);
       var detected = await extractDominantColor(direct);
-      if(detected && detected !== c.hex){
-        console.log('🔄 "' + c.name + '": ' + c.hex + ' → ' + detected);
-        colors[i].hex = detected;
-        updated++;
-      } else if(!detected){ failed++; }
-      else { skipped++; }
+      if(detected){
+        var newName = getColorName(detected);
+        var changed = false;
+        if(detected !== c.hex){ c.hex = detected; changed = true; }
+        if(newName && newName !== c.name){ c.name = newName; changed = true; }
+        if(changed){
+          console.log('🔄 تحديث: ' + newName + ' (' + detected + ')');
+          updated++;
+        } else {
+          skipped++;
+        }
+      } else {
+        failed++;
+      }
     } catch(e) { failed++; }
   }
   
@@ -606,13 +688,24 @@ function renderAdminImageRows(){
         var d = await toDirectImgBB(v);
         p.src = d;
         var cs = getColors();
-        cs.forEach(function(y){ if(y.name === x.name) y.img = d; });
+        var oldName = x.name;
+        cs.forEach(function(y){ if(y.name === oldName) y.img = d; });
         saveColorsLocal(cs); applyAll();
+        
+        // ✅ استخراج اللون + الاسم تلقائياً
         var detected = await extractDominantColor(d);
         if(detected){
+          var newName = getColorName(detected);
           cs = getColors();
-          cs.forEach(function(y){ if(y.name === x.name) y.hex = detected; });
-          saveColorsLocal(cs); applyAll(); renderAdminPanel();
+          cs.forEach(function(y){
+            if(y.name === oldName){
+              y.hex = detected;
+              if(newName) y.name = newName;
+            }
+          });
+          saveColorsLocal(cs);
+          if(state.color === oldName && newName) state.color = newName;
+          applyAll(); renderAdminPanel();
         }
       }
     });
@@ -841,20 +934,20 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
   panel.classList.add('show');
   renderAdminPanel();
   var st = document.getElementById('adminSyncStatus');
-  st.className = 'admin-status warn'; st.textContent = '🔄 جاري تحديث ألوان الصور...';
+  st.className = 'admin-status warn'; st.textContent = '🔄 جاري تحديث الألوان والأسماء...';
 
   setTimeout(async function(){
     try {
       var result = await autoUpdateAllColors();
       if(result.updated > 0){
         st.className = 'admin-status ok';
-        st.textContent = '✓ تم تحديث ' + result.updated + ' لون';
+        st.textContent = '✓ تم تحديث ' + result.updated + ' لون واسم';
       } else if(result.failed > 0){
         st.className = 'admin-status warn';
         st.textContent = '⚠️ ' + result.failed + ' صورة فشلت';
       } else {
         st.className = 'admin-status ok';
-        st.textContent = '✓ الألوان محدّثة';
+        st.textContent = '✓ كل شي محدّث';
       }
     } catch(e){
       st.className = 'admin-status warn';
@@ -877,7 +970,7 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     btn.textContent = '⏳ جاري التحديث...';
     btn.disabled = true;
     var result = await autoUpdateAllColors();
-    btn.textContent = '🔄 تحديث ألوان كل الصور تلقائياً';
+    btn.textContent = '🔄 تحديث الألوان والأسماء تلقائياً';
     btn.disabled = false;
     var m = document.getElementById('adminMsg');
     m.textContent = '✓ تحديث ' + result.updated + ' | فشل ' + result.failed + ' | تخطي ' + result.skipped;
@@ -905,8 +998,10 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     np.appendChild(colorBadge);
     var detectedColor = await extractDominantColor(d);
     if(detectedColor){
+      var colorName = getColorName(detectedColor);
       document.getElementById('adminNewHex').value = detectedColor;
-      colorBadge.textContent = '🎨 ' + detectedColor;
+      document.getElementById('adminNewName').value = colorName || '';
+      colorBadge.textContent = '🎨 ' + (colorName || detectedColor);
       colorBadge.style.background = detectedColor;
       colorBadge.style.color = '#fff';
       setTimeout(function(){ if(colorBadge.parentElement) colorBadge.remove(); }, 4000);
@@ -924,13 +1019,15 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     btn.textContent = '⏳ جاري...'; btn.disabled = true;
     var direct = await toDirectImgBB(url);
     var color = await extractDominantColor(direct);
-    btn.textContent = '🎨 استخراج اللون من الصورة'; btn.disabled = false;
+    btn.textContent = '🎨 استخراج اللون والاسم من الصورة'; btn.disabled = false;
     if(color){
+      var colorName = getColorName(color);
       document.getElementById('adminNewHex').value = color;
-      btn.textContent = '✓ تم: ' + color;
-      setTimeout(function(){ btn.textContent = '🎨 استخراج اللون من الصورة'; }, 2500);
+      if(colorName) document.getElementById('adminNewName').value = colorName;
+      btn.textContent = '✓ ' + (colorName || color);
+      setTimeout(function(){ btn.textContent = '🎨 استخراج اللون والاسم من الصورة'; }, 3000);
     } else {
-      alert('تعذر استخراج اللون — الصورة يمكن محمية بـ CORS');
+      alert('تعذر استخراج اللون');
     }
   });
 
@@ -938,14 +1035,31 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     var n = document.getElementById('adminNewName').value.trim();
     var h = document.getElementById('adminNewHex').value;
     var im = document.getElementById('adminNewImg').value.trim();
-    if(!n){ alert('اكتب اسم اللون'); return; }
     if(!im || im.indexOf('http') !== 0){ alert('حط رابط صورة'); return; }
+    
     var b = document.getElementById('adminAddColor');
     b.textContent = 'جاري...'; b.disabled = true;
     im = await toDirectImgBB(im);
+    
+    // إلا ما كانش الاسم، كنجيبوه من اللون تلقائياً
+    if(!n){
+      var autoName = getColorName(h);
+      if(autoName) n = autoName;
+    }
+    
     b.textContent = 'إضافة اللون'; b.disabled = false;
+    
+    if(!n){ alert('اكتب اسم اللون'); return; }
+    
     var cs = getColors();
-    if(cs.find(function(x){ return x.name === n; })){ alert('اللون موجود!'); return; }
+    // إلا كان الاسم موجود، زيد رقم
+    var baseName = n;
+    var counter = 2;
+    while(cs.find(function(x){ return x.name === n; })){
+      n = baseName + ' ' + counter;
+      counter++;
+    }
+    
     cs.push({name:n, hex:h, img:im, available:true}); saveColorsLocal(cs);
     document.getElementById('adminNewName').value = '';
     document.getElementById('adminNewImg').value = '';
@@ -954,7 +1068,7 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     applyAll(); renderAdminPanel();
     var r = await saveToServer();
     var m = document.getElementById('adminMsg');
-    m.textContent = r.ok ? '✓ تمت الإضافة' : '⚠ فشل الحفظ';
+    m.textContent = r.ok ? '✓ تمت إضافة "' + n + '"' : '⚠ فشل الحفظ';
     m.style.color = r.ok ? '#4ade80' : '#fbbf24';
     m.style.opacity = '1';
     setTimeout(function(){ m.style.opacity = '0'; }, 3000);
