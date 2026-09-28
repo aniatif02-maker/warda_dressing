@@ -59,14 +59,27 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 .admin-label{display:block;font-size:11.5px;font-weight:700;margin-bottom:5px;color:#C9A961}
 .admin-hint{font-size:10.5px;color:#888;margin-bottom:6px;line-height:1.5}
 .badge-luxury{display:inline-block;padding:6px 16px;border:1px solid #C9A961;color:#7B2D3E;font-size:12px;font-weight:600;letter-spacing:1.5px;border-radius:2rem}
-.image-frame{width:100%;aspect-ratio:4/5;background:#F5F0E8;overflow:hidden;position:relative}
-.image-frame img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .5s ease}
-.image-frame:hover img{transform:scale(1.03)}
+
+/* ✅ الإطار الجديد: contain مع خلفية متماشية = صورة كاملة بلا قص + بلا بلايص بيضاء */
+.image-frame{
+  width:100%;
+  aspect-ratio:4/5;
+  background:linear-gradient(135deg, #F7F1E8 0%, #F5E8EC 100%);
+  overflow:hidden;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.image-frame img{
+  max-width:100%;
+  max-height:100%;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  display:block;
+}
 @media(max-width:640px){.image-frame{aspect-ratio:1/1}}
-/* شارة اللون في الصور الحالية */
-.color-badge{position:absolute;top:4px;right:4px;background:rgba(26,26,26,.92);color:#C9A961;padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;z-index:5}
-.color-badge.updating{background:#C9A961;color:#1A1A1A;animation:pulse-badge 1s infinite}
-@keyframes pulse-badge{0%,100%{opacity:1}50%{opacity:.5}}
 </style>
 </head>
 <body class="text-brand-dark antialiased overflow-x-hidden">
@@ -281,7 +294,7 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   <div class="admin-section active" data-section="stock"><div style="font-size:11.5px;opacity:.6;margin-bottom:8px">حدد الألوان المتوفرة + احذف</div><div id="adminStockRows"></div></div>
   <div class="admin-section" data-section="images">
     <div style="font-size:11.5px;opacity:.6;margin-bottom:8px">رابط الصورة لكل لون</div>
-    <button type="button" id="adminRefreshAllColors" style="background:#C9A961;color:#1A1A1A;font-weight:800;border:0;padding:10px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:12px;width:100%;margin-bottom:10px">🔄 تحديث ألوان كل الصور تلقائياً</button>
+    <button type="button" id="adminRefreshAllColors" style="background:#C9A961;color:#1A1A1A;font-weight:800;border:0;padding:10px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:12px;width:100%;margin-bottom:10px">🔄 تحديث ألوان كل الصور</button>
     <div id="adminImageRows"></div>
   </div>
   <div class="admin-section" data-section="price">
@@ -358,23 +371,47 @@ var DEFAULT_TEXTS = {
   ],
   reviewsTitle: "ماذا قالت زبوناتنا؟",
   reviewsSub: "أكثر من 850 زبونة وثقن فينا",
-  stockAlert: "✦ الكمية محدودة — سارعي بالطلب ✦",
+  stockAlert: "✦ الكمية محدودة — سارعني بالطلب ✦",
   footerDesc: "أزياء نسائية عصرية وموديلات مختارة بعناية، مع توصيل سريع لجميع المناطق."
 };
 
 var IS_ADMIN = new URLSearchParams(location.search).has('admin');
 
-/* 🎨 استخراج اللون السائد من وسط الصورة */
+/* ✅ دالة استخراج اللون — محسّنة مع proxies متعددة */
 async function extractDominantColor(imgUrl){
+  if(!imgUrl) return null;
   try {
-    var proxies = ['https://corsproxy.io/?url=', 'https://api.allorigins.win/raw?url='];
-    var dataUrl = imgUrl;
+    var proxies = [
+      'https://corsproxy.io/?url=',
+      'https://api.allorigins.win/raw?url=',
+      'https://api.codetabs.com/v1/proxy?quest=',
+      'https://thingproxy.freeboard.io/fetch/',
+      'https://proxy.cors.sh/'
+    ];
+    
+    var dataUrl = null;
     for(var i = 0; i < proxies.length; i++){
       try {
-        var r = await fetch(proxies[i] + encodeURIComponent(imgUrl));
-        if(r.ok){ var blob = await r.blob(); dataUrl = URL.createObjectURL(blob); break; }
-      } catch(e){}
+        var controller = new AbortController();
+        var timeout = setTimeout(function(){ controller.abort(); }, 5000);
+        var r = await fetch(proxies[i] + encodeURIComponent(imgUrl), { signal: controller.signal });
+        clearTimeout(timeout);
+        if(r.ok){
+          var blob = await r.blob();
+          dataUrl = URL.createObjectURL(blob);
+          console.log('✅ تحميل الصورة نجح عبر proxy', i+1);
+          break;
+        }
+      } catch(e){
+        console.warn('proxy', i+1, 'فشل:', e.message);
+      }
     }
+    
+    if(!dataUrl){
+      console.warn('⚠️ كل الـ proxies فشلو — غادي نجرب نستعمل الصورة مباشرة');
+      dataUrl = imgUrl;
+    }
+    
     return await new Promise(function(resolve){
       var img = new Image();
       img.crossOrigin = 'anonymous';
@@ -385,22 +422,27 @@ async function extractDominantColor(imgUrl){
           canvas.width = 100; canvas.height = 100;
           ctx.drawImage(img, 0, 0, 100, 100);
           var data = ctx.getImageData(0, 0, 100, 100).data;
+
           var buckets = {};
-          for(var y = 30; y < 75; y++){
-            for(var x = 30; x < 70; x++){
+          for(var y = 20; y < 80; y++){
+            for(var x = 25; x < 75; x++){
               var idx = (y * 100 + x) * 4;
               var rr = data[idx], gg = data[idx+1], bb = data[idx+2], aa = data[idx+3];
               if(aa < 128) continue;
+
               var max = Math.max(rr,gg,bb), min = Math.min(rr,gg,bb);
               var brightness = (rr+gg+bb)/3;
               var sat = max === 0 ? 0 : (max-min)/max;
-              if(brightness > 235 || brightness < 25) continue;
-              if(gg > rr + 25 && gg > bb + 25) continue;
+
+              if(brightness > 240 || brightness < 20) continue;
+              if(gg > rr + 30 && gg > bb + 30) continue;
               if(sat < 0.05) continue;
+
               var key = (Math.round(rr/20)*20) + ',' + (Math.round(gg/20)*20) + ',' + (Math.round(bb/20)*20);
               buckets[key] = (buckets[key] || 0) + 1;
             }
           }
+
           var best = null, bestN = 0;
           for(var k in buckets){ if(buckets[k] > bestN){ bestN = buckets[k]; best = k; } }
           if(best){
@@ -408,10 +450,19 @@ async function extractDominantColor(imgUrl){
             var hex = '#' + p.map(function(v){ return Math.max(0, Math.min(255, v)).toString(16).padStart(2,'0'); }).join('');
             console.log('🎨 اللون المكتشف:', hex, '| عينات:', bestN);
             resolve(hex);
-          } else resolve(null);
-        } catch(e) { console.warn('color detect:', e); resolve(null); }
+          } else {
+            console.warn('⚠️ ما لقاش لون — كل البكسلات مستثناة');
+            resolve(null);
+          }
+        } catch(e) {
+          console.warn('canvas error:', e);
+          resolve(null);
+        }
       };
-      img.onerror = function(){ resolve(null); };
+      img.onerror = function(e){
+        console.warn('img load error:', e);
+        resolve(null);
+      };
       img.src = dataUrl;
     });
   } catch(e) {
@@ -420,12 +471,24 @@ async function extractDominantColor(imgUrl){
   }
 }
 
-/* 🔄 تحديث ألوان كل الصور الموجودة تلقائياً */
-async function autoUpdateAllColors(silent){
+async function toDirectImgBB(url){
+  if(!url) return url; url = url.trim();
+  if(url.indexOf('i.ibb.co') !== -1) return url;
+  if(url.indexOf('ibb.co') === -1) return url;
+  var proxies = ['https://corsproxy.io/?url=','https://api.codetabs.com/v1/proxy?quest=','https://api.allorigins.win/raw?url='];
+  for(var i = 0; i < proxies.length; i++){
+    try { var r = await fetch(proxies[i] + encodeURIComponent(url)); var h = await r.text();
+      var m = h.match(/<meta property="og:image" content="([^"]+)"/i);
+      if(m && m[1] && m[1].indexOf('i.ibb.co') !== -1) return m[1];
+    } catch(e){}
+  }
+  return url;
+}
+
+/* ✅ تحديث كل الألوان */
+async function autoUpdateAllColors(){
   var colors = getColors();
-  var updated = 0;
-  var skipped = 0;
-  var failed = 0;
+  var updated = 0, skipped = 0, failed = 0;
   
   for(var i = 0; i < colors.length; i++){
     var c = colors[i];
@@ -438,12 +501,17 @@ async function autoUpdateAllColors(silent){
       var direct = await toDirectImgBB(c.img);
       var detected = await extractDominantColor(direct);
       if(detected && detected !== c.hex){
-        console.log('🔄 تحديث "' + c.name + '": ' + c.hex + ' → ' + detected);
+        console.log('🔄 "' + c.name + '": ' + c.hex + ' → ' + detected);
         colors[i].hex = detected;
         updated++;
+      } else if(!detected){
+        failed++;
+      } else {
+        skipped++;
       }
     } catch(e) {
       failed++;
+      console.warn('فشل تحديث "' + c.name + '":', e);
     }
   }
   
@@ -452,7 +520,6 @@ async function autoUpdateAllColors(silent){
     applyAll();
     renderAdminPanel();
     await saveToServer();
-    console.log('✅ تم تحديث ' + updated + ' لون');
   }
   
   return {updated: updated, skipped: skipped, failed: failed};
@@ -481,20 +548,6 @@ function getPrice(){ var p = localStorage.getItem(STORAGE_PRICE); return p ? Num
 function getOldPrice(){ var p = localStorage.getItem(STORAGE_OLD_PRICE); return p ? Number(p) : DEFAULT_OLD_PRICE; }
 var PRICE = getPrice();
 var OLD_PRICE = getOldPrice();
-
-async function toDirectImgBB(url){
-  if(!url) return url; url = url.trim();
-  if(url.indexOf('i.ibb.co') !== -1) return url;
-  if(url.indexOf('ibb.co') === -1) return url;
-  var proxies = ['https://corsproxy.io/?url=','https://api.codetabs.com/v1/proxy?quest=','https://api.allorigins.win/raw?url='];
-  for(var i = 0; i < proxies.length; i++){
-    try { var r = await fetch(proxies[i] + encodeURIComponent(url)); var h = await r.text();
-      var m = h.match(/<meta property="og:image" content="([^"]+)"/i);
-      if(m && m[1] && m[1].indexOf('i.ibb.co') !== -1) return m[1];
-    } catch(e){}
-  }
-  return url;
-}
 
 function applyTexts(){
   var t = getTexts();
@@ -560,7 +613,7 @@ function renderAdminImageRows(){
   var c = document.getElementById('adminImageRows'); if(!c) return; c.innerHTML = '';
   getColors().forEach(function(x){
     var r = document.createElement('div'); r.style.cssText = 'padding:8px 0;border-bottom:1px solid #262626';
-    r.innerHTML = '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span class="admin-color-dot" style="background:' + x.hex + '"></span><span style="font-size:12.5px;font-weight:700">' + x.name + '</span><span style="font-size:10px;color:#888;margin-right:auto">' + x.hex + '</span></div><div style="display:flex;gap:6px;align-items:center;position:relative"><img src="' + x.img + '" style="width:36px;height:36px;object-fit:cover;border-radius:4px;border:1px solid #333;flex-shrink:0" data-preview><input type="text" class="admin-img-input" data-img-color="' + x.name + '" value="' + x.img + '"></div>';
+    r.innerHTML = '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span class="admin-color-dot" style="background:' + x.hex + '"></span><span style="font-size:12.5px;font-weight:700">' + x.name + '</span><span style="font-size:10px;color:#888;margin-right:auto">' + x.hex + '</span></div><div style="display:flex;gap:6px;align-items:center"><img src="' + x.img + '" style="width:36px;height:36px;object-fit:cover;border-radius:4px;border:1px solid #333;flex-shrink:0" data-preview><input type="text" class="admin-img-input" data-img-color="' + x.name + '" value="' + x.img + '"></div>';
     c.appendChild(r);
     var i = r.querySelector('input'); var p = r.querySelector('[data-preview]');
     i.addEventListener('input', async function(){
@@ -571,7 +624,6 @@ function renderAdminImageRows(){
         var cs = getColors();
         cs.forEach(function(y){ if(y.name === x.name) y.img = d; });
         saveColorsLocal(cs); applyAll();
-        // ✅ استخراج اللون تلقائياً للصورة الجديدة
         var detected = await extractDominantColor(d);
         if(detected){
           cs = getColors();
@@ -629,7 +681,7 @@ async function fetchFromServer(){
     var r = await fetch(SHEET_URL + '?t=' + Date.now(), {method:'GET', cache:'no-store'});
     var d = await r.json();
     if(!d) return null;
-    if(d.brand !== BRAND_MARKER) { console.log('ℹ️ بيانات قديمة من براند آخر — تجاهل'); return null; }
+    if(d.brand !== BRAND_MARKER) { console.log('ℹ️ بيانات قديمة — تجاهل'); return null; }
     return d;
   } catch(e) { return null; }
 }
@@ -807,28 +859,24 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
   var st = document.getElementById('adminSyncStatus');
   st.className = 'admin-status warn'; st.textContent = '🔄 جاري تحديث ألوان الصور...';
 
-  /* ✅ التشغيل التلقائي: تحديث ألوان كل الصور عند فتح اللوحة */
   setTimeout(async function(){
     try {
-      var result = await autoUpdateAllColors(true);
+      var result = await autoUpdateAllColors();
       if(result.updated > 0){
         st.className = 'admin-status ok';
-        st.textContent = '✓ تم تحديث ' + result.updated + ' لون تلقائياً';
-        var m = document.getElementById('adminMsg');
-        m.textContent = '✓ تم تحديث ' + result.updated + ' لون من الصور';
-        m.style.color = '#4ade80';
-        m.style.opacity = '1';
-        setTimeout(function(){ m.style.opacity = '0'; }, 4000);
+        st.textContent = '✓ تم تحديث ' + result.updated + ' لون';
+      } else if(result.failed > 0){
+        st.className = 'admin-status warn';
+        st.textContent = '⚠️ تعذر تحديث ' + result.failed + ' صورة (CORS)';
       } else {
         st.className = 'admin-status ok';
-        st.textContent = '✓ الألوان محدّثة' + (result.skipped > 0 ? ' (' + result.skipped + ' صورة افتراضية)' : '');
+        st.textContent = '✓ الألوان محدّثة';
       }
     } catch(e){
-      console.warn('auto update error:', e);
       st.className = 'admin-status warn';
-      st.textContent = '⚠️ تعذر تحديث بعض الألوان';
+      st.textContent = '⚠️ خطأ في التحديث';
     }
-  }, 800);
+  }, 500);
 
   panel.querySelectorAll('.admin-tab').forEach(function(tab){
     tab.addEventListener('click', function(){
@@ -840,19 +888,18 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     });
   });
 
-  /* زر تحديث كل الألوان يدوياً */
   document.getElementById('adminRefreshAllColors').addEventListener('click', async function(){
     var btn = this;
     btn.textContent = '⏳ جاري التحديث...';
     btn.disabled = true;
-    var result = await autoUpdateAllColors(false);
-    btn.textContent = '🔄 تحديث ألوان كل الصور تلقائياً';
+    var result = await autoUpdateAllColors();
+    btn.textContent = '🔄 تحديث ألوان كل الصور';
     btn.disabled = false;
     var m = document.getElementById('adminMsg');
-    m.textContent = '✓ تم تحديث ' + result.updated + ' لون' + (result.skipped > 0 ? ' (تخطي ' + result.skipped + ')' : '');
-    m.style.color = '#4ade80';
+    m.textContent = '✓ تحديث ' + result.updated + ' | فشل ' + result.failed + ' | تخطي ' + result.skipped;
+    m.style.color = result.updated > 0 ? '#4ade80' : '#fbbf24';
     m.style.opacity = '1';
-    setTimeout(function(){ m.style.opacity = '0'; }, 3500);
+    setTimeout(function(){ m.style.opacity = '0'; }, 4000);
   });
 
   var ni = document.getElementById('adminNewImg');
@@ -899,7 +946,7 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
       btn.textContent = '✓ تم: ' + color;
       setTimeout(function(){ btn.textContent = '🎨 استخراج اللون من الصورة'; }, 2500);
     } else {
-      alert('تعذر استخراج اللون — جرب صورة أخرى');
+      alert('تعذر استخراج اللون');
     }
   });
 
