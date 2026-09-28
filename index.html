@@ -28,6 +28,10 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 .color-chip.is-active{border-color:#7B2D3E;background:#F5E8EC;box-shadow:0 4px 12px -4px rgba(123,45,62,.3)}
 .color-chip.is-soldout{opacity:.45;pointer-events:none}
 .color-chip.is-soldout::after{content:'نفذ';position:absolute;inset:0;background:rgba(26,26,26,.85);color:#C9A961;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;letter-spacing:1px;border-radius:0.5rem}
+.size-chip{border:1.5px solid #E5DDD0;background:#FFF;cursor:pointer;transition:.25s;position:relative;border-radius:0.5rem;padding:.5rem 1rem;font-size:13px;font-weight:700;min-width:48px;text-align:center}
+.size-chip:hover{border-color:#C9A961}
+.size-chip.is-active{border-color:#7B2D3E;background:#F5E8EC;color:#7B2D3E}
+.size-chip.is-soldout{opacity:.4;pointer-events:none;text-decoration:line-through}
 .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
 .faq-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
@@ -37,7 +41,7 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 .btn-gold{animation:goldShine 2.5s infinite}
 #adminPanel{display:none}
 #adminPanel.show{display:block}
-.admin-tab{background:#262626;color:#C9A961;border:1px solid #333;padding:8px 5px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:10.5px;font-weight:700;flex:1;transition:.2s}
+.admin-tab{background:#262626;color:#C9A961;border:1px solid #333;padding:8px 5px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:10px;font-weight:700;flex:1;transition:.2s}
 .admin-tab.active{background:#C9A961;color:#1A1A1A;border-color:#C9A961}
 .admin-section{display:none}
 .admin-section.active{display:block}
@@ -49,6 +53,8 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 .admin-textarea:focus{border-color:#C9A961}
 .admin-img-input{flex:1;background:#1a1a1a;border:1px solid #333;color:#fff;padding:7px 9px;border-radius:0.5rem;font-size:11px;outline:0;font-family:monospace;direction:ltr;min-width:0}
 .admin-color-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;border:2px solid #444}
+.admin-name-input{background:#1a1a1a;border:1px solid #333;color:#fff;padding:6px 8px;border-radius:0.4rem;font-size:12.5px;outline:0;font-family:Tajawal;width:100%;font-weight:700}
+.admin-name-input:focus{border-color:#C9A961}
 .admin-del{background:transparent;border:0;color:#ef4444;cursor:pointer;font-size:15px;padding:0 4px}
 .admin-add-btn{background:#C9A961;color:#1A1A1A;font-weight:800;border:0;padding:11px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:13px;width:100%;margin-top:4px}
 .admin-sync-btn{background:#4A5568;color:#fff;font-weight:700;border:0;padding:11px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:13px;width:100%;margin-top:4px}
@@ -162,6 +168,11 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
             <span class="mb-2 block text-[12px] font-bold text-brand-dark">اللون <span class="text-brand-wine">*</span></span>
             <div class="flex flex-wrap gap-2" id="formColors"></div>
           </div>
+          <div id="sizeSection">
+            <span class="mb-2 block text-[12px] font-bold text-brand-dark">الحجم <span class="text-brand-wine">*</span></span>
+            <div class="flex flex-wrap gap-2" id="formSizes"></div>
+            <p class="err mt-1 hidden text-[11px] font-bold text-red-500">المرجو اختيار الحجم</p>
+          </div>
           <div>
             <span class="mb-2 block text-[12px] font-bold text-brand-dark">الكمية</span>
             <div class="flex items-center gap-3">
@@ -178,6 +189,8 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
           </div>
           <div class="border border-brand-gold/30 bg-brand-goldLight/50 p-4">
             <div class="flex items-center justify-between text-[13px] text-brand-dark"><span class="font-semibold" data-text="productName"></span><span><span data-price-display>0</span> درهم</span></div>
+            <div class="mt-2 flex items-center justify-between text-[13px] text-brand-dark"><span>اللون</span><span id="sumColor">-</span></div>
+            <div class="mt-2 flex items-center justify-between text-[13px] text-brand-dark"><span>الحجم</span><span id="sumSize">-</span></div>
             <div class="mt-2 flex items-center justify-between text-[13px] text-brand-dark"><span>الكمية</span><span>× <span id="sumQty">1</span></span></div>
             <div class="mt-2 flex items-center justify-between text-[13px] text-brand-dark"><span>التوصيل</span><span class="text-green-700 font-semibold">سريع ومجاني</span></div>
             <div class="mt-3 flex items-center justify-between border-t border-brand-gold/30 pt-3"><span class="font-bold text-brand-dark">المجموع</span><span class="font-amiri text-2xl font-bold text-brand-wine"><span id="sumTotal">0</span> درهم</span></div>
@@ -264,21 +277,31 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   </div>
 </div>
 
-<div id="adminPanel" style="position:fixed;bottom:100px;left:16px;z-index:9999;background:#1A1A1A;color:#fff;border-radius:12px;padding:14px;box-shadow:0 20px 60px rgba(0,0,0,.7);font-family:Tajawal,sans-serif;width:400px;max-width:94vw;direction:rtl;border:1px solid #C9A961;max-height:85vh;overflow-y:auto">
+<div id="adminPanel" style="position:fixed;bottom:100px;left:16px;z-index:9999;background:#1A1A1A;color:#fff;border-radius:12px;padding:14px;box-shadow:0 20px 60px rgba(0,0,0,.7);font-family:Tajawal,sans-serif;width:420px;max-width:94vw;direction:rtl;border:1px solid #C9A961;max-height:85vh;overflow-y:auto">
   <div style="font-weight:800;font-size:16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:8px"><span>لوحة التحكم</span><span style="font-size:10px;background:#C9A961;color:#1A1A1A;padding:3px 8px;border-radius:4px;font-weight:800;letter-spacing:1px">ADMIN</span></div>
   <div id="adminSyncStatus" class="admin-status warn">جاري التحقق من السيرفر...</div>
-  <div style="display:flex;gap:4px;margin-bottom:12px">
+  <div style="display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap">
     <button type="button" class="admin-tab active" data-tab="stock">المخزون</button>
     <button type="button" class="admin-tab" data-tab="images">الصور</button>
+    <button type="button" class="admin-tab" data-tab="sizes">الأحجام</button>
     <button type="button" class="admin-tab" data-tab="price">الثمن</button>
     <button type="button" class="admin-tab" data-tab="texts">العناوين</button>
     <button type="button" class="admin-tab" data-tab="add">إضافة</button>
   </div>
   <div class="admin-section active" data-section="stock"><div style="font-size:11.5px;opacity:.6;margin-bottom:8px">حدد الألوان المتوفرة + احذف</div><div id="adminStockRows"></div></div>
   <div class="admin-section" data-section="images">
-    <div style="font-size:11.5px;opacity:.6;margin-bottom:8px">رابط الصورة لكل لون</div>
-    <button type="button" id="adminRefreshAllColors" style="background:#C9A961;color:#1A1A1A;font-weight:800;border:0;padding:10px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:12px;width:100%;margin-bottom:10px">🔄 تحديث الألوان والأسماء تلقائياً</button>
+    <div style="font-size:11.5px;opacity:.6;margin-bottom:8px">✏️ يمكنك تغيير اسم اللون بنفسك من الحقل</div>
+    <button type="button" id="adminRefreshAllColors" style="background:#C9A961;color:#1A1A1A;font-weight:800;border:0;padding:10px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:12px;width:100%;margin-bottom:10px">🔄 تحديث الألوان تلقائياً (اختياري)</button>
     <div id="adminImageRows"></div>
+  </div>
+  <div class="admin-section" data-section="sizes">
+    <div style="font-size:11.5px;opacity:.6;margin-bottom:8px">أضف أحجام الملابس (S, M, L, XL, XXL أو أرقام)</div>
+    <label class="admin-label">حجم جديد</label>
+    <div style="display:flex;gap:6px;margin-bottom:10px">
+      <input id="adminNewSize" type="text" class="admin-input" placeholder="مثال: L أو 42" style="margin-bottom:0">
+      <button type="button" id="adminAddSize" style="background:#C9A961;color:#1A1A1A;font-weight:800;border:0;padding:0 16px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:13px;white-space:nowrap">+ إضافة</button>
+    </div>
+    <div id="adminSizeRows"></div>
   </div>
   <div class="admin-section" data-section="price">
     <div style="padding:8px 0"><label class="admin-label">الثمن الحالي (درهم)</label><input id="adminPriceInput" type="number" class="admin-input"></div>
@@ -302,7 +325,7 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
     <input id="adminNewName" type="text" class="admin-input" placeholder="مثال: بني">
     <label class="admin-label">اللون</label>
     <input id="adminNewHex" type="color" value="#7B2D3E" style="width:100%;height:42px;background:#1a1a1a;border:1px solid #333;border-radius:0.5rem;cursor:pointer;margin-bottom:8px">
-    <button type="button" id="adminDetectColor" style="background:#4A5568;color:#fff;font-weight:700;border:0;padding:8px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:12px;width:100%;margin-bottom:8px">🎨 استخراج اللون والاسم من الصورة</button>
+    <button type="button" id="adminDetectColor" style="background:#4A5568;color:#fff;font-weight:700;border:0;padding:8px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:12px;width:100%;margin-bottom:8px">🎨 استخراج اللون من الصورة</button>
     <label class="admin-label">رابط الصورة</label><input id="adminNewImg" type="text" class="admin-input" placeholder="https://i.ibb.co/..." style="direction:ltr;font-family:monospace;font-size:11px">
     <div id="adminNewPreview" style="width:100%;height:120px;background:#1a1a1a;border:1px dashed #333;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;font-size:11px;color:#666;margin-bottom:8px;overflow:hidden;position:relative">معاينة</div>
     <button type="button" id="adminAddColor" class="admin-add-btn">إضافة اللون</button>
@@ -320,6 +343,7 @@ var STORAGE_COLORS = 'wd_warda_colors_v3';
 var STORAGE_TEXTS = 'wd_warda_texts_v3';
 var STORAGE_PRICE = 'wd_warda_price_v3';
 var STORAGE_OLD_PRICE = 'wd_warda_oldprice_v3';
+var STORAGE_SIZES = 'wd_warda_sizes_v3';
 
 var SHEET_URL = "https://script.google.com/macros/s/AKfycbxYnErbWRpdLD7h1sIA5Ky0b_PARtr6lfNkEo6E8KzK8ulDSzRMPwIQzhu7xw-pDrmC0Q/exec";
 var BRAND_MARKER = "warda_dressing_v3";
@@ -334,6 +358,14 @@ var DEFAULT_COLORS = [
   {name:"بني",    hex:"#8B4513", img:"https://placehold.co/600x800/8B4513/C9A961?text=Brown", available:true},
   {name:"كحلي",   hex:"#1B2A4A", img:"https://placehold.co/600x800/1B2A4A/C9A961?text=Navy", available:true},
   {name:"خمري",   hex:"#7B2D3E", img:"https://placehold.co/600x800/7B2D3E/C9A961?text=Wine", available:true}
+];
+
+var DEFAULT_SIZES = [
+  {name:"S", available:true},
+  {name:"M", available:true},
+  {name:"L", available:true},
+  {name:"XL", available:true},
+  {name:"XXL", available:true}
 ];
 
 var DEFAULT_TEXTS = {
@@ -361,141 +393,9 @@ var DEFAULT_TEXTS = {
 
 var IS_ADMIN = new URLSearchParams(location.search).has('admin');
 
-/* ✅✅✅✅✅ خوارزمية HSV محسّنة — ذكية و دقيقة ✅✅✅✅✅ */
-function getColorName(hex){
-  if(!hex || hex.length < 7) return null;
-  try {
-    var r = parseInt(hex.substr(1,2), 16) / 255;
-    var g = parseInt(hex.substr(3,2), 16) / 255;
-    var b = parseInt(hex.substr(5,2), 16) / 255;
-    if(isNaN(r) || isNaN(g) || isNaN(b)) return null;
-
-    var max = Math.max(r,g,b), min = Math.min(r,g,b);
-    var v = max;                          // Value (السطوع)
-    var d = max - min;
-    var s = max === 0 ? 0 : d / max;      // Saturation (التشبع)
-
-    var h = 0;                             // Hue (درجة اللون)
-    if(d !== 0){
-      if(max === r) h = ((g - b) / d) % 6;
-      else if(max === g) h = (b - r) / d + 2;
-      else h = (r - g) / d + 4;
-      h = h * 60;
-      if(h < 0) h += 360;
-    }
-
-    // ============ 1) ألوان بلا تشبع (رمادي/أبيض/أسود) ============
-    if(s < 0.10){
-      if(v < 0.12) return "أسود";
-      if(v < 0.30) return "رمادي غامق";
-      if(v < 0.55) return "رمادي";
-      if(v < 0.82) return "رمادي فاتح";
-      return "أبيض";
-    }
-
-    // ============ 2) البني (لون خاص: hue 10-45 + value منخفض) ============
-    if(h >= 10 && h < 50 && v < 0.55){
-      if(v < 0.25) return "بني غامق";
-      return "بني";
-    }
-
-    // ============ 3) البيج (hue 25-55 + تشبع متوسط) ============
-    if(h >= 25 && h < 55 && s >= 0.10 && s < 0.45 && v >= 0.70){
-      return "بيج";
-    }
-    // بيج فاتح
-    if(h >= 20 && h < 60 && s < 0.20 && v >= 0.85){
-      return "أوف وايت";
-    }
-
-    // ============ 4) ألوان الباستيل (تشبع منخفض) ============
-    if(s < 0.25){
-      if((h >= 330 || h < 20) && v > 0.75) return "وردي بودرة";
-      if(h >= 20 && h < 50 && v > 0.85) return "بيج";
-      if(v > 0.85) return "أبيض";
-      if(v < 0.45) return "رمادي غامق";
-      return "رمادي فاتح";
-    }
-
-    // ============ 5) الأحمر والخمري والنبيتي ============
-    if(h < 15 || h >= 340){
-      if(v < 0.35) return "نبيتي";        // أحمر غامق جداً
-      if(v < 0.55) return "خمري";          // بني-محمر غامق
-      if(s < 0.50 && v < 0.75) return "بورجوندي";
-      if(s < 0.45 && v >= 0.75) return "وردي";
-      return "أحمر";
-    }
-
-    // ============ 6) البرتقالي ============
-    if(h < 40){
-      if(v < 0.40) return "بني غامق";
-      if(v < 0.55) return "بني";
-      if(s < 0.40) return "بيج";
-      if(s < 0.65) return "كراميل";
-      return "برتقالي";
-    }
-
-    // ============ 7) الأصفر والذهبي والخردلي ============
-    if(h < 65){
-      if(s < 0.40){
-        if(v < 0.60) return "خردلي";
-        return "بيج";
-      }
-      if(v < 0.55) return "خردلي";
-      if(v < 0.85) return "ذهبي";
-      return "أصفر";
-    }
-
-    // ============ 8) الأخضر ============
-    if(h < 170){
-      if(v < 0.30) return "زيتي";
-      if(s < 0.35) return "زيتي";
-      if(h >= 140) return "تركواز";
-      if(v < 0.55) return "أخضر غامق";
-      return "أخضر";
-    }
-
-    // ============ 9) السماوي والتركواز ============
-    if(h < 200){
-      if(v < 0.40) return "كحلي";
-      return "سماوي";
-    }
-
-    // ============ 10) الأزرق ============
-    if(h < 250){
-      if(v < 0.30) return "كحلي غامق";
-      if(v < 0.50) return "كحلي";
-      if(s < 0.35) return "رمادي";
-      return "أزرق";
-    }
-
-    // ============ 11) البنفسجي ============
-    if(h < 290){
-      if(v < 0.35) return "بنفسجي غامق";
-      if(s < 0.30) return "لافندر";
-      return "بنفسجي";
-    }
-
-    // ============ 12) الوردي والماجنتا ============
-    if(h < 340){
-      if(v < 0.35) return "بنفسجي غامق";
-      if(v < 0.55) return "ماجنتا";
-      if(s < 0.35) return "وردي بودرة";
-      if(v < 0.80) return "وردي غامق";
-      return "وردي";
-    }
-
-    return "رمادي";
-  } catch(e){
-    return null;
-  }
-}
-
-/* ✅ استخراج اللون */
+/* استخراج اللون السائد من الصورة */
 async function extractDominantColor(imgUrl){
   if(!imgUrl) return null;
-  console.log('🎨 بدء استخراج اللون من:', imgUrl);
-
   var cleanUrl = imgUrl.replace(/^https?:\/\//, '');
   var attempts = [
     'https://images.weserv.nl/?url=' + cleanUrl,
@@ -503,14 +403,9 @@ async function extractDominantColor(imgUrl){
     imgUrl,
     'https://wsrv.nl/?url=' + cleanUrl
   ];
-
   for(var i = 0; i < attempts.length; i++){
-    console.log('🔄 محاولة ' + (i+1) + ':', attempts[i]);
     var result = await tryLoadAndExtract(attempts[i]);
-    if(result){
-      console.log('✅ نجحت — اللون:', result);
-      return result;
-    }
+    if(result) return result;
   }
   return null;
 }
@@ -520,68 +415,40 @@ function tryLoadAndExtract(url){
     var img = new Image();
     img.crossOrigin = 'anonymous';
     var done = false;
-
-    var timeout = setTimeout(function(){
-      if(!done){ done = true; resolve(null); }
-    }, 8000);
-
+    var timeout = setTimeout(function(){ if(!done){ done = true; resolve(null); } }, 8000);
     img.onload = function(){
-      if(done) return;
-      done = true;
-      clearTimeout(timeout);
+      if(done) return; done = true; clearTimeout(timeout);
       try {
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext('2d');
-        canvas.width = 100;
-        canvas.height = 100;
+        canvas.width = 100; canvas.height = 100;
         ctx.drawImage(img, 0, 0, 100, 100);
         var data = ctx.getImageData(0, 0, 100, 100).data;
-
-        // نجمعو البكسلات في buckets
         var buckets = {};
         for(var y = 20; y < 80; y++){
           for(var x = 20; x < 80; x++){
             var idx = (y * 100 + x) * 4;
             var rr = data[idx], gg = data[idx+1], bb = data[idx+2], aa = data[idx+3];
             if(aa < 128) continue;
-
             var max = Math.max(rr,gg,bb), min = Math.min(rr,gg,bb);
             var brightness = (rr+gg+bb)/3;
             var sat = max === 0 ? 0 : (max-min)/max;
-
-            // تجاهل الأبيض جداً والأسود جداً فقط
             if(brightness > 245 || brightness < 12) continue;
-            // تجاهل الأخضر (نباتات/إضاءة استوديو)
             if(gg > rr + 35 && gg > bb + 35) continue;
-
-            // bucket بحجم 15 بدل 20 (أدق)
             var key = (Math.round(rr/15)*15) + ',' + (Math.round(gg/15)*15) + ',' + (Math.round(bb/15)*15);
             buckets[key] = (buckets[key] || 0) + 1;
           }
         }
-
         var best = null, bestN = 0;
         for(var k in buckets){ if(buckets[k] > bestN){ bestN = buckets[k]; best = k; } }
-
         if(best){
           var p = best.split(',').map(Number);
           var hex = '#' + p.map(function(x){ return Math.max(0, Math.min(255, x)).toString(16).padStart(2,'0'); }).join('');
           resolve(hex);
-        } else {
-          resolve(null);
-        }
-      } catch(e) {
-        resolve(null);
-      }
+        } else resolve(null);
+      } catch(e) { resolve(null); }
     };
-
-    img.onerror = function(){
-      if(done) return;
-      done = true;
-      clearTimeout(timeout);
-      resolve(null);
-    };
-
+    img.onerror = function(){ if(done) return; done = true; clearTimeout(timeout); resolve(null); };
     img.src = url;
   });
 }
@@ -602,33 +469,22 @@ async function toDirectImgBB(url){
 
 async function autoUpdateAllColors(){
   var colors = getColors();
-  var updated = 0, skipped = 0, failed = 0;
-
+  var updated = 0, failed = 0;
   for(var i = 0; i < colors.length; i++){
     var c = colors[i];
-    if(!c.img || c.img.indexOf('placehold.co') !== -1){ skipped++; continue; }
+    if(!c.img || c.img.indexOf('placehold.co') !== -1) continue;
     try {
       var direct = await toDirectImgBB(c.img);
       var detected = await extractDominantColor(direct);
-      if(detected){
-        var newName = getColorName(detected);
-        var changed = false;
-        if(detected !== c.hex){ c.hex = detected; changed = true; }
-        if(newName && newName !== c.name){ c.name = newName; changed = true; }
-        if(changed) updated++; else skipped++;
-      } else failed++;
+      if(detected){ c.hex = detected; updated++; }
+      else failed++;
     } catch(e) { failed++; }
   }
-
-  if(updated > 0){
-    saveColorsLocal(colors);
-    applyAll();
-    renderAdminPanel();
-    await saveToServer();
-  }
-  return {updated: updated, skipped: skipped, failed: failed};
+  if(updated > 0){ saveColorsLocal(colors); applyAll(); renderAdminPanel(); await saveToServer(); }
+  return {updated: updated, failed: failed};
 }
 
+/* Texts */
 function getTexts(){
   try { var s = JSON.parse(localStorage.getItem(STORAGE_TEXTS) || 'null');
     if(s && typeof s === 'object'){ var m = JSON.parse(JSON.stringify(DEFAULT_TEXTS)); Object.keys(s).forEach(function(k){ if(s[k]) m[k] = s[k]; }); return m; }
@@ -637,12 +493,21 @@ function getTexts(){
 }
 function saveTextsLocal(t){ try{localStorage.setItem(STORAGE_TEXTS,JSON.stringify(t));}catch(e){} }
 
+/* Colors */
 function getColors(){
   try { var s = JSON.parse(localStorage.getItem(STORAGE_COLORS) || 'null'); if(Array.isArray(s) && s.length > 0) return s; } catch(e){}
   return JSON.parse(JSON.stringify(DEFAULT_COLORS));
 }
 function saveColorsLocal(c){ try{localStorage.setItem(STORAGE_COLORS,JSON.stringify(c));}catch(e){} }
 
+/* Sizes */
+function getSizes(){
+  try { var s = JSON.parse(localStorage.getItem(STORAGE_SIZES) || 'null'); if(Array.isArray(s) && s.length > 0) return s; } catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULT_SIZES));
+}
+function saveSizesLocal(s){ try{localStorage.setItem(STORAGE_SIZES,JSON.stringify(s));}catch(e){} }
+
+/* Price */
 function getPrice(){ var p = localStorage.getItem(STORAGE_PRICE); return p ? Number(p) : DEFAULT_PRICE; }
 function getOldPrice(){ var p = localStorage.getItem(STORAGE_OLD_PRICE); return p ? Number(p) : DEFAULT_OLD_PRICE; }
 var PRICE = getPrice();
@@ -692,6 +557,35 @@ function renderFormColors(){
   c.querySelectorAll('input[name="color"]').forEach(function(r){ r.addEventListener('change', function(){ applyColor(r.value, true); }); });
 }
 
+function renderFormSizes(){
+  var c = document.getElementById('formSizes'); if(!c) return;
+  var sizes = getSizes();
+  var sec = document.getElementById('sizeSection');
+  // إلا ما كانش أحجام، نخبيو القسم
+  if(sizes.length === 0){ sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+  var h = '';
+  sizes.forEach(function(s){
+    var ck = state.size === s.name, sold = s.available === false;
+    var cls = 'size-chip' + (ck?' is-active':'') + (sold?' is-soldout':'');
+    var dAttr = sold ? ' disabled' : '';
+    h += '<label class="cursor-pointer" data-form-size="' + s.name + '"' + (sold?' style="opacity:.4;pointer-events:none"':'') + '>';
+    h += '<input type="radio" name="size" value="' + s.name + '" class="peer sr-only"' + (ck?' checked':'') + dAttr + '>';
+    h += '<span class="' + cls + ' block">' + s.name + '</span>';
+    h += '</label>';
+  });
+  c.innerHTML = h;
+  c.querySelectorAll('input[name="size"]').forEach(function(r){
+    r.addEventListener('change', function(){ state.size = r.value; updateSummary(); });
+  });
+}
+
+function updateSummary(){
+  document.getElementById('sumColor').textContent = state.color || '-';
+  document.getElementById('sumSize').textContent = state.size || '-';
+}
+
+/* Admin Stock */
 function renderAdminStockRows(){
   var c = document.getElementById('adminStockRows'); if(!c) return; c.innerHTML = '';
   getColors().forEach(function(x){
@@ -708,37 +602,110 @@ function renderAdminStockRows(){
   });
 }
 
+/* ✅ Admin Images with EDITABLE NAME */
 function renderAdminImageRows(){
   var c = document.getElementById('adminImageRows'); if(!c) return; c.innerHTML = '';
   getColors().forEach(function(x){
-    var r = document.createElement('div'); r.style.cssText = 'padding:8px 0;border-bottom:1px solid #262626';
-    r.innerHTML = '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span class="admin-color-dot" style="background:' + x.hex + '"></span><span style="font-size:12.5px;font-weight:700">' + x.name + '</span><span style="font-size:10px;color:#888;margin-right:auto">' + x.hex + '</span></div><div style="display:flex;gap:6px;align-items:center"><img src="' + x.img + '" style="width:36px;height:36px;object-fit:cover;border-radius:4px;border:1px solid #333;flex-shrink:0" data-preview><input type="text" class="admin-img-input" data-img-color="' + x.name + '" value="' + x.img + '"></div>';
+    var r = document.createElement('div'); r.style.cssText = 'padding:10px 0;border-bottom:1px solid #262626';
+    r.innerHTML =
+      '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">' +
+        '<span class="admin-color-dot" style="background:' + x.hex + '"></span>' +
+        '<input type="text" class="admin-name-input" value="' + x.name + '" placeholder="اسم اللون" data-name-for="' + x.name + '">' +
+        '<span style="font-size:10px;color:#888;white-space:nowrap">' + x.hex + '</span>' +
+      '</div>' +
+      '<div style="display:flex;gap:6px;align-items:center">' +
+        '<img src="' + x.img + '" style="width:36px;height:36px;object-fit:cover;border-radius:4px;border:1px solid #333;flex-shrink:0" data-preview>' +
+        '<input type="text" class="admin-img-input" data-img-color="' + x.name + '" value="' + x.img + '">' +
+      '</div>';
     c.appendChild(r);
-    var i = r.querySelector('input'); var p = r.querySelector('[data-preview]');
-    i.addEventListener('input', async function(){
-      var v = i.value.trim();
+
+    var nameInput = r.querySelector('[data-name-for]');
+    var imgInput = r.querySelector('input[data-img-color]');
+    var preview = r.querySelector('[data-preview]');
+
+    // ✅ تغيير اسم اللون يدوياً
+    var oldName = x.name;
+    nameInput.addEventListener('input', function(){
+      var newName = nameInput.value.trim();
+      if(!newName || newName === oldName) return;
+      var cs = getColors();
+      // تحقق من التكرار
+      if(cs.find(function(y){ return y.name === newName; })){
+        nameInput.style.borderColor = '#ef4444';
+        return;
+      }
+      nameInput.style.borderColor = '#C9A961';
+      cs.forEach(function(y){ if(y.name === oldName) y.name = newName; });
+      saveColorsLocal(cs);
+      if(state.color === oldName) state.color = newName;
+      oldName = newName;
+      imgInput.setAttribute('data-img-color', newName);
+      applyAll();
+      renderAdminStockRows();
+    });
+    nameInput.addEventListener('blur', function(){
+      var v = nameInput.value.trim();
+      if(!v){ nameInput.value = oldName; nameInput.style.borderColor = '#C9A961'; }
+    });
+
+    // ✅ تغيير رابط الصورة
+    imgInput.addEventListener('input', async function(){
+      var v = imgInput.value.trim();
       if(v.indexOf('http') === 0){
         var d = await toDirectImgBB(v);
-        p.src = d;
+        preview.src = d;
         var cs = getColors();
-        var oldName = x.name;
         cs.forEach(function(y){ if(y.name === oldName) y.img = d; });
         saveColorsLocal(cs); applyAll();
+        // تحديث اللون تلقائياً (اختياري — ما كيغيرش الاسم)
         var detected = await extractDominantColor(d);
         if(detected){
-          var newName = getColorName(detected);
           cs = getColors();
-          cs.forEach(function(y){
-            if(y.name === oldName){
-              y.hex = detected;
-              if(newName) y.name = newName;
-            }
-          });
-          saveColorsLocal(cs);
-          if(state.color === oldName && newName) state.color = newName;
-          applyAll(); renderAdminPanel();
+          cs.forEach(function(y){ if(y.name === oldName) y.hex = detected; });
+          saveColorsLocal(cs); applyAll();
+          // تحديث hex المعروض
+          var hexSpan = r.querySelector('span[style*="font-size:10px"]');
+          if(hexSpan) hexSpan.textContent = detected;
         }
       }
+    });
+  });
+}
+
+/* ✅ Admin Sizes */
+function renderAdminSizeRows(){
+  var c = document.getElementById('adminSizeRows'); if(!c) return; c.innerHTML = '';
+  var sizes = getSizes();
+  if(sizes.length === 0){
+    c.innerHTML = '<div style="text-align:center;color:#666;padding:20px;font-size:12px">ما كاينش أحجام — زيد واحد</div>';
+    return;
+  }
+  sizes.forEach(function(s){
+    var avail = s.available !== false;
+    var r = document.createElement('div'); r.className = 'admin-row';
+    r.innerHTML =
+      '<input type="checkbox" data-size-avail="' + s.name + '" ' + (avail?'checked':'') + ' style="width:18px;height:18px;accent-color:#C9A961;cursor:pointer">' +
+      '<span style="flex:1;font-weight:700;color:#fff;font-size:14px">' + s.name + '</span>' +
+      '<span style="font-size:10px;color:' + (avail?'#4ade80':'#ef4444') + ';font-weight:700;padding:2px 6px;background:rgba(' + (avail?'74,222,128':'239,68,68') + ',.15);border-radius:4px">' + (avail?'متوفر':'نفذ') + '</span>' +
+      '<button type="button" class="admin-del" data-del-size="' + s.name + '">×</button>';
+    c.appendChild(r);
+  });
+  c.querySelectorAll('input[data-size-avail]').forEach(function(cb){
+    cb.addEventListener('change', function(){
+      var ss = getSizes();
+      var n = cb.dataset.sizeAvail;
+      ss.forEach(function(x){ if(x.name === n) x.available = cb.checked; });
+      saveSizesLocal(ss); renderAdminSizeRows(); renderFormSizes();
+    });
+  });
+  c.querySelectorAll('[data-del-size]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var n = b.dataset.delSize;
+      if(!confirm('حذف الحجم "' + n + '"؟')) return;
+      var ss = getSizes().filter(function(x){ return x.name !== n; });
+      saveSizesLocal(ss);
+      if(state.size === n) state.size = ss.length > 0 ? ss[0].name : null;
+      renderAdminSizeRows(); renderFormSizes(); updateSummary();
     });
   });
 }
@@ -752,13 +719,22 @@ function renderAdminTexts(){
 }
 
 function renderAdminPanel(){
-  renderAdminStockRows(); renderAdminImageRows(); renderAdminTexts();
+  renderAdminStockRows();
+  renderAdminImageRows();
+  renderAdminSizeRows();
+  renderAdminTexts();
   document.getElementById('adminPriceInput').value = PRICE;
   document.getElementById('adminOldPriceInput').value = OLD_PRICE;
 }
 
 function applyAll(){
-  renderColorChips(); renderFormColors(); applyTexts(); updateAllPrices(); applyStockVisibility();
+  renderColorChips();
+  renderFormColors();
+  renderFormSizes();
+  applyTexts();
+  updateAllPrices();
+  applyStockVisibility();
+  updateSummary();
   var a = state.color; var o = getColors().find(function(x){return x.name === a;});
   if(!o || o.available === false){ var f = getColors().find(function(x){return x.available !== false;}); if(f) a = f.name; }
   if(a) applyColor(a, false);
@@ -777,7 +753,7 @@ function applyStockVisibility(){
 async function saveToServer(){
   if(!SHEET_URL || SHEET_URL.indexOf('ضع هنا') !== -1) return {ok:false, msg:'SHEET_URL غير مضبوط'};
   try {
-    var p = { _type:'settings', brand:BRAND_MARKER, colors:getColors(), texts:getTexts(), price:PRICE, old_price:OLD_PRICE, timestamp:Date.now() };
+    var p = { _type:'settings', brand:BRAND_MARKER, colors:getColors(), texts:getTexts(), sizes:getSizes(), price:PRICE, old_price:OLD_PRICE, timestamp:Date.now() };
     await fetch(SHEET_URL + '?t=' + Date.now(), {method:'POST', cache:'no-store', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(p)});
     return {ok:true, msg:'تم الحفظ'};
   } catch(e) { return {ok:false, msg:'فشل الاتصال'}; }
@@ -800,6 +776,7 @@ function applyServerData(d){
   var c = false;
   if(d.colors && Array.isArray(d.colors) && d.colors.length > 0){ localStorage.setItem(STORAGE_COLORS, JSON.stringify(d.colors)); c = true; }
   if(d.texts && typeof d.texts === 'object'){ localStorage.setItem(STORAGE_TEXTS, JSON.stringify(d.texts)); c = true; }
+  if(d.sizes && Array.isArray(d.sizes) && d.sizes.length > 0){ localStorage.setItem(STORAGE_SIZES, JSON.stringify(d.sizes)); c = true; }
   if(d.price){ localStorage.setItem(STORAGE_PRICE, d.price); }
   if(d.old_price){ localStorage.setItem(STORAGE_OLD_PRICE, d.old_price); }
   return c;
@@ -810,6 +787,7 @@ function applyServerData(d){
 function migrateOld(){
   if(!localStorage.getItem(STORAGE_COLORS)) saveColorsLocal(JSON.parse(JSON.stringify(DEFAULT_COLORS)));
   if(!localStorage.getItem(STORAGE_TEXTS)) saveTextsLocal(JSON.parse(JSON.stringify(DEFAULT_TEXTS)));
+  if(!localStorage.getItem(STORAGE_SIZES)) saveSizesLocal(JSON.parse(JSON.stringify(DEFAULT_SIZES)));
 }
 
 (function(){ if(location.hash) history.replaceState(null,'',location.pathname+location.search); window.scrollTo(0,0); window.addEventListener('load',function(){ window.scrollTo(0,0); if(document.activeElement && document.activeElement !== document.body) document.activeElement.blur(); }); setTimeout(function(){window.scrollTo(0,0);},300); setTimeout(function(){window.scrollTo(0,0);},800); })();
@@ -849,11 +827,11 @@ var FAQS = [
   document.querySelectorAll('.faq-head').forEach(function(x){ x.addEventListener('click', function(){ var it = x.closest('.faq-item'); var o = it.classList.contains('is-open'); document.querySelectorAll('.faq-item').forEach(function(y){ y.classList.remove('is-open'); }); if(!o) it.classList.add('is-open'); }); });
 })();
 
-var state = {color:"أسود", qty:1, userPicked:false};
+var state = {color:"أسود", size:"M", qty:1, userPicked:false};
 
 var cd = 2*3600 + 14*60 + 33;
 function renderCd(){ var h = Math.floor(cd/3600), m = Math.floor((cd%3600)/60), s = cd%60; function p(n){ return String(n).padStart(2,'0'); } document.getElementById('cdH').textContent = p(h); document.getElementById('cdM').textContent = p(m); document.getElementById('cdS').textContent = p(s); }
-setInterval(function(){ cd--; if(cd<0) cd = 2*3600+14*60+33; renderCd(); },1000);
+setInterval(function(){ cd--; if(cd<0) cd = 2*3600 + 14*60 + 33; renderCd(); },1000);
 renderCd();
 
 function updateAllPrices(){
@@ -875,6 +853,7 @@ function applyColor(c, fromUser){
   var r = document.querySelector('input[name="color"][value="' + c + '"]');
   if(r) r.checked = true;
   if(fromUser) state.userPicked = true;
+  updateSummary();
 }
 
 setInterval(function(){
@@ -921,23 +900,34 @@ form.addEventListener('submit', async function(e){
   var nEl = document.getElementById('fName'), pEl = document.getElementById('fPhone'), cEl = document.getElementById('fCity'), aEl = document.getElementById('fAddress');
   var name = nEl.value.trim(), phone = pEl.value.replace(/\D/g, ''), city = cEl.value, address = aEl.value.trim();
   var cR = document.querySelector('input[name="color"]:checked'); var color = cR ? cR.value : state.color;
+  var sR = document.querySelector('input[name="size"]:checked'); var size = sR ? sR.value : (state.size || '');
   var qty = state.qty; var t = getTexts();
   var ok = true;
   if(name.length < 3){ setErr(nEl, true); ok = false; } else setErr(nEl, false);
   if(!(/^(0[5-7]\d{8})$/.test(phone) || /^([5-7]\d{8})$/.test(phone))){ setErr(pEl, true); ok = false; } else setErr(pEl, false);
   if(!city){ setErr(cEl, true); ok = false; } else setErr(cEl, false);
   if(address.length < 8){ setErr(aEl, true); ok = false; } else setErr(aEl, false);
+  // التحقق من الحجم إلا كان مطلوب
+  var sizes = getSizes();
+  if(sizes.length > 0 && !size){
+    var sizeErr = document.querySelector('#sizeSection .err');
+    if(sizeErr) sizeErr.classList.remove('hidden');
+    ok = false;
+  } else {
+    var sizeErr2 = document.querySelector('#sizeSection .err');
+    if(sizeErr2) sizeErr2.classList.add('hidden');
+  }
   if(!ok) return;
   var wa = null; try { wa = window.open('', '_blank'); } catch(_) {}
   submitBtn.disabled = true; submitBtn.className = BTN_LD; submitBtn.innerHTML = '<span class="spinner"></span> جاري الإرسال...';
-  var p = { name:name, phone:phone, city:city, color:color, qty:qty, address:address, product:t.productName, price:PRICE, total:PRICE*qty, date:new Date().toLocaleString('ar-MA') };
+  var p = { name:name, phone:phone, city:city, color:color, size:size, qty:qty, address:address, product:t.productName, price:PRICE, total:PRICE*qty, date:new Date().toLocaleString('ar-MA') };
   await sendToSheet(p);
-  var m = 'سلام ' + t.brandName + '، بغيت ' + t.productName + ' اللون ' + color + ' الكمية ' + qty + ' المدينة ' + city + ' السمية ' + name;
+  var m = 'سلام ' + t.brandName + '، بغيت ' + t.productName + ' اللون ' + color + (size? ' الحجم ' + size : '') + ' الكمية ' + qty + ' المدينة ' + city + ' السمية ' + name;
   var u = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(m);
   if(wa && !wa.closed) wa.location.href = u; else window.open(u, '_blank');
   submitBtn.className = BTN_OK; submitBtn.innerHTML = '✓ تم إرسال طلبك بنجاح';
   successBox.classList.remove('hidden'); successBox.scrollIntoView({behavior:'smooth', block:'center'});
-  setTimeout(function(){ form.reset(); state.qty = 1; renderQty(); submitBtn.disabled = false; submitBtn.className = BTN_DEF; submitBtn.innerHTML = 'تأكيد الطلب — الدفع عند الاستلام'; applyColor(state.color, false); }, 6000);
+  setTimeout(function(){ form.reset(); state.qty = 1; renderQty(); submitBtn.disabled = false; submitBtn.className = BTN_DEF; submitBtn.innerHTML = 'تأكيد الطلب — الدفع عند الاستلام'; applyColor(state.color, false); renderFormSizes(); updateSummary(); }, 6000);
 });
 
 document.getElementById('year').textContent = new Date().getFullYear();
@@ -956,25 +946,8 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
   panel.classList.add('show');
   renderAdminPanel();
   var st = document.getElementById('adminSyncStatus');
-  st.className = 'admin-status warn'; st.textContent = '🔄 جاري تحديث الألوان والأسماء...';
-
-  setTimeout(async function(){
-    try {
-      var result = await autoUpdateAllColors();
-      if(result.updated > 0){
-        st.className = 'admin-status ok';
-        st.textContent = '✓ تم تحديث ' + result.updated + ' لون واسم';
-      } else if(result.failed > 0){
-        st.className = 'admin-status warn';
-        st.textContent = '⚠️ ' + result.failed + ' صورة فشلت';
-      } else {
-        st.className = 'admin-status ok';
-        st.textContent = '✓ كل شي محدّث';
-      }
-    } catch(e){
-      st.className = 'admin-status warn'; st.textContent = '⚠️ خطأ';
-    }
-  }, 500);
+  st.className = 'admin-status ok';
+  st.textContent = '✓ جاهز — يمكنك تعديل الأسماء';
 
   panel.querySelectorAll('.admin-tab').forEach(function(tab){
     tab.addEventListener('click', function(){
@@ -986,16 +959,42 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     });
   });
 
+  // تحديث تلقائي للألوان (اختياري)
   document.getElementById('adminRefreshAllColors').addEventListener('click', async function(){
     var btn = this;
     btn.textContent = '⏳ جاري التحديث...'; btn.disabled = true;
     var result = await autoUpdateAllColors();
-    btn.textContent = '🔄 تحديث الألوان والأسماء تلقائياً'; btn.disabled = false;
+    btn.textContent = '🔄 تحديث الألوان تلقائياً'; btn.disabled = false;
     var m = document.getElementById('adminMsg');
-    m.textContent = '✓ تحديث ' + result.updated + ' | فشل ' + result.failed + ' | تخطي ' + result.skipped;
+    m.textContent = '✓ تحديث ' + result.updated + ' | فشل ' + result.failed;
     m.style.color = result.updated > 0 ? '#4ade80' : '#fbbf24';
     m.style.opacity = '1';
     setTimeout(function(){ m.style.opacity = '0'; }, 4000);
+  });
+
+  // ✅ إضافة حجم جديد
+  document.getElementById('adminAddSize').addEventListener('click', async function(){
+    var inp = document.getElementById('adminNewSize');
+    var name = inp.value.trim();
+    if(!name){ alert('اكتب اسم الحجم'); return; }
+    var sizes = getSizes();
+    if(sizes.find(function(x){ return x.name === name; })){ alert('الحجم موجود!'); return; }
+    sizes.push({name: name, available: true});
+    saveSizesLocal(sizes);
+    inp.value = '';
+    renderAdminSizeRows();
+    renderFormSizes();
+    await saveToServer();
+    var m = document.getElementById('adminMsg');
+    m.textContent = '✓ تمت إضافة الحجم "' + name + '"';
+    m.style.color = '#4ade80';
+    m.style.opacity = '1';
+    setTimeout(function(){ m.style.opacity = '0'; }, 2500);
+  });
+
+  // زيد الحجم بالـ Enter
+  document.getElementById('adminNewSize').addEventListener('keypress', function(e){
+    if(e.key === 'Enter'){ e.preventDefault(); document.getElementById('adminAddSize').click(); }
   });
 
   var ni = document.getElementById('adminNewImg');
@@ -1017,15 +1016,13 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     np.appendChild(colorBadge);
     var detectedColor = await extractDominantColor(d);
     if(detectedColor){
-      var colorName = getColorName(detectedColor);
       document.getElementById('adminNewHex').value = detectedColor;
-      document.getElementById('adminNewName').value = colorName || '';
-      colorBadge.textContent = '🎨 ' + (colorName || detectedColor);
+      colorBadge.textContent = '🎨 ' + detectedColor;
       colorBadge.style.background = detectedColor;
       colorBadge.style.color = '#fff';
       setTimeout(function(){ if(colorBadge.parentElement) colorBadge.remove(); }, 4000);
     } else {
-      colorBadge.textContent = '⚠️ ما لقاش لون';
+      colorBadge.textContent = '⚠️ ما لقاش لون — اكتب الاسم بنفسك';
       colorBadge.style.color = '#fbbf24';
       setTimeout(function(){ if(colorBadge.parentElement) colorBadge.remove(); }, 3500);
     }
@@ -1038,15 +1035,13 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     btn.textContent = '⏳ جاري...'; btn.disabled = true;
     var direct = await toDirectImgBB(url);
     var color = await extractDominantColor(direct);
-    btn.textContent = '🎨 استخراج اللون والاسم من الصورة'; btn.disabled = false;
+    btn.textContent = '🎨 استخراج اللون من الصورة'; btn.disabled = false;
     if(color){
-      var colorName = getColorName(color);
       document.getElementById('adminNewHex').value = color;
-      if(colorName) document.getElementById('adminNewName').value = colorName;
-      btn.textContent = '✓ ' + (colorName || color);
-      setTimeout(function(){ btn.textContent = '🎨 استخراج اللون والاسم من الصورة'; }, 3000);
+      btn.textContent = '✓ ' + color;
+      setTimeout(function(){ btn.textContent = '🎨 استخراج اللون من الصورة'; }, 2500);
     } else {
-      alert('تعذر استخراج اللون');
+      alert('تعذر استخراج اللون — اكتب اللون والاسم يدوياً');
     }
   });
 
@@ -1055,15 +1050,13 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     var h = document.getElementById('adminNewHex').value;
     var im = document.getElementById('adminNewImg').value.trim();
     if(!im || im.indexOf('http') !== 0){ alert('حط رابط صورة'); return; }
+    if(!n){ alert('اكتب اسم اللون'); return; }
     var b = document.getElementById('adminAddColor');
     b.textContent = 'جاري...'; b.disabled = true;
     im = await toDirectImgBB(im);
-    if(!n){ var auto = getColorName(h); if(auto) n = auto; }
     b.textContent = 'إضافة اللون'; b.disabled = false;
-    if(!n){ alert('اكتب اسم اللون'); return; }
     var cs = getColors();
-    var baseName = n, counter = 2;
-    while(cs.find(function(x){ return x.name === n; })){ n = baseName + ' ' + counter; counter++; }
+    if(cs.find(function(x){ return x.name === n; })){ alert('الاسم موجود!'); return; }
     cs.push({name:n, hex:h, img:im, available:true}); saveColorsLocal(cs);
     document.getElementById('adminNewName').value = '';
     document.getElementById('adminNewImg').value = '';
@@ -1097,7 +1090,7 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     var m = document.getElementById('adminMsg');
     m.textContent = 'جاري الحفظ...'; m.style.color = '#C9A961'; m.style.opacity = '1';
     var r = await saveToServer();
-    if(r.ok){ m.textContent = '✓ تم الحفظ'; m.style.color = '#4ade80'; st.className = 'admin-status ok'; st.textContent = '✓ متزامن'; }
+    if(r.ok){ m.textContent = '✓ تم الحفظ بنجاح'; m.style.color = '#4ade80'; st.className = 'admin-status ok'; st.textContent = '✓ متزامن'; }
     else { m.textContent = '× فشل: ' + r.msg; m.style.color = '#ef4444'; st.className = 'admin-status err'; st.textContent = '× ' + r.msg; }
     setTimeout(function(){ m.style.opacity = '0'; }, 4000);
   });
