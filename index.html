@@ -360,83 +360,109 @@ var DEFAULT_TEXTS = {
 
 var IS_ADMIN = new URLSearchParams(location.search).has('admin');
 
-/* ✅✅✅ استخراج اللون — مع weserv.nl (موثوق 100%) */
+/* ✅✅✅ استخراج اللون — 4 طرق مرتبة */
 async function extractDominantColor(imgUrl){
   if(!imgUrl) return null;
-  try {
-    // ✅ weserv.nl هو proxy موثوق كيدير CORS نيشان
-    var cleanUrl = imgUrl.replace(/^https?:\/\//, '');
-    var proxyUrl = 'https://images.weserv.nl/?url=' + encodeURIComponent(cleanUrl);
+  console.log('🎨 بدء استخراج اللون من:', imgUrl);
+  
+  // نبنيو لائحة الطرق — من الأسرع للأبطأ
+  var cleanUrl = imgUrl.replace(/^https?:\/\//, '');
+  var attempts = [
+    // 1. weserv.nl بدون encodeURIComponent
+    'https://images.weserv.nl/?url=' + cleanUrl,
+    // 2. weserv.nl مع encoding
+    'https://images.weserv.nl/?url=' + encodeURIComponent(cleanUrl),
+    // 3. الصورة مباشرة (إلا كانت عندها CORS)
+    imgUrl,
+    // 4. wsrv.nl (نفس weserv بس نطاق أقصر)
+    'https://wsrv.nl/?url=' + cleanUrl,
+    // 5. images.weserv.nl مع n=-1
+    'https://images.weserv.nl/?url=' + cleanUrl + '&n=-1'
+  ];
+  
+  for(var i = 0; i < attempts.length; i++){
+    var url = attempts[i];
+    console.log('🔄 محاولة ' + (i+1) + ':', url);
+    var result = await tryLoadAndExtract(url);
+    if(result){
+      console.log('✅ نجحت المحاولة ' + (i+1) + ' — اللون:', result);
+      return result;
+    }
+  }
+  
+  console.warn('❌ فشلت كل الطرق');
+  return null;
+}
+
+/* دالة مساعدة: تحميل صورة واستخراج اللون */
+function tryLoadAndExtract(url){
+  return new Promise(function(resolve){
+    var img = new Image();
+    img.crossOrigin = 'anonymous';
+    var done = false;
     
-    return await new Promise(function(resolve){
-      var img = new Image();
-      img.crossOrigin = 'anonymous';
-      var timeout = setTimeout(function(){ 
-        console.warn('⏱️ timeout تحميل الصورة');
-        resolve(null); 
-      }, 10000);
-      
-      img.onload = function(){
-        clearTimeout(timeout);
-        try {
-          var canvas = document.createElement('canvas');
-          var ctx = canvas.getContext('2d');
-          canvas.width = 100; canvas.height = 100;
-          ctx.drawImage(img, 0, 0, 100, 100);
-          var data = ctx.getImageData(0, 0, 100, 100).data;
-          
-          // ✅ نركزو على وسط الصورة (منطقة الملابس)
-          var buckets = {};
-          for(var y = 20; y < 80; y++){
-            for(var x = 25; x < 75; x++){
-              var idx = (y * 100 + x) * 4;
-              var rr = data[idx], gg = data[idx+1], bb = data[idx+2], aa = data[idx+3];
-              if(aa < 128) continue;
-              
-              var max = Math.max(rr,gg,bb), min = Math.min(rr,gg,bb);
-              var brightness = (rr+gg+bb)/3;
-              var sat = max === 0 ? 0 : (max-min)/max;
-              
-              // تجاهل الأبيض جداً والأسود جداً
-              if(brightness > 240 || brightness < 20) continue;
-              // تجاهل الأخضر (نباتات/إضاءة)
-              if(gg > rr + 30 && gg > bb + 30) continue;
-              // تجاهل الرمادي
-              if(sat < 0.08) continue;
-              
-              var key = (Math.round(rr/20)*20) + ',' + (Math.round(gg/20)*20) + ',' + (Math.round(bb/20)*20);
-              buckets[key] = (buckets[key] || 0) + 1;
-            }
+    var timeout = setTimeout(function(){
+      if(!done){ done = true; console.warn('⏱️ timeout'); resolve(null); }
+    }, 8000);
+    
+    img.onload = function(){
+      if(done) return;
+      done = true;
+      clearTimeout(timeout);
+      try {
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        canvas.width = 100;
+        canvas.height = 100;
+        ctx.drawImage(img, 0, 0, 100, 100);
+        var data = ctx.getImageData(0, 0, 100, 100).data;
+        
+        var buckets = {};
+        for(var y = 20; y < 80; y++){
+          for(var x = 25; x < 75; x++){
+            var idx = (y * 100 + x) * 4;
+            var rr = data[idx], gg = data[idx+1], bb = data[idx+2], aa = data[idx+3];
+            if(aa < 128) continue;
+            
+            var max = Math.max(rr,gg,bb), min = Math.min(rr,gg,bb);
+            var brightness = (rr+gg+bb)/3;
+            var sat = max === 0 ? 0 : (max-min)/max;
+            
+            if(brightness > 240 || brightness < 20) continue;
+            if(gg > rr + 30 && gg > bb + 30) continue;
+            if(sat < 0.08) continue;
+            
+            var key = (Math.round(rr/20)*20) + ',' + (Math.round(gg/20)*20) + ',' + (Math.round(bb/20)*20);
+            buckets[key] = (buckets[key] || 0) + 1;
           }
-          
-          var best = null, bestN = 0;
-          for(var k in buckets){ if(buckets[k] > bestN){ bestN = buckets[k]; best = k; } }
-          
-          if(best){
-            var p = best.split(',').map(Number);
-            var hex = '#' + p.map(function(v){ return Math.max(0, Math.min(255, v)).toString(16).padStart(2,'0'); }).join('');
-            console.log('🎨 اللون المكتشف:', hex, '| عينات:', bestN);
-            resolve(hex);
-          } else {
-            console.warn('⚠️ ما لقاش لون');
-            resolve(null);
-          }
-        } catch(e) {
-          console.warn('canvas error:', e);
+        }
+        
+        var best = null, bestN = 0;
+        for(var k in buckets){ if(buckets[k] > bestN){ bestN = buckets[k]; best = k; } }
+        
+        if(best){
+          var p = best.split(',').map(Number);
+          var hex = '#' + p.map(function(v){ return Math.max(0, Math.min(255, v)).toString(16).padStart(2,'0'); }).join('');
+          resolve(hex);
+        } else {
           resolve(null);
         }
-      };
-      img.onerror = function(e){
-        clearTimeout(timeout);
-        console.warn('img load error:', e);
+      } catch(e) {
+        console.warn('canvas error:', e);
         resolve(null);
-      };
-      img.src = proxyUrl;
-    });
-  } catch(e) {
-    console.warn('color extract error:', e);
-    return null;
-  }
+      }
+    };
+    
+    img.onerror = function(){
+      if(done) return;
+      done = true;
+      clearTimeout(timeout);
+      console.warn('فشل تحميل:', url);
+      resolve(null);
+    };
+    
+    img.src = url;
+  });
 }
 
 async function toDirectImgBB(url){
@@ -453,17 +479,13 @@ async function toDirectImgBB(url){
   return url;
 }
 
-/* ✅ تحديث كل الألوان */
 async function autoUpdateAllColors(){
   var colors = getColors();
   var updated = 0, skipped = 0, failed = 0;
   
   for(var i = 0; i < colors.length; i++){
     var c = colors[i];
-    if(!c.img || c.img.indexOf('placehold.co') !== -1){
-      skipped++;
-      continue;
-    }
+    if(!c.img || c.img.indexOf('placehold.co') !== -1){ skipped++; continue; }
     
     try {
       var direct = await toDirectImgBB(c.img);
@@ -472,14 +494,9 @@ async function autoUpdateAllColors(){
         console.log('🔄 "' + c.name + '": ' + c.hex + ' → ' + detected);
         colors[i].hex = detected;
         updated++;
-      } else if(!detected){
-        failed++;
-      } else {
-        skipped++;
-      }
-    } catch(e) {
-      failed++;
-    }
+      } else if(!detected){ failed++; }
+      else { skipped++; }
+    } catch(e) { failed++; }
   }
   
   if(updated > 0){
@@ -913,7 +930,7 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
       btn.textContent = '✓ تم: ' + color;
       setTimeout(function(){ btn.textContent = '🎨 استخراج اللون من الصورة'; }, 2500);
     } else {
-      alert('تعذر استخراج اللون');
+      alert('تعذر استخراج اللون — الصورة يمكن محمية بـ CORS');
     }
   });
 
