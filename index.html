@@ -59,26 +59,9 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 .admin-label{display:block;font-size:11.5px;font-weight:700;margin-bottom:5px;color:#C9A961}
 .admin-hint{font-size:10.5px;color:#888;margin-bottom:6px;line-height:1.5}
 .badge-luxury{display:inline-block;padding:6px 16px;border:1px solid #C9A961;color:#7B2D3E;font-size:12px;font-weight:600;letter-spacing:1.5px;border-radius:2rem}
-
-/* ✅ الإطار الجديد: contain مع خلفية متماشية = صورة كاملة بلا قص + بلا بلايص بيضاء */
-.image-frame{
-  width:100%;
-  aspect-ratio:4/5;
-  background:linear-gradient(135deg, #F7F1E8 0%, #F5E8EC 100%);
-  overflow:hidden;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.image-frame img{
-  max-width:100%;
-  max-height:100%;
-  width:auto;
-  height:auto;
-  object-fit:contain;
-  display:block;
-}
+.image-frame{width:100%;aspect-ratio:4/5;background:#F5F0E8;overflow:hidden;position:relative}
+.image-frame img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .5s ease}
+.image-frame:hover img{transform:scale(1.03)}
 @media(max-width:640px){.image-frame{aspect-ratio:1/1}}
 </style>
 </head>
@@ -294,7 +277,7 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   <div class="admin-section active" data-section="stock"><div style="font-size:11.5px;opacity:.6;margin-bottom:8px">حدد الألوان المتوفرة + احذف</div><div id="adminStockRows"></div></div>
   <div class="admin-section" data-section="images">
     <div style="font-size:11.5px;opacity:.6;margin-bottom:8px">رابط الصورة لكل لون</div>
-    <button type="button" id="adminRefreshAllColors" style="background:#C9A961;color:#1A1A1A;font-weight:800;border:0;padding:10px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:12px;width:100%;margin-bottom:10px">🔄 تحديث ألوان كل الصور</button>
+    <button type="button" id="adminRefreshAllColors" style="background:#C9A961;color:#1A1A1A;font-weight:800;border:0;padding:10px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:12px;width:100%;margin-bottom:10px">🔄 تحديث ألوان كل الصور تلقائياً</button>
     <div id="adminImageRows"></div>
   </div>
   <div class="admin-section" data-section="price">
@@ -371,87 +354,71 @@ var DEFAULT_TEXTS = {
   ],
   reviewsTitle: "ماذا قالت زبوناتنا؟",
   reviewsSub: "أكثر من 850 زبونة وثقن فينا",
-  stockAlert: "✦ الكمية محدودة — سارعني بالطلب ✦",
+  stockAlert: "✦ الكمية محدودة — سارعي بالطلب ✦",
   footerDesc: "أزياء نسائية عصرية وموديلات مختارة بعناية، مع توصيل سريع لجميع المناطق."
 };
 
 var IS_ADMIN = new URLSearchParams(location.search).has('admin');
 
-/* ✅ دالة استخراج اللون — محسّنة مع proxies متعددة */
+/* ✅✅✅ استخراج اللون — مع weserv.nl (موثوق 100%) */
 async function extractDominantColor(imgUrl){
   if(!imgUrl) return null;
   try {
-    var proxies = [
-      'https://corsproxy.io/?url=',
-      'https://api.allorigins.win/raw?url=',
-      'https://api.codetabs.com/v1/proxy?quest=',
-      'https://thingproxy.freeboard.io/fetch/',
-      'https://proxy.cors.sh/'
-    ];
-    
-    var dataUrl = null;
-    for(var i = 0; i < proxies.length; i++){
-      try {
-        var controller = new AbortController();
-        var timeout = setTimeout(function(){ controller.abort(); }, 5000);
-        var r = await fetch(proxies[i] + encodeURIComponent(imgUrl), { signal: controller.signal });
-        clearTimeout(timeout);
-        if(r.ok){
-          var blob = await r.blob();
-          dataUrl = URL.createObjectURL(blob);
-          console.log('✅ تحميل الصورة نجح عبر proxy', i+1);
-          break;
-        }
-      } catch(e){
-        console.warn('proxy', i+1, 'فشل:', e.message);
-      }
-    }
-    
-    if(!dataUrl){
-      console.warn('⚠️ كل الـ proxies فشلو — غادي نجرب نستعمل الصورة مباشرة');
-      dataUrl = imgUrl;
-    }
+    // ✅ weserv.nl هو proxy موثوق كيدير CORS نيشان
+    var cleanUrl = imgUrl.replace(/^https?:\/\//, '');
+    var proxyUrl = 'https://images.weserv.nl/?url=' + encodeURIComponent(cleanUrl);
     
     return await new Promise(function(resolve){
       var img = new Image();
       img.crossOrigin = 'anonymous';
+      var timeout = setTimeout(function(){ 
+        console.warn('⏱️ timeout تحميل الصورة');
+        resolve(null); 
+      }, 10000);
+      
       img.onload = function(){
+        clearTimeout(timeout);
         try {
           var canvas = document.createElement('canvas');
           var ctx = canvas.getContext('2d');
           canvas.width = 100; canvas.height = 100;
           ctx.drawImage(img, 0, 0, 100, 100);
           var data = ctx.getImageData(0, 0, 100, 100).data;
-
+          
+          // ✅ نركزو على وسط الصورة (منطقة الملابس)
           var buckets = {};
           for(var y = 20; y < 80; y++){
             for(var x = 25; x < 75; x++){
               var idx = (y * 100 + x) * 4;
               var rr = data[idx], gg = data[idx+1], bb = data[idx+2], aa = data[idx+3];
               if(aa < 128) continue;
-
+              
               var max = Math.max(rr,gg,bb), min = Math.min(rr,gg,bb);
               var brightness = (rr+gg+bb)/3;
               var sat = max === 0 ? 0 : (max-min)/max;
-
+              
+              // تجاهل الأبيض جداً والأسود جداً
               if(brightness > 240 || brightness < 20) continue;
+              // تجاهل الأخضر (نباتات/إضاءة)
               if(gg > rr + 30 && gg > bb + 30) continue;
-              if(sat < 0.05) continue;
-
+              // تجاهل الرمادي
+              if(sat < 0.08) continue;
+              
               var key = (Math.round(rr/20)*20) + ',' + (Math.round(gg/20)*20) + ',' + (Math.round(bb/20)*20);
               buckets[key] = (buckets[key] || 0) + 1;
             }
           }
-
+          
           var best = null, bestN = 0;
           for(var k in buckets){ if(buckets[k] > bestN){ bestN = buckets[k]; best = k; } }
+          
           if(best){
             var p = best.split(',').map(Number);
             var hex = '#' + p.map(function(v){ return Math.max(0, Math.min(255, v)).toString(16).padStart(2,'0'); }).join('');
             console.log('🎨 اللون المكتشف:', hex, '| عينات:', bestN);
             resolve(hex);
           } else {
-            console.warn('⚠️ ما لقاش لون — كل البكسلات مستثناة');
+            console.warn('⚠️ ما لقاش لون');
             resolve(null);
           }
         } catch(e) {
@@ -460,10 +427,11 @@ async function extractDominantColor(imgUrl){
         }
       };
       img.onerror = function(e){
+        clearTimeout(timeout);
         console.warn('img load error:', e);
         resolve(null);
       };
-      img.src = dataUrl;
+      img.src = proxyUrl;
     });
   } catch(e) {
     console.warn('color extract error:', e);
@@ -511,7 +479,6 @@ async function autoUpdateAllColors(){
       }
     } catch(e) {
       failed++;
-      console.warn('فشل تحديث "' + c.name + '":', e);
     }
   }
   
@@ -681,7 +648,7 @@ async function fetchFromServer(){
     var r = await fetch(SHEET_URL + '?t=' + Date.now(), {method:'GET', cache:'no-store'});
     var d = await r.json();
     if(!d) return null;
-    if(d.brand !== BRAND_MARKER) { console.log('ℹ️ بيانات قديمة — تجاهل'); return null; }
+    if(d.brand !== BRAND_MARKER) return null;
     return d;
   } catch(e) { return null; }
 }
@@ -867,14 +834,14 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
         st.textContent = '✓ تم تحديث ' + result.updated + ' لون';
       } else if(result.failed > 0){
         st.className = 'admin-status warn';
-        st.textContent = '⚠️ تعذر تحديث ' + result.failed + ' صورة (CORS)';
+        st.textContent = '⚠️ ' + result.failed + ' صورة فشلت';
       } else {
         st.className = 'admin-status ok';
         st.textContent = '✓ الألوان محدّثة';
       }
     } catch(e){
       st.className = 'admin-status warn';
-      st.textContent = '⚠️ خطأ في التحديث';
+      st.textContent = '⚠️ خطأ';
     }
   }, 500);
 
@@ -893,7 +860,7 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     btn.textContent = '⏳ جاري التحديث...';
     btn.disabled = true;
     var result = await autoUpdateAllColors();
-    btn.textContent = '🔄 تحديث ألوان كل الصور';
+    btn.textContent = '🔄 تحديث ألوان كل الصور تلقائياً';
     btn.disabled = false;
     var m = document.getElementById('adminMsg');
     m.textContent = '✓ تحديث ' + result.updated + ' | فشل ' + result.failed + ' | تخطي ' + result.skipped;
