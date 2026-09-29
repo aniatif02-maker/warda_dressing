@@ -345,7 +345,8 @@ var STORAGE_PRICE = 'wd_warda_price_v3';
 var STORAGE_OLD_PRICE = 'wd_warda_oldprice_v3';
 var STORAGE_SIZES = 'wd_warda_sizes_v3';
 
-var SHEET_URL = "https://script.google.com/macros/s/AKfycbxYnErbWRpdLD7h1sIA5Ky0b_PARtr6lfNkEo6E8KzK8ulDSzRMPwIQzhu7xw-pDrmC0Q/exec";
+/* ✅✅✅ الرابط الجديد ديال Google Apps Script ✅✅✅ */
+var SHEET_URL = "https://script.google.com/macros/s/AKfycbyu3O90JhESRpVHoCjlPFPccpGSzuOZ4jlzs39G3EXli-MEW04LHliAYbyBLVDDeL-M/exec";
 var BRAND_MARKER = "warda_dressing_v3";
 
 var WHATSAPP_NUMBER = "2126XXXXXXXX";
@@ -393,7 +394,7 @@ var DEFAULT_TEXTS = {
 
 var IS_ADMIN = new URLSearchParams(location.search).has('admin');
 
-/* استخراج اللون السائد من الصورة */
+/* استخراج اللون */
 async function extractDominantColor(imgUrl){
   if(!imgUrl) return null;
   var cleanUrl = imgUrl.replace(/^https?:\/\//, '');
@@ -432,7 +433,6 @@ function tryLoadAndExtract(url){
             if(aa < 128) continue;
             var max = Math.max(rr,gg,bb), min = Math.min(rr,gg,bb);
             var brightness = (rr+gg+bb)/3;
-            var sat = max === 0 ? 0 : (max-min)/max;
             if(brightness > 245 || brightness < 12) continue;
             if(gg > rr + 35 && gg > bb + 35) continue;
             var key = (Math.round(rr/15)*15) + ',' + (Math.round(gg/15)*15) + ',' + (Math.round(bb/15)*15);
@@ -484,7 +484,6 @@ async function autoUpdateAllColors(){
   return {updated: updated, failed: failed};
 }
 
-/* Texts */
 function getTexts(){
   try { var s = JSON.parse(localStorage.getItem(STORAGE_TEXTS) || 'null');
     if(s && typeof s === 'object'){ var m = JSON.parse(JSON.stringify(DEFAULT_TEXTS)); Object.keys(s).forEach(function(k){ if(s[k]) m[k] = s[k]; }); return m; }
@@ -493,21 +492,18 @@ function getTexts(){
 }
 function saveTextsLocal(t){ try{localStorage.setItem(STORAGE_TEXTS,JSON.stringify(t));}catch(e){} }
 
-/* Colors */
 function getColors(){
   try { var s = JSON.parse(localStorage.getItem(STORAGE_COLORS) || 'null'); if(Array.isArray(s) && s.length > 0) return s; } catch(e){}
   return JSON.parse(JSON.stringify(DEFAULT_COLORS));
 }
 function saveColorsLocal(c){ try{localStorage.setItem(STORAGE_COLORS,JSON.stringify(c));}catch(e){} }
 
-/* Sizes */
 function getSizes(){
   try { var s = JSON.parse(localStorage.getItem(STORAGE_SIZES) || 'null'); if(Array.isArray(s) && s.length > 0) return s; } catch(e){}
   return JSON.parse(JSON.stringify(DEFAULT_SIZES));
 }
 function saveSizesLocal(s){ try{localStorage.setItem(STORAGE_SIZES,JSON.stringify(s));}catch(e){} }
 
-/* Price */
 function getPrice(){ var p = localStorage.getItem(STORAGE_PRICE); return p ? Number(p) : DEFAULT_PRICE; }
 function getOldPrice(){ var p = localStorage.getItem(STORAGE_OLD_PRICE); return p ? Number(p) : DEFAULT_OLD_PRICE; }
 var PRICE = getPrice();
@@ -561,7 +557,6 @@ function renderFormSizes(){
   var c = document.getElementById('formSizes'); if(!c) return;
   var sizes = getSizes();
   var sec = document.getElementById('sizeSection');
-  // إلا ما كانش أحجام، نخبيو القسم
   if(sizes.length === 0){ sec.style.display = 'none'; return; }
   sec.style.display = 'block';
   var h = '';
@@ -585,7 +580,6 @@ function updateSummary(){
   document.getElementById('sumSize').textContent = state.size || '-';
 }
 
-/* Admin Stock */
 function renderAdminStockRows(){
   var c = document.getElementById('adminStockRows'); if(!c) return; c.innerHTML = '';
   getColors().forEach(function(x){
@@ -602,7 +596,6 @@ function renderAdminStockRows(){
   });
 }
 
-/* ✅ Admin Images with EDITABLE NAME */
 function renderAdminImageRows(){
   var c = document.getElementById('adminImageRows'); if(!c) return; c.innerHTML = '';
   getColors().forEach(function(x){
@@ -623,13 +616,11 @@ function renderAdminImageRows(){
     var imgInput = r.querySelector('input[data-img-color]');
     var preview = r.querySelector('[data-preview]');
 
-    // ✅ تغيير اسم اللون يدوياً
     var oldName = x.name;
     nameInput.addEventListener('input', function(){
       var newName = nameInput.value.trim();
       if(!newName || newName === oldName) return;
       var cs = getColors();
-      // تحقق من التكرار
       if(cs.find(function(y){ return y.name === newName; })){
         nameInput.style.borderColor = '#ef4444';
         return;
@@ -648,7 +639,6 @@ function renderAdminImageRows(){
       if(!v){ nameInput.value = oldName; nameInput.style.borderColor = '#C9A961'; }
     });
 
-    // ✅ تغيير رابط الصورة
     imgInput.addEventListener('input', async function(){
       var v = imgInput.value.trim();
       if(v.indexOf('http') === 0){
@@ -657,13 +647,11 @@ function renderAdminImageRows(){
         var cs = getColors();
         cs.forEach(function(y){ if(y.name === oldName) y.img = d; });
         saveColorsLocal(cs); applyAll();
-        // تحديث اللون تلقائياً (اختياري — ما كيغيرش الاسم)
         var detected = await extractDominantColor(d);
         if(detected){
           cs = getColors();
           cs.forEach(function(y){ if(y.name === oldName) y.hex = detected; });
           saveColorsLocal(cs); applyAll();
-          // تحديث hex المعروض
           var hexSpan = r.querySelector('span[style*="font-size:10px"]');
           if(hexSpan) hexSpan.textContent = detected;
         }
@@ -672,7 +660,6 @@ function renderAdminImageRows(){
   });
 }
 
-/* ✅ Admin Sizes */
 function renderAdminSizeRows(){
   var c = document.getElementById('adminSizeRows'); if(!c) return; c.innerHTML = '';
   var sizes = getSizes();
@@ -907,7 +894,6 @@ form.addEventListener('submit', async function(e){
   if(!(/^(0[5-7]\d{8})$/.test(phone) || /^([5-7]\d{8})$/.test(phone))){ setErr(pEl, true); ok = false; } else setErr(pEl, false);
   if(!city){ setErr(cEl, true); ok = false; } else setErr(cEl, false);
   if(address.length < 8){ setErr(aEl, true); ok = false; } else setErr(aEl, false);
-  // التحقق من الحجم إلا كان مطلوب
   var sizes = getSizes();
   if(sizes.length > 0 && !size){
     var sizeErr = document.querySelector('#sizeSection .err');
@@ -959,7 +945,6 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     });
   });
 
-  // تحديث تلقائي للألوان (اختياري)
   document.getElementById('adminRefreshAllColors').addEventListener('click', async function(){
     var btn = this;
     btn.textContent = '⏳ جاري التحديث...'; btn.disabled = true;
@@ -972,7 +957,6 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     setTimeout(function(){ m.style.opacity = '0'; }, 4000);
   });
 
-  // ✅ إضافة حجم جديد
   document.getElementById('adminAddSize').addEventListener('click', async function(){
     var inp = document.getElementById('adminNewSize');
     var name = inp.value.trim();
@@ -992,7 +976,6 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     setTimeout(function(){ m.style.opacity = '0'; }, 2500);
   });
 
-  // زيد الحجم بالـ Enter
   document.getElementById('adminNewSize').addEventListener('keypress', function(e){
     if(e.key === 'Enter'){ e.preventDefault(); document.getElementById('adminAddSize').click(); }
   });
