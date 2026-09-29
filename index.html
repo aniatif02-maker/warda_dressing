@@ -8,37 +8,94 @@
 <link rel="icon" href="https://i.postimg.cc/pV7rhCMm/514347097-18075713759506570-1219391976996982719-n.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-tailwind.config={theme:{extend:{colors:{brand:{wine:'#7B2D3E',wineDark:'#5A1F2D',wineLight:'#F5E8EC',gold:'#C9A961',goldDark:'#A88B45',goldLight:'#F7F0E1',cream:'#FAF6F0',dark:'#1A1A1A',gray:'#6B6B6B'}},fontFamily:{tajawal:['Tajawal','sans-serif'],amiri:['Amiri','serif']},keyframes:{fadeUp:{'0%':{opacity:0,transform:'translateY(20px)'},'100%':{opacity:1,transform:'translateY(0)'}},slideIn:{'0%':{opacity:0,transform:'translateX(40px)'},'100%':{opacity:1,transform:'translateX(0)'}},slideOut:{'0%':{opacity:1},'100%':{opacity:0,transform:'translateX(40px)'}},starPop:{'0%':{opacity:0,transform:'scale(0)'},'70%':{transform:'scale(1.2)'},'100%':{opacity:1,transform:'scale(1)'}}},animation:{fadeUp:'fadeUp .8s ease-out both',slideIn:'slideIn .5s ease-out both',starPop:'starPop .6s ease-out both'}}}}
+tailwind.config={theme:{extend:{colors:{brand:{wine:'#7B2D3E',wineDark:'#5A1F2D',wineDeep:'#3D1420',wineLight:'#F5E8EC',gold:'#C9A961',goldDark:'#A88B45',goldLight:'#F7F0E1',cream:'#FAF6F0',dark:'#1A1A1A',gray:'#6B6B6B'}},fontFamily:{tajawal:['Tajawal','sans-serif'],amiri:['Amiri','serif']},keyframes:{fadeUp:{'0%':{opacity:0,transform:'translateY(20px)'},'100%':{opacity:1,transform:'translateY(0)'}},slideIn:{'0%':{opacity:0,transform:'translateX(40px)'},'100%':{opacity:1,transform:'translateX(0)'}},slideOut:{'0%':{opacity:1},'100%':{opacity:0,transform:'translateX(40px)'}},starPop:{'0%':{opacity:0,transform:'scale(0)'},'70%':{transform:'scale(1.2)'},'100%':{opacity:1,transform:'scale(1)'}},float:{'0%,100%':{transform:'translateY(0)'},'50%':{transform:'translateY(-8px)'}},shine:{'0%':{transform:'translateX(-100%)'},'100%':{transform:'translateX(200%)'}},pulseRing:{'0%':{transform:'scale(.9)',opacity:.7},'100%':{transform:'scale(1.6)',opacity:0}}},animation:{fadeUp:'fadeUp .8s ease-out both',slideIn:'slideIn .5s ease-out both',starPop:'starPop .6s ease-out both',float:'float 3s ease-in-out infinite',shine:'shine 3s infinite'}}}}
 </script>
 <style>
 *{-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
-body{padding-bottom:80px;font-family:Tajawal,sans-serif;background:#FAF6F0}
+body{padding-bottom:90px;font-family:Tajawal,sans-serif;background:#FAF6F0}
 h1,h2,h3,.font-amiri{font-family:Amiri,serif}
-[data-reveal]{opacity:0;transform:translateY(20px);transition:all .9s cubic-bezier(.16,1,.3,1)}
+[data-reveal]{opacity:0;transform:translateY(24px);transition:all .9s cubic-bezier(.16,1,.3,1)}
 [data-reveal].is-visible{opacity:1;transform:none}
-.input{width:100%;border-radius:0.5rem;border:1.5px solid #E5DDD0;background:#FFF;padding:.75rem 1rem;font-size:15px;font-weight:400;outline:0;transition:.2s;font-family:Tajawal,sans-serif}
-.input:focus{border-color:#7B2D3E;box-shadow:0 0 0 3px rgba(123,45,62,.1)}
-.divider-gold{width:60px;height:2px;background:linear-gradient(90deg,transparent,#C9A961,transparent);margin:1rem auto}
-.color-chip{border:1.5px solid #E5DDD0;background:#FFF;cursor:pointer;transition:.25s;position:relative;border-radius:0.5rem}
-.color-chip:hover{border-color:#C9A961}
-.color-chip.is-active{border-color:#7B2D3E;background:#F5E8EC;box-shadow:0 4px 12px -4px rgba(123,45,62,.3)}
+
+/* Luxury background pattern */
+.bg-luxury{background-color:#FAF6F0;background-image:radial-gradient(circle at 20% 0%, rgba(201,169,97,.08) 0%, transparent 40%),radial-gradient(circle at 100% 100%, rgba(123,45,62,.06) 0%, transparent 40%)}
+.bg-luxury-dark{background-color:#3D1420;background-image:radial-gradient(circle at 20% 20%, rgba(201,169,97,.15) 0%, transparent 50%),radial-gradient(circle at 90% 80%, rgba(123,45,62,.4) 0%, transparent 50%)}
+
+/* Gold text */
+.text-gold-gradient{background:linear-gradient(135deg,#A88B45 0%,#E8D9A8 50%,#C9A961 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+/* Buttons */
+.btn-primary{background:linear-gradient(135deg,#7B2D3E 0%,#5A1F2D 100%);color:#fff;font-weight:800;position:relative;overflow:hidden;transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:0 12px 30px -10px rgba(123,45,62,.5)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 40px -15px rgba(123,45,62,.7)}
+.btn-primary::after{content:'';position:absolute;top:0;left:0;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:translateX(-100%) skewX(-20deg);animation:shine 3s infinite}
+@keyframes shine{0%{transform:translateX(-100%) skewX(-20deg)}50%{transform:translateX(250%) skewX(-20deg)}100%{transform:translateX(250%) skewX(-20deg)}}
+.btn-gold{background:linear-gradient(135deg,#C9A961 0%,#E8D9A8 50%,#C9A961 100%);color:#3D1420;font-weight:900;transition:all .3s;box-shadow:0 12px 30px -10px rgba(201,169,97,.6), inset 0 -3px 0 rgba(168,139,69,.5)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 18px 40px -12px rgba(201,169,97,.8), inset 0 -3px 0 rgba(168,139,69,.5)}
+
+/* Pulse animation for CTA */
+@keyframes ctaPulse{0%,100%{box-shadow:0 12px 30px -10px rgba(201,169,97,.6), 0 0 0 0 rgba(201,169,97,.7)}50%{box-shadow:0 12px 30px -10px rgba(201,169,97,.6), 0 0 0 18px rgba(201,169,97,0)}}
+.cta-pulse{animation:ctaPulse 2s infinite}
+
+/* Product image frame with luxury border */
+.product-frame{position:relative;border-radius:1rem;overflow:hidden}
+.product-frame::before{content:'';position:absolute;inset:-2px;background:linear-gradient(135deg,#C9A961,#E8D9A8,#7B2D3E,#C9A961);border-radius:1rem;z-index:-1;background-size:300% 300%;animation:borderFlow 6s ease infinite}
+@keyframes borderFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* Color chips */
+.color-chip{border:1.5px solid #E5DDD0;background:#FFF;cursor:pointer;transition:.25s;position:relative;border-radius:0.75rem}
+.color-chip:hover{border-color:#C9A961;transform:translateY(-2px)}
+.color-chip.is-active{border-color:#7B2D3E;background:#F5E8EC;box-shadow:0 6px 16px -6px rgba(123,45,62,.4)}
 .color-chip.is-soldout{opacity:.45;pointer-events:none}
-.color-chip.is-soldout::after{content:'نفذ';position:absolute;inset:0;background:rgba(26,26,26,.85);color:#C9A961;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;letter-spacing:1px;border-radius:0.5rem}
-.size-chip{border:1.5px solid #E5DDD0;background:#FFF;cursor:pointer;transition:.25s;position:relative;border-radius:0.5rem;padding:.5rem 1rem;font-size:13px;font-weight:700;min-width:48px;text-align:center}
+.color-chip.is-soldout::after{content:'نفذ';position:absolute;inset:0;background:rgba(26,26,26,.85);color:#C9A961;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;letter-spacing:1px;border-radius:0.75rem}
+
+/* Size chips */
+.size-chip{border:1.5px solid #E5DDD0;background:#FFF;cursor:pointer;transition:.25s;position:relative;border-radius:0.75rem;padding:.6rem 1.1rem;font-size:14px;font-weight:800;min-width:52px;text-align:center}
 .size-chip:hover{border-color:#C9A961}
-.size-chip.is-active{border-color:#7B2D3E;background:#F5E8EC;color:#7B2D3E;box-shadow:0 4px 12px -4px rgba(123,45,62,.3)}
+.size-chip.is-active{border-color:#7B2D3E;background:linear-gradient(135deg,#F5E8EC,#FFE3EF);color:#7B2D3E;box-shadow:0 6px 16px -6px rgba(123,45,62,.4);transform:translateY(-2px)}
 .size-chip.is-soldout{opacity:.4;pointer-events:none;text-decoration:line-through}
+
+/* Inputs */
+.input{width:100%;border-radius:0.75rem;border:1.5px solid #E5DDD0;background:#FFF;padding:.85rem 1rem;font-size:15px;font-weight:400;outline:0;transition:.2s;font-family:Tajawal,sans-serif}
+.input:focus{border-color:#7B2D3E;box-shadow:0 0 0 4px rgba(123,45,62,.1)}
+.input:hover{border-color:#C9A961}
+
+/* Divider */
+.divider-gold{width:80px;height:2px;background:linear-gradient(90deg,transparent,#C9A961,transparent);margin:1.2rem auto;position:relative}
+.divider-gold::before{content:'◆';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#C9A961;font-size:12px;background:#FAF6F0;padding:0 8px}
+
+/* Trust badge */
+.trust-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:#fff;border:1px solid rgba(201,169,97,.3);border-radius:99px;font-size:12px;font-weight:700;color:#3D1420;transition:.3s}
+.trust-badge:hover{transform:translateY(-2px);box-shadow:0 8px 20px -8px rgba(201,169,97,.5)}
+
+/* Live viewers pulse */
+@keyframes livePulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.15)}}
+.live-dot{width:8px;height:8px;background:#22c55e;border-radius:50%;animation:livePulse 1.5s infinite;box-shadow:0 0 0 0 rgba(34,197,94,.7)}
+
+/* Stock bar */
+.stock-bar{height:10px;background:#F5E8EC;border-radius:99px;overflow:hidden;position:relative}
+.stock-bar-fill{height:100%;background:linear-gradient(90deg,#7B2D3E,#C9A961);border-radius:99px;transition:width 1s ease;position:relative;overflow:hidden}
+.stock-bar-fill::after{content:'';position:absolute;top:0;left:0;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);animation:shine 2.5s infinite}
+
+/* Cards */
+.card-luxury{background:#fff;border-radius:1.25rem;border:1px solid rgba(201,169,97,.2);transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+.card-luxury::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#C9A961,transparent);opacity:0;transition:.4s}
+.card-luxury:hover{transform:translateY(-6px);box-shadow:0 30px 60px -20px rgba(123,45,62,.25);border-color:rgba(201,169,97,.5)}
+.card-luxury:hover::before{opacity:1}
+
+/* Spinner */
 .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* FAQ */
 .faq-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
-.faq-item.is-open .faq-body{max-height:320px}
+.faq-item.is-open .faq-body{max-height:340px}
 .faq-item.is-open .faq-icon{transform:rotate(45deg);background:#7B2D3E;color:#fff;border-color:#7B2D3E}
-@keyframes goldShine{0%,100%{box-shadow:0 0 0 0 rgba(201,169,97,.5)}50%{box-shadow:0 0 0 8px rgba(201,169,97,0)}}
-.btn-gold{animation:goldShine 2.5s infinite}
+
+/* Admin */
 #adminPanel{display:none}
 #adminPanel.show{display:block}
 .admin-tab{background:#262626;color:#C9A961;border:1px solid #333;padding:8px 5px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:10px;font-weight:700;flex:1;transition:.2s}
@@ -64,140 +121,264 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 .admin-status.err{background:rgba(239,68,68,.15);color:#ef4444}
 .admin-label{display:block;font-size:11.5px;font-weight:700;margin-bottom:5px;color:#C9A961}
 .admin-hint{font-size:10.5px;color:#888;margin-bottom:6px;line-height:1.5}
-.badge-luxury{display:inline-block;padding:6px 16px;border:1px solid #C9A961;color:#7B2D3E;font-size:12px;font-weight:600;letter-spacing:1.5px;border-radius:2rem}
+
+.badge-luxury{display:inline-block;padding:7px 18px;border:1px solid #C9A961;color:#7B2D3E;font-size:12px;font-weight:700;letter-spacing:2px;border-radius:2rem;background:linear-gradient(135deg,rgba(201,169,97,.1),rgba(255,255,255,.5))}
 .image-frame{width:100%;aspect-ratio:4/5;background:#F5F0E8;overflow:hidden;position:relative}
-.image-frame img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .5s ease}
-.image-frame:hover img{transform:scale(1.03)}
+.image-frame img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.image-frame:hover img{transform:scale(1.05)}
 @media(max-width:640px){.image-frame{aspect-ratio:1/1}}
+
+/* Section title decoration */
+.section-title{position:relative;display:inline-block}
+.section-title::before,.section-title::after{content:'';position:absolute;top:50%;width:30px;height:1px;background:linear-gradient(90deg,transparent,#C9A961)}
+.section-title::before{right:100%;margin-right:16px}
+.section-title::after{left:100%;margin-left:16px}
 </style>
 </head>
-<body class="text-brand-dark antialiased overflow-x-hidden">
+<body class="text-brand-dark antialiased overflow-x-hidden bg-luxury">
 
-<div class="bg-brand-dark text-brand-gold text-center text-[12px] py-2.5 px-4 font-medium tracking-wider">✦ توصيل سريع لجميع المناطق + الدفع عند الاستلام ✦</div>
+<!-- ✅ Top announcement with rotating messages -->
+<div class="bg-gradient-to-r from-brand-wineDeep via-brand-wine to-brand-wineDeep text-white text-center text-[12px] py-3 px-4 font-bold tracking-wider relative overflow-hidden">
+  <div class="absolute inset-0 opacity-10" style="background-image:repeating-linear-gradient(45deg,transparent,transparent 10px,#C9A961 10px,#C9A961 11px)"></div>
+  <div class="relative flex items-center justify-center gap-3 flex-wrap">
+    <span class="inline-flex items-center gap-1.5"><span class="text-brand-gold">✦</span> توصيل مجاني لجميع المناطق</span>
+    <span class="text-brand-gold/50 hidden sm:inline">|</span>
+    <span class="inline-flex items-center gap-1.5"><span class="text-brand-gold">✦</span> الدفع عند الاستلام</span>
+    <span class="text-brand-gold/50 hidden sm:inline">|</span>
+    <span class="inline-flex items-center gap-1.5"><span class="text-brand-gold">✦</span> إرجاع مجاني خلال 7 أيام</span>
+  </div>
+</div>
 
-<header class="sticky top-0 z-40 bg-brand-cream/95 backdrop-blur-md border-b border-brand-gold/20">
+<!-- ✅ Header -->
+<header class="sticky top-0 z-40 bg-white/90 backdrop-blur-lg border-b border-brand-gold/20 shadow-sm">
   <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
     <a href="#" class="flex items-center gap-3">
-      <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-brand-gold/40 shadow-lg">
+      <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-brand-gold/50 shadow-lg ring-2 ring-white">
         <img src="https://i.postimg.cc/pV7rhCMm/514347097-18075713759506570-1219391976996982719-n.jpg" alt="WARDAA" class="w-full h-full object-cover">
       </div>
       <div class="leading-none">
         <div class="font-amiri font-bold text-[22px] text-brand-wine tracking-wide" data-text="brandName"></div>
-        <div class="text-[10px] text-brand-gold font-medium tracking-[3px] mt-1 lowercase" data-text="brandSub"></div>
+        <div class="text-[10px] text-brand-gold font-bold tracking-[3px] mt-1 lowercase" data-text="brandSub"></div>
       </div>
     </a>
-    <a href="https://wa.me/212614190010" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-brand-wine px-5 py-2.5 text-[13px] font-bold text-white hover:bg-brand-wineDark transition"><span>✆</span><span>تواصلي معنا</span></a>
+    <a href="https://wa.me/212614190010" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-green-500 to-green-600 px-5 py-2.5 text-[13px] font-bold text-white shadow-lg shadow-green-500/30 hover:shadow-xl hover:-translate-y-0.5 transition">
+      <span>💬</span><span>راسلينا واتساب</span>
+    </a>
   </div>
 </header>
 
-<section class="relative overflow-hidden bg-brand-cream">
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(201,169,97,.08),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(123,45,62,.06),transparent_50%)]"></div>
-  <div class="relative max-w-6xl mx-auto px-4 py-12 sm:py-16 grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-    <div data-reveal class="relative">
-      <div class="relative">
-        <div class="absolute -top-3 -right-3 w-24 h-24 border-t-2 border-r-2 border-brand-gold/50 pointer-events-none z-10"></div>
-        <div class="absolute -bottom-3 -left-3 w-24 h-24 border-b-2 border-l-2 border-brand-gold/50 pointer-events-none z-10"></div>
-        <div class="relative rounded-sm overflow-hidden shadow-[0_30px_80px_-30px_rgba(123,45,62,.4)]">
+<!-- ✅ Hero Section -->
+<section class="relative overflow-hidden">
+  <!-- Decorative -->
+  <div class="pointer-events-none absolute -top-40 -right-40 w-96 h-96 bg-brand-gold/10 rounded-full blur-3xl"></div>
+  <div class="pointer-events-none absolute -bottom-40 -left-40 w-96 h-96 bg-brand-wine/10 rounded-full blur-3xl"></div>
+
+  <div class="relative max-w-6xl mx-auto px-4 py-10 sm:py-16 grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+
+    <!-- ✅ Product Image -->
+    <div data-reveal class="relative lg:sticky lg:top-24">
+      <!-- Discount Badge -->
+      <div class="absolute -top-3 -right-3 z-20 bg-gradient-to-br from-brand-wine to-brand-wineDeep text-white font-black text-sm px-5 py-3 rounded-2xl shadow-2xl -rotate-6 border-2 border-brand-gold">
+        <div class="text-center leading-tight">
+          <div class="text-[10px] text-brand-gold">خصم</div>
+          <div class="text-xl">40%</div>
+        </div>
+      </div>
+
+      <!-- Live viewers -->
+      <div class="absolute -top-2 -left-2 z-20 bg-white rounded-full px-3.5 py-2 shadow-xl border border-brand-gold/30 flex items-center gap-2">
+        <span class="live-dot"></span>
+        <span class="text-[11px] font-bold text-brand-wine"><span id="viewersCount">47</span> يشاهدون الآن</span>
+      </div>
+
+      <!-- Product frame -->
+      <div class="product-frame">
+        <div class="relative rounded-2xl overflow-hidden">
           <div class="image-frame">
             <img id="mainImage" src="" alt="موديل" loading="eager">
           </div>
+          <!-- Gradient overlay bottom -->
+          <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>
         </div>
       </div>
-      <div class="mt-5 text-center"><div class="inline-block border border-brand-wine/20 bg-white px-4 py-2 rounded-sm"><span class="text-[12.5px] text-brand-wine font-semibold tracking-wide" data-text="stockAlert"></span></div></div>
+
+      <!-- Stock alert -->
+      <div class="mt-5 text-center">
+        <div class="inline-flex items-center gap-2 bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 px-4 py-2.5 rounded-xl shadow-sm">
+          <span class="text-lg">🔥</span>
+          <span class="text-[12.5px] text-red-600 font-bold" data-text="stockAlert"></span>
+        </div>
+      </div>
+
+      <!-- Color chips -->
       <div id="colorChips" class="mt-5 flex flex-wrap items-center justify-center gap-2"></div>
-      <div class="mt-6 flex items-center justify-center gap-2.5">
-        <div id="starsRow" class="flex gap-1 text-xl text-brand-gold"></div>
-        <span class="font-bold text-brand-dark" id="ratingValue">0.0</span>
-        <span class="text-brand-gray text-sm">من 5</span>
-        <span class="text-brand-gray/60">·</span>
-        <span class="text-brand-gray text-[13px]">(<span id="ratingCount">0</span> تقييم)</span>
+
+      <!-- Rating -->
+      <div class="mt-5 flex items-center justify-center gap-2.5">
+        <div id="starsRow" class="flex gap-0.5 text-2xl text-brand-gold"></div>
+        <span class="font-black text-brand-dark text-lg" id="ratingValue">0.0</span>
+        <span class="text-gray-400 font-bold">/5</span>
+        <span class="text-gray-500 text-[13px] font-bold">(<span id="ratingCount">0</span> تقييم)</span>
+      </div>
+
+      <!-- Trust badges -->
+      <div class="mt-5 flex flex-wrap items-center justify-center gap-2">
+        <span class="trust-badge"><span>🚚</span> توصيل سريع</span>
+        <span class="trust-badge"><span>💵</span> دفع عند الاستلام</span>
+        <span class="trust-badge"><span>✅</span> ضمان الجودة</span>
+        <span class="trust-badge"><span>🔒</span> آمن 100%</span>
       </div>
     </div>
+
+    <!-- ✅ Content -->
     <div>
       <div class="text-center lg:text-right">
         <span class="badge-luxury" data-text="heroBadge"></span>
-        <h1 class="mt-5 font-amiri text-[34px] sm:text-[42px] lg:text-[48px] leading-tight font-bold text-brand-dark" data-text="heroTitle"></h1>
-        <div class="divider-gold lg:ml-0 lg:mr-auto"></div>
-        <p class="text-[15.5px] leading-relaxed text-brand-gray font-normal" data-text="heroDesc"></p>
+
+        <h1 class="mt-5 font-amiri text-[32px] sm:text-[42px] lg:text-[46px] leading-tight font-bold text-brand-wineDeep" data-text="heroTitle"></h1>
+
+        <div class="divider-gold lg:!mx-0 lg:!mr-auto"></div>
+
+        <p class="text-[15.5px] leading-relaxed text-gray-600 font-medium" data-text="heroDesc"></p>
+
+        <!-- Features with icons -->
         <ul class="mt-6 space-y-3 inline-block text-right" id="heroFeaturesList"></ul>
-        <div class="mt-8 flex items-end justify-center lg:justify-start gap-3">
-          <span class="font-amiri text-5xl sm:text-6xl font-bold text-brand-wine leading-none" data-price-display>0</span>
-          <span class="text-base font-semibold text-brand-wine mb-2">درهم</span>
-          <span class="text-base text-brand-gray line-through mb-2 opacity-60" data-old-price-display></span>
+
+        <!-- ✅ Big Price block -->
+        <div class="mt-8 rounded-2xl bg-gradient-to-br from-white to-brand-goldLight p-5 border-2 border-brand-gold/40 shadow-lg relative overflow-hidden">
+          <div class="absolute -top-12 -right-12 w-32 h-32 bg-brand-gold/10 rounded-full"></div>
+          <div class="relative flex items-center justify-between flex-wrap gap-3">
+            <div class="text-right">
+              <div class="text-[11px] font-bold text-brand-gold tracking-wider">سعر العرض</div>
+              <div class="flex items-end gap-2 mt-1">
+                <span class="font-amiri text-5xl sm:text-6xl font-bold text-brand-wine leading-none" data-price-display>0</span>
+                <span class="text-lg font-extrabold text-brand-wine mb-2">درهم</span>
+              </div>
+              <div class="text-[13px] font-bold text-gray-500 line-through mt-1" data-old-price-display></div>
+            </div>
+            <div class="bg-brand-wine text-white rounded-xl px-4 py-3 text-center shadow-lg">
+              <div class="text-[10px] font-bold text-brand-gold">توفير</div>
+              <div class="text-2xl font-black" id="savingsAmount">0</div>
+              <div class="text-[10px] font-bold text-brand-gold">درهم</div>
+            </div>
+          </div>
         </div>
-        <div class="mt-6 border-t border-b border-brand-gold/30 py-4 flex items-center justify-between">
-          <div class="flex items-center gap-2 text-[13px] font-semibold text-brand-wine"><span>◆</span><span>العرض ينتهي بعد</span></div>
-          <div class="flex items-center gap-1.5 font-amiri font-bold text-lg text-brand-wine" dir="ltr">
-            <span id="cdH" class="bg-brand-wineLight px-2.5 py-1 rounded-sm">02</span><span>:</span>
-            <span id="cdM" class="bg-brand-wineLight px-2.5 py-1 rounded-sm">14</span><span>:</span>
-            <span id="cdS" class="bg-brand-wineLight px-2.5 py-1 rounded-sm">33</span>
+
+        <!-- Countdown -->
+        <div class="mt-5 rounded-2xl bg-gradient-to-br from-brand-wineDeep via-brand-wine to-brand-wineDark px-5 py-4 shadow-xl relative overflow-hidden">
+          <div class="absolute inset-0 opacity-5" style="background-image:radial-gradient(circle,#C9A961 1px,transparent 1px);background-size:15px 15px"></div>
+          <div class="relative flex items-center justify-between gap-3 flex-wrap">
+            <div class="flex items-center gap-2 text-sm font-bold text-white">
+              <span class="text-brand-gold text-xl animate-pulse">⏰</span>
+              <span>ينتهي العرض في</span>
+            </div>
+            <div class="flex items-center gap-1.5 font-black text-xl text-white" dir="ltr">
+              <span id="cdH" class="bg-white/15 backdrop-blur px-3 py-1.5 rounded-lg tabular-nums border border-brand-gold/30 min-w-[46px] text-center">02</span>
+              <span class="text-brand-gold">:</span>
+              <span id="cdM" class="bg-white/15 backdrop-blur px-3 py-1.5 rounded-lg tabular-nums border border-brand-gold/30 min-w-[46px] text-center">14</span>
+              <span class="text-brand-gold">:</span>
+              <span id="cdS" class="bg-white/15 backdrop-blur px-3 py-1.5 rounded-lg tabular-nums border border-brand-gold/30 min-w-[46px] text-center">33</span>
+            </div>
           </div>
         </div>
       </div>
-      <div id="order" class="mt-8 bg-white p-6 sm:p-8 shadow-[0_20px_60px_-30px_rgba(123,45,62,.3)] border border-brand-gold/20 scroll-mt-20">
-        <div class="text-center mb-6">
-          <span class="text-[11px] tracking-[3px] text-brand-gold font-bold">اطلبي الآن</span>
-          <h2 class="mt-2 font-amiri text-2xl sm:text-3xl font-bold text-brand-dark" data-text="orderTitle"></h2>
+
+      <!-- ✅ Stock progress bar -->
+      <div class="mt-5 bg-white rounded-2xl p-4 border border-brand-gold/20 shadow-sm">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[12.5px] font-bold text-brand-wine">🔥 الكمية المتوفرة</span>
+          <span class="text-[12.5px] font-black text-red-500"><span id="stockCount">7</span> قطعة فقط</span>
+        </div>
+        <div class="stock-bar">
+          <div id="stockBarFill" class="stock-bar-fill" style="width:35%"></div>
+        </div>
+        <div class="mt-2 text-[11px] font-bold text-gray-500 text-center">سارعي قبل نفاذ الكمية</div>
+      </div>
+
+      <!-- ✅ Order Form -->
+      <div id="order" class="mt-8 bg-white p-6 sm:p-8 rounded-3xl shadow-[0_30px_80px_-40px_rgba(123,45,62,.4)] border-2 border-brand-gold/20 scroll-mt-24 relative">
+        <div class="absolute -top-3 right-6 bg-brand-gold text-brand-wineDeep text-[11px] font-black px-4 py-1.5 rounded-full shadow-lg">⚡ اطلبي الآن</div>
+
+        <div class="text-center mb-6 mt-2">
+          <h2 class="font-amiri text-2xl sm:text-3xl font-bold text-brand-wineDeep" data-text="orderTitle"></h2>
           <div class="divider-gold"></div>
-          <p class="text-[12.5px] text-brand-gray" data-text="orderSub"></p>
+          <p class="text-[12.5px] text-gray-500 font-medium" data-text="orderSub"></p>
         </div>
-        <div id="formSuccess" class="hidden mb-5 border border-green-300 bg-green-50 p-4 text-center">
-          <div class="text-2xl text-green-600">✓</div>
-          <h3 class="mt-2 font-bold text-green-800 text-sm">تم استلام طلبك</h3>
-          <p class="mt-1 text-[12px] text-green-700">سنتواصل معك قريباً عبر الواتساب</p>
+
+        <div id="formSuccess" class="hidden mb-5 rounded-2xl border-2 border-green-300 bg-green-50 p-5 text-center">
+          <div class="text-3xl mb-2">🎉</div>
+          <h3 class="font-black text-green-800">تم استلام طلبك بنجاح!</h3>
+          <p class="mt-1 text-[12.5px] text-green-700 font-medium">سنتواصل معك قريباً عبر الواتساب لتأكيد الطلب</p>
         </div>
+
         <form id="orderForm" novalidate autocomplete="off" class="grid gap-4">
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label for="fName" class="mb-1.5 block text-[12px] font-bold text-brand-dark">الاسم <span class="text-brand-wine">*</span></label>
+              <label for="fName" class="mb-1.5 block text-[12.5px] font-extrabold text-brand-wineDeep">الاسم الكامل <span class="text-brand-wine">*</span></label>
               <input id="fName" type="text" class="input" placeholder="فاطمة الزهراء" autocomplete="off">
               <p class="err mt-1 hidden text-[11px] font-bold text-red-500">المرجو كتابة الاسم</p>
             </div>
             <div>
-              <label for="fPhone" class="mb-1.5 block text-[12px] font-bold text-brand-dark">الهاتف <span class="text-brand-wine">*</span></label>
+              <label for="fPhone" class="mb-1.5 block text-[12.5px] font-extrabold text-brand-wineDeep">رقم الهاتف <span class="text-brand-wine">*</span></label>
               <input id="fPhone" type="tel" inputmode="numeric" class="input text-right" placeholder="06XXXXXXXX" autocomplete="off">
               <p class="err mt-1 hidden text-[11px] font-bold text-red-500">رقم غير صحيح</p>
             </div>
           </div>
           <div>
-            <label for="fCity" class="mb-1.5 block text-[12px] font-bold text-brand-dark">المدينة <span class="text-brand-wine">*</span></label>
+            <label for="fCity" class="mb-1.5 block text-[12.5px] font-extrabold text-brand-wineDeep">المدينة <span class="text-brand-wine">*</span></label>
             <select id="fCity" class="input"><option value="" selected disabled>اختاري مدينتك</option></select>
             <p class="err mt-1 hidden text-[11px] font-bold text-red-500">المرجو اختيار المدينة</p>
           </div>
           <div>
-            <span class="mb-2 block text-[12px] font-bold text-brand-dark">اللون <span class="text-brand-wine">*</span></span>
+            <span class="mb-2 block text-[12.5px] font-extrabold text-brand-wineDeep">اختاري اللون <span class="text-brand-wine">*</span></span>
             <div class="flex flex-wrap gap-2" id="formColors"></div>
           </div>
           <div id="sizeSection">
-            <span class="mb-2 block text-[12px] font-bold text-brand-dark">الحجم <span class="text-brand-wine">*</span></span>
+            <span class="mb-2 block text-[12.5px] font-extrabold text-brand-wineDeep">اختاري الحجم <span class="text-brand-wine">*</span></span>
             <div class="flex flex-wrap gap-2" id="formSizes"></div>
             <p class="err mt-1 hidden text-[11px] font-bold text-red-500">المرجو اختيار الحجم</p>
           </div>
           <div>
-            <span class="mb-2 block text-[12px] font-bold text-brand-dark">الكمية</span>
+            <span class="mb-2 block text-[12.5px] font-extrabold text-brand-wineDeep">الكمية</span>
             <div class="flex items-center gap-3">
-              <button type="button" id="qtyMinus" class="h-10 w-10 border border-brand-gold/40 text-brand-wine text-lg font-bold hover:bg-brand-wineLight transition">−</button>
-              <span id="qtyValue" class="w-12 text-center text-lg font-bold">1</span>
-              <button type="button" id="qtyPlus" class="h-10 w-10 border border-brand-gold/40 text-brand-wine text-lg font-bold hover:bg-brand-wineLight transition">+</button>
-              <span class="ms-auto text-[12px] text-brand-gray">الحد الأقصى: 5</span>
+              <button type="button" id="qtyMinus" class="h-11 w-11 rounded-xl bg-gray-100 text-xl font-black text-brand-wine hover:bg-gray-200 active:scale-95 transition">−</button>
+              <span id="qtyValue" class="w-14 text-center text-2xl font-black text-brand-wineDeep">1</span>
+              <button type="button" id="qtyPlus" class="h-11 w-11 rounded-xl bg-brand-gold text-xl font-black text-brand-wineDeep hover:brightness-110 active:scale-95 transition shadow-md">+</button>
+              <span class="ms-auto text-[12px] text-gray-500 font-bold">الحد الأقصى: 5</span>
             </div>
           </div>
           <div>
-            <label for="fAddress" class="mb-1.5 block text-[12px] font-bold text-brand-dark">العنوان <span class="text-brand-wine">*</span></label>
-            <textarea id="fAddress" rows="2" class="input resize-none" placeholder="الحي، الزنقة، رقم الدار..." autocomplete="off"></textarea>
+            <label for="fAddress" class="mb-1.5 block text-[12.5px] font-extrabold text-brand-wineDeep">العنوان الكامل <span class="text-brand-wine">*</span></label>
+            <textarea id="fAddress" rows="2" class="input resize-none" placeholder="الحي، الزنقة، رقم الدار، أقرب نقطة معروفة..." autocomplete="off"></textarea>
             <p class="err mt-1 hidden text-[11px] font-bold text-red-500">المرجو كتابة العنوان</p>
           </div>
-          <div class="border border-brand-gold/30 bg-brand-goldLight/50 p-4">
-            <div class="flex items-center justify-between text-[13px] text-brand-dark"><span class="font-semibold" data-text="productName"></span><span><span data-price-display>0</span> درهم</span></div>
-            <div class="mt-2 flex items-center justify-between text-[13px] text-brand-dark"><span>اللون</span><span id="sumColor">-</span></div>
-            <div class="mt-2 flex items-center justify-between text-[13px] text-brand-dark"><span>الحجم</span><span id="sumSize">-</span></div>
-            <div class="mt-2 flex items-center justify-between text-[13px] text-brand-dark"><span>الكمية</span><span>× <span id="sumQty">1</span></span></div>
-            <div class="mt-2 flex items-center justify-between text-[13px] text-brand-dark"><span>التوصيل</span><span class="text-green-700 font-semibold">سريع ومجاني</span></div>
-            <div class="mt-3 flex items-center justify-between border-t border-brand-gold/30 pt-3"><span class="font-bold text-brand-dark">المجموع</span><span class="font-amiri text-2xl font-bold text-brand-wine"><span id="sumTotal">0</span> درهم</span></div>
+
+          <!-- Order summary -->
+          <div class="rounded-2xl border-2 border-dashed border-brand-gold/40 bg-gradient-to-br from-brand-goldLight/50 to-white p-4">
+            <div class="flex items-center justify-between text-[13px] text-brand-wineDeep font-bold mb-2"><span class="font-black" data-text="productName"></span><span><span data-price-display>0</span> درهم</span></div>
+            <div class="space-y-1.5 text-[12.5px] text-gray-600 font-semibold">
+              <div class="flex justify-between"><span>اللون:</span><span id="sumColor" class="text-brand-wineDeep font-bold">-</span></div>
+              <div class="flex justify-between"><span>الحجم:</span><span id="sumSize" class="text-brand-wineDeep font-bold">-</span></div>
+              <div class="flex justify-between"><span>الكمية:</span><span class="text-brand-wineDeep font-bold">× <span id="sumQty">1</span></span></div>
+              <div class="flex justify-between text-green-600"><span>التوصيل:</span><span class="font-bold">مجاني 🚚</span></div>
+            </div>
+            <div class="mt-3 pt-3 border-t-2 border-dashed border-brand-gold/40 flex items-center justify-between">
+              <span class="font-black text-brand-wineDeep">المجموع</span>
+              <span class="font-amiri text-3xl font-bold text-brand-wine"><span id="sumTotal">0</span> <span class="text-base">درهم</span></span>
+            </div>
           </div>
-          <button type="submit" id="submitBtn" class="btn-gold w-full py-4 text-base font-bold bg-brand-gold text-brand-dark hover:bg-brand-goldDark transition disabled:opacity-60">تأكيد الطلب — الدفع عند الاستلام</button>
-          <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-[11.5px] text-brand-gray">
-            <span>◆ دفع عند الاستلام</span><span>◆ توصيل سريع</span><span>◆ ضمان الإرجاع</span>
+
+          <button type="submit" id="submitBtn" class="btn-gold cta-pulse w-full py-5 rounded-2xl text-lg font-black">
+            <span class="flex items-center justify-center gap-2">
+              <span>🛍️</span>
+              <span>تأكيد الطلب — الدفع عند الاستلام</span>
+            </span>
+          </button>
+
+          <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11.5px] font-bold text-gray-500">
+            <span class="flex items-center gap-1.5"><span class="text-green-500 text-base">✓</span> دفع عند الاستلام</span>
+            <span class="flex items-center gap-1.5"><span class="text-green-500 text-base">✓</span> توصيل مجاني</span>
+            <span class="flex items-center gap-1.5"><span class="text-green-500 text-base">✓</span> ضمان الإرجاع</span>
           </div>
         </form>
       </div>
@@ -205,81 +386,114 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   </div>
 </section>
 
-<section class="bg-white py-16 sm:py-24">
+<!-- ✅ Features Section -->
+<section class="bg-white py-16 sm:py-24 relative overflow-hidden">
+  <div class="pointer-events-none absolute top-10 right-10 w-40 h-40 bg-brand-gold/5 rounded-full blur-2xl"></div>
   <div class="max-w-6xl mx-auto px-4">
     <div class="text-center max-w-xl mx-auto" data-reveal>
-      <span class="text-[11px] tracking-[3px] text-brand-gold font-bold" data-text="featuresBadge"></span>
-      <h2 class="mt-3 font-amiri text-3xl sm:text-4xl font-bold text-brand-dark" data-text="featuresTitle"></h2>
-      <div class="divider-gold"></div>
+      <span class="text-[11px] tracking-[4px] text-brand-gold font-black" data-text="featuresBadge"></span>
+      <h2 class="mt-4 font-amiri text-3xl sm:text-4xl font-bold text-brand-wineDeep section-title" data-text="featuresTitle"></h2>
     </div>
-    <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-8" id="featuresGrid"></div>
+    <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6" id="featuresGrid"></div>
   </div>
 </section>
 
-<section class="bg-brand-cream py-16 sm:py-24">
+<!-- ✅ Reviews Section -->
+<section class="bg-gradient-to-b from-brand-cream to-white py-16 sm:py-24">
   <div class="max-w-6xl mx-auto px-4">
     <div class="text-center max-w-xl mx-auto" data-reveal>
-      <span class="text-[11px] tracking-[3px] text-brand-gold font-bold">شهادات</span>
-      <h2 class="mt-3 font-amiri text-3xl sm:text-4xl font-bold text-brand-dark" data-text="reviewsTitle"></h2>
-      <div class="divider-gold"></div>
-      <p class="text-brand-gray text-[14px]" data-text="reviewsSub"></p>
+      <span class="text-[11px] tracking-[4px] text-brand-gold font-black">آراء حقيقية</span>
+      <h2 class="mt-4 font-amiri text-3xl sm:text-4xl font-bold text-brand-wineDeep section-title" data-text="reviewsTitle"></h2>
+      <p class="mt-5 text-gray-500 font-medium" data-text="reviewsSub"></p>
     </div>
     <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="reviewsWrap"></div>
   </div>
 </section>
 
+<!-- ✅ FAQ Section -->
 <section class="bg-white py-16 sm:py-24">
   <div class="max-w-3xl mx-auto px-4">
     <div class="text-center" data-reveal>
-      <span class="text-[11px] tracking-[3px] text-brand-gold font-bold">الأسئلة الشائعة</span>
-      <h2 class="mt-3 font-amiri text-3xl sm:text-4xl font-bold text-brand-dark">كل ما تحتاجين معرفته</h2>
-      <div class="divider-gold"></div>
+      <span class="text-[11px] tracking-[4px] text-brand-gold font-black">الأسئلة الشائعة</span>
+      <h2 class="mt-4 font-amiri text-3xl sm:text-4xl font-bold text-brand-wineDeep section-title">كل ما تحتاجين معرفته</h2>
     </div>
     <div class="mt-12 space-y-3" id="faqWrap"></div>
   </div>
 </section>
 
-<footer class="bg-brand-dark text-white pt-14 pb-10">
+<!-- ✅ Final CTA Section -->
+<section class="bg-luxury-dark py-16 relative overflow-hidden">
+  <div class="pointer-events-none absolute inset-0 opacity-10" style="background-image:radial-gradient(circle,#C9A961 1px,transparent 1px);background-size:30px 30px"></div>
+  <div class="relative max-w-3xl mx-auto px-4 text-center">
+    <div class="text-5xl mb-4">🎁</div>
+    <h2 class="font-amiri text-3xl sm:text-4xl font-bold text-white mb-4">لا تفوتي الفرصة</h2>
+    <p class="text-white/70 font-medium mb-6 max-w-lg mx-auto">العرض ساري لفترة محدودة، والكمية تنقص بسرعة. أطلبي الآن واستفيدي من التوصيل المجاني والدفع عند الاستلام.</p>
+    <a href="#order" class="btn-gold cta-pulse inline-flex items-center gap-2 px-10 py-4 rounded-2xl text-base font-black">
+      <span>🛍️</span>
+      <span>اطلبي الآن بسعر 299 درهم</span>
+    </a>
+  </div>
+</section>
+
+<!-- ✅ Footer -->
+<footer class="bg-brand-wineDeep text-white pt-16 pb-10">
   <div class="max-w-6xl mx-auto px-4">
     <div class="grid sm:grid-cols-3 gap-10">
       <div>
         <div class="flex items-center gap-3">
-          <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-brand-gold/40"><img src="https://i.postimg.cc/pV7rhCMm/514347097-18075713759506570-1219391976996982719-n.jpg" alt="WARDAA" class="w-full h-full object-cover"></div>
-          <div><div class="font-amiri text-xl font-bold text-brand-gold" data-text="brandName"></div><div class="text-[10px] tracking-[3px] text-brand-gold/60 mt-1 lowercase">warda_dressing</div></div>
+          <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-brand-gold/50 shadow-lg"><img src="https://i.postimg.cc/pV7rhCMm/514347097-18075713759506570-1219391976996982719-n.jpg" alt="WARDAA" class="w-full h-full object-cover"></div>
+          <div>
+            <div class="font-amiri text-xl font-bold text-brand-gold" data-text="brandName"></div>
+            <div class="text-[10px] tracking-[3px] text-brand-gold/60 mt-1 lowercase">warda_dressing</div>
+          </div>
         </div>
-        <p class="mt-5 text-[13px] leading-relaxed text-white/70" data-text="footerDesc"></p>
+        <p class="mt-5 text-[13px] leading-relaxed text-white/60 font-medium" data-text="footerDesc"></p>
       </div>
       <div>
-        <h4 class="font-amiri text-lg font-bold text-brand-gold">روابط</h4>
-        <ul class="mt-5 space-y-3 text-[13.5px] text-white/70"><li><a href="#" class="hover:text-brand-gold transition">الرئيسية</a></li><li><a href="#order" class="hover:text-brand-gold transition">اطلبي الآن</a></li></ul>
+        <h4 class="font-amiri text-lg font-bold text-brand-gold mb-5">روابط</h4>
+        <ul class="space-y-3 text-[13.5px] font-semibold text-white/70">
+          <li><a href="#" class="hover:text-brand-gold transition inline-flex items-center gap-2"><span>◆</span> الرئيسية</a></li>
+          <li><a href="#order" class="hover:text-brand-gold transition inline-flex items-center gap-2"><span>◆</span> اطلبي الآن</a></li>
+        </ul>
       </div>
       <div>
-        <h4 class="font-amiri text-lg font-bold text-brand-gold">تواصلي معنا</h4>
-        <div class="mt-5 space-y-3">
-          <a href="https://wa.me/212614190010" target="_blank" rel="noopener" class="block text-[13.5px] text-white/70 hover:text-brand-gold transition">✆ واتساب: 0614190010</a>
-          <a href="https://www.instagram.com/warda_dressing/" target="_blank" rel="noopener" class="block text-[13.5px] text-white/70 hover:text-brand-gold transition">◈ انستغرام: @warda_dressing</a>
+        <h4 class="font-amiri text-lg font-bold text-brand-gold mb-5">تواصلي معنا</h4>
+        <div class="space-y-3">
+          <a href="https://wa.me/212614190010" target="_blank" rel="noopener" class="flex items-center gap-3 text-[13.5px] font-semibold text-white/70 hover:text-brand-gold transition"><span class="text-lg">💬</span> واتساب: 0614190010</a>
+          <a href="https://www.instagram.com/warda_dressing/" target="_blank" rel="noopener" class="flex items-center gap-3 text-[13.5px] font-semibold text-white/70 hover:text-brand-gold transition"><span class="text-lg">📸</span> @warda_dressing</a>
         </div>
       </div>
     </div>
-    <div class="mt-12 pt-6 border-t border-white/10 text-center text-[12px] text-white/50">© <span id="year">2025</span> وردة دريسينغ — جميع الحقوق محفوظة</div>
+    <div class="mt-12 pt-6 border-t border-white/10 text-center text-[12px] font-bold text-white/40">© <span id="year">2025</span> وردة دريسينغ — جميع الحقوق محفوظة</div>
   </div>
 </footer>
 
-<div id="stickyBar" class="fixed bottom-0 left-0 right-0 z-40 bg-brand-dark border-t border-brand-gold/30 translate-y-full transition-transform duration-300">
+<!-- ✅ Sticky Bar -->
+<div id="stickyBar" class="fixed bottom-0 left-0 right-0 z-40 bg-white border-t-2 border-brand-gold shadow-[0_-10px_30px_-10px_rgba(123,45,62,.3)] translate-y-full transition-transform duration-300">
   <div class="max-w-6xl mx-auto px-3 py-3 flex items-center gap-3">
-    <a href="https://wa.me/212614190010" target="_blank" rel="noopener" class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-green-600 text-lg text-white">✆</a>
-    <div class="shrink-0 text-center"><div class="font-amiri text-xl font-bold text-brand-gold leading-none" data-price-display>0</div><div class="text-[10px] text-white/50 line-through" data-old-price-short></div></div>
-    <a href="#order" class="flex-1 bg-brand-gold text-brand-dark py-3 text-center text-[13px] sm:text-base font-bold tracking-wide">اطلبي الآن</a>
+    <a href="https://wa.me/212614190010" target="_blank" rel="noopener" class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-green-500 text-xl text-white shadow-lg hover:scale-105 transition">💬</a>
+    <div class="shrink-0 text-center">
+      <div class="font-amiri text-2xl font-bold text-brand-wine leading-none" data-price-display>0</div>
+      <div class="text-[10px] font-bold text-gray-400 line-through" data-old-price-short></div>
+    </div>
+    <a href="#order" class="flex-1 btn-gold py-3.5 rounded-xl text-center text-[14px] font-black">
+      🛍️ اطلبي الآن — الدفع عند الاستلام
+    </a>
   </div>
 </div>
 
-<div id="toast" class="pointer-events-none fixed bottom-24 right-4 z-30 hidden w-[min(320px,calc(100vw-2rem))]">
-  <div class="flex items-center gap-3 bg-white border border-brand-gold/30 p-3 shadow-xl">
-    <div class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-brand-wineLight text-lg text-brand-wine">◈</div>
-    <div class="min-w-0"><p class="truncate text-[13px] font-bold text-brand-dark"><span id="toastName">فاطمة</span> من <span id="toastCity">الدار البيضاء</span></p><p class="text-[11px] text-brand-gray">اشترت <span id="toastTime">قبل دقيقة</span></p></div>
+<!-- ✅ Toast -->
+<div id="toast" class="pointer-events-none fixed bottom-28 right-4 z-30 hidden w-[min(340px,calc(100vw-2rem))]">
+  <div class="flex items-center gap-3 bg-white border-2 border-brand-gold/30 p-3 rounded-2xl shadow-2xl">
+    <div class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-wine to-brand-wineDeep text-xl text-brand-gold">🛍️</div>
+    <div class="min-w-0">
+      <p class="truncate text-[13px] font-black text-brand-wineDeep"><span id="toastName">فاطمة</span> من <span id="toastCity">الدار البيضاء</span></p>
+      <p class="text-[11px] font-bold text-gray-500">طلبت <span id="toastTime">قبل دقيقة</span> ✅</p>
+    </div>
   </div>
 </div>
 
+<!-- ✅ Admin Panel -->
 <div id="adminPanel" style="position:fixed;bottom:100px;left:16px;z-index:9999;background:#1A1A1A;color:#fff;border-radius:12px;padding:14px;box-shadow:0 20px 60px rgba(0,0,0,.7);font-family:Tajawal,sans-serif;width:420px;max-width:94vw;direction:rtl;border:1px solid #C9A961;max-height:85vh;overflow-y:auto">
   <div style="font-weight:800;font-size:16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:8px"><span>لوحة التحكم</span><span style="font-size:10px;background:#C9A961;color:#1A1A1A;padding:3px 8px;border-radius:4px;font-weight:800;letter-spacing:1px">ADMIN</span></div>
   <div id="adminSyncStatus" class="admin-status warn">جاري التحقق من السيرفر...</div>
@@ -294,11 +508,11 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   <div class="admin-section active" data-section="stock"><div style="font-size:11.5px;opacity:.6;margin-bottom:8px">حدد الألوان المتوفرة + احذف</div><div id="adminStockRows"></div></div>
   <div class="admin-section" data-section="images">
     <div style="font-size:11.5px;opacity:.6;margin-bottom:8px">✏️ يمكنك تغيير اسم اللون بنفسك من الحقل</div>
-    <button type="button" id="adminRefreshAllColors" style="background:#C9A961;color:#1A1A1A;font-weight:800;border:0;padding:10px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:12px;width:100%;margin-bottom:10px">🔄 تحديث الألوان تلقائياً (اختياري)</button>
+    <button type="button" id="adminRefreshAllColors" style="background:#C9A961;color:#1A1A1A;font-weight:800;border:0;padding:10px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:12px;width:100%;margin-bottom:10px">🔄 تحديث الألوان تلقائياً</button>
     <div id="adminImageRows"></div>
   </div>
   <div class="admin-section" data-section="sizes">
-    <div style="font-size:11.5px;opacity:.6;margin-bottom:8px">أضف أحجام الملابس (S, M, L, XL, XXL أو أرقام)</div>
+    <div style="font-size:11.5px;opacity:.6;margin-bottom:8px">أضف أحجام الملابس</div>
     <label class="admin-label">حجم جديد</label>
     <div style="display:flex;gap:6px;margin-bottom:10px">
       <input id="adminNewSize" type="text" class="admin-input" placeholder="مثال: L أو 42" style="margin-bottom:0">
@@ -316,15 +530,15 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
     <label class="admin-label">اسم البراند (لاتيني)</label><input id="txtBrandSub" type="text" class="admin-input">
     <label class="admin-label">العنوان الرئيسي</label><input id="txtHeroTitle" type="text" class="admin-input">
     <label class="admin-label">وصف المنتج</label><textarea id="txtHeroDesc" class="admin-textarea"></textarea>
-    <label class="admin-label">اسم المنتج (الاستمارة)</label><input id="txtProductName" type="text" class="admin-input">
+    <label class="admin-label">اسم المنتج</label><input id="txtProductName" type="text" class="admin-input">
     <label class="admin-label">عنوان الاستمارة</label><input id="txtOrderTitle" type="text" class="admin-input">
-    <label class="admin-label">المميزات (كل ميزة في سطر)</label><textarea id="txtFeatures" class="admin-textarea"></textarea>
+    <label class="admin-label">المميزات</label><textarea id="txtFeatures" class="admin-textarea"></textarea>
     <label class="admin-label">عنوان قسم المميزات</label><input id="txtFeaturesTitle" type="text" class="admin-input">
     <label class="admin-label">عنوان التقييمات</label><input id="txtReviewsTitle" type="text" class="admin-input">
     <label class="admin-label">نص المخزون المحدود</label><input id="txtStockAlert" type="text" class="admin-input">
   </div>
   <div class="admin-section" data-section="add">
-    <label class="admin-label">اسم اللون (كيتعمر تلقائياً من الصورة)</label>
+    <label class="admin-label">اسم اللون</label>
     <input id="adminNewName" type="text" class="admin-input" placeholder="مثال: بني">
     <label class="admin-label">اللون</label>
     <input id="adminNewHex" type="color" value="#7B2D3E" style="width:100%;height:42px;background:#1a1a1a;border:1px solid #333;border-radius:0.5rem;cursor:pointer;margin-bottom:8px">
@@ -352,9 +566,7 @@ var SHEET_URL = "https://script.google.com/macros/s/AKfycbyu3O90JhESRpVHoCjlPFPc
 var BRAND_MARKER = "warda_dressing_v3";
 
 var WHATSAPP_NUMBER = "212614190010";
-var PHONE_DISPLAY = "0614190010";
 var INSTAGRAM_URL = "https://www.instagram.com/warda_dressing/";
-var INSTAGRAM_HANDLE = "warda_dressing";
 
 var DEFAULT_PRICE = 299;
 var DEFAULT_OLD_PRICE = 450;
@@ -375,27 +587,26 @@ var DEFAULT_SIZES = [
   {name:"XXL", available:true}
 ];
 
-/* ✅✅✅ اسم المنتج: Survet piknik ✅✅✅ */
 var DEFAULT_TEXTS = {
   brandName: "وردة دريسينغ",
   brandSub: "warda_dressing",
-  heroTitle: "أزياء نسائية عصرية تليق بذوقك",
-  heroDesc: "موديلات مختارة بعناية من أحدث صيحات الموضة، بجودة عالية وأقمشة مريحة، توصلك حتى باب دارك مع إمكانية الدفع عند الاستلام.",
-  heroBadge: "✦ موديلات مختارة بعناية ✦",
+  heroTitle: "أناقة مغربية تليق بذوقك الرفيع",
+  heroDesc: "موديلات مختارة بعناية من أحدث صيحات الموضة العالمية، بأقمشة فاخرة وخياطة متقنة، توصلك حتى باب دارك مع الدفع عند الاستلام.",
+  heroBadge: "✦ المجموعة الجديدة ✦",
   productName: "Survet piknik",
   orderTitle: "الدفع عند الاستلام",
   orderSub: "عمري المعلومات وسنتواصل معك عبر الواتساب",
   featuresTitle: "لماذا تختارين وردة دريسينغ؟",
   featuresBadge: "مميزاتنا",
   features: [
-    "موديلات عصرية||مختارة بعناية من أحدث صيحات الموضة العالمية||◈",
-    "جودة عالية||أقمشة مريحة وخياطة متقنة تدوم طويلاً||✦",
-    "توصيل سريع||لجميع المناطق مع إمكانية الدفع عند الاستلام||◆",
-    "أسعار مناسبة||أثمنة في متناول الجميع مع ضمان الجودة||◇"
+    "موديلات عصرية||مختارة بعناية من أحدث صيحات الموضة العالمية||👗",
+    "جودة عالية||أقمشة فريدة وخياطة متقنة تدوم طويلاً||✨",
+    "توصيل سريع||لجميع المناطق مع إمكانية الدفع عند الاستلام||🚚",
+    "أسعار مناسبة||أثمنة في متناول الجميع مع ضمان الجودة||💎"
   ],
   reviewsTitle: "ماذا قالت زبوناتنا؟",
   reviewsSub: "أكثر من 850 زبونة وثقن فينا",
-  stockAlert: "✦ الكمية محدودة — سارعي بالطلب ✦",
+  stockAlert: "الكمية محدودة — سارعي بالطلب",
   footerDesc: "أزياء نسائية عصرية وموديلات مختارة بعناية، مع توصيل سريع لجميع المناطق."
 };
 
@@ -404,54 +615,35 @@ var IS_ADMIN = new URLSearchParams(location.search).has('admin');
 async function extractDominantColor(imgUrl){
   if(!imgUrl) return null;
   var cleanUrl = imgUrl.replace(/^https?:\/\//, '');
-  var attempts = [
-    'https://images.weserv.nl/?url=' + cleanUrl,
-    'https://images.weserv.nl/?url=' + encodeURIComponent(cleanUrl),
-    imgUrl,
-    'https://wsrv.nl/?url=' + cleanUrl
-  ];
-  for(var i = 0; i < attempts.length; i++){
-    var result = await tryLoadAndExtract(attempts[i]);
-    if(result) return result;
-  }
+  var attempts = ['https://images.weserv.nl/?url=' + cleanUrl,'https://images.weserv.nl/?url=' + encodeURIComponent(cleanUrl),imgUrl,'https://wsrv.nl/?url=' + cleanUrl];
+  for(var i = 0; i < attempts.length; i++){ var result = await tryLoadAndExtract(attempts[i]); if(result) return result; }
   return null;
 }
-
 function tryLoadAndExtract(url){
   return new Promise(function(resolve){
-    var img = new Image();
-    img.crossOrigin = 'anonymous';
-    var done = false;
+    var img = new Image(); img.crossOrigin = 'anonymous'; var done = false;
     var timeout = setTimeout(function(){ if(!done){ done = true; resolve(null); } }, 8000);
     img.onload = function(){
       if(done) return; done = true; clearTimeout(timeout);
       try {
-        var canvas = document.createElement('canvas');
-        var ctx = canvas.getContext('2d');
-        canvas.width = 100; canvas.height = 100;
-        ctx.drawImage(img, 0, 0, 100, 100);
-        var data = ctx.getImageData(0, 0, 100, 100).data;
-        var buckets = {};
-        for(var y = 20; y < 80; y++){
-          for(var x = 20; x < 80; x++){
-            var idx = (y * 100 + x) * 4;
-            var rr = data[idx], gg = data[idx+1], bb = data[idx+2], aa = data[idx+3];
-            if(aa < 128) continue;
-            var max = Math.max(rr,gg,bb), min = Math.min(rr,gg,bb);
-            var brightness = (rr+gg+bb)/3;
-            if(brightness > 245 || brightness < 12) continue;
-            if(gg > rr + 35 && gg > bb + 35) continue;
-            var key = (Math.round(rr/15)*15) + ',' + (Math.round(gg/15)*15) + ',' + (Math.round(bb/15)*15);
-            buckets[key] = (buckets[key] || 0) + 1;
-          }
-        }
+        var canvas = document.createElement('canvas'); var ctx = canvas.getContext('2d');
+        canvas.width = 100; canvas.height = 100; ctx.drawImage(img, 0, 0, 100, 100);
+        var data = ctx.getImageData(0, 0, 100, 100).data; var buckets = {};
+        for(var y = 20; y < 80; y++){ for(var x = 20; x < 80; x++){
+          var idx = (y * 100 + x) * 4;
+          var rr = data[idx], gg = data[idx+1], bb = data[idx+2], aa = data[idx+3];
+          if(aa < 128) continue;
+          var max = Math.max(rr,gg,bb), min = Math.min(rr,gg,bb);
+          var brightness = (rr+gg+bb)/3;
+          if(brightness > 245 || brightness < 12) continue;
+          if(gg > rr + 35 && gg > bb + 35) continue;
+          var key = (Math.round(rr/15)*15) + ',' + (Math.round(gg/15)*15) + ',' + (Math.round(bb/15)*15);
+          buckets[key] = (buckets[key] || 0) + 1;
+        }}
         var best = null, bestN = 0;
         for(var k in buckets){ if(buckets[k] > bestN){ bestN = buckets[k]; best = k; } }
-        if(best){
-          var p = best.split(',').map(Number);
-          var hex = '#' + p.map(function(x){ return Math.max(0, Math.min(255, x)).toString(16).padStart(2,'0'); }).join('');
-          resolve(hex);
-        } else resolve(null);
+        if(best){ var p = best.split(',').map(Number); resolve('#' + p.map(function(x){ return Math.max(0, Math.min(255, x)).toString(16).padStart(2,'0'); }).join('')); }
+        else resolve(null);
       } catch(e) { resolve(null); }
     };
     img.onerror = function(){ if(done) return; done = true; clearTimeout(timeout); resolve(null); };
@@ -474,46 +666,26 @@ async function toDirectImgBB(url){
 }
 
 async function autoUpdateAllColors(){
-  var colors = getColors();
-  var updated = 0, failed = 0;
+  var colors = getColors(); var updated = 0, failed = 0;
   for(var i = 0; i < colors.length; i++){
-    var c = colors[i];
-    if(!c.img || c.img.indexOf('placehold.co') !== -1) continue;
-    try {
-      var direct = await toDirectImgBB(c.img);
-      var detected = await extractDominantColor(direct);
-      if(detected){ c.hex = detected; updated++; }
-      else failed++;
+    var c = colors[i]; if(!c.img || c.img.indexOf('placehold.co') !== -1) continue;
+    try { var direct = await toDirectImgBB(c.img); var detected = await extractDominantColor(direct);
+      if(detected){ c.hex = detected; updated++; } else failed++;
     } catch(e) { failed++; }
   }
   if(updated > 0){ saveColorsLocal(colors); applyAll(); renderAdminPanel(); await saveToServer(); }
   return {updated: updated, failed: failed};
 }
 
-function getTexts(){
-  try { var s = JSON.parse(localStorage.getItem(STORAGE_TEXTS) || 'null');
-    if(s && typeof s === 'object'){ var m = JSON.parse(JSON.stringify(DEFAULT_TEXTS)); Object.keys(s).forEach(function(k){ if(s[k]) m[k] = s[k]; }); return m; }
-  } catch(e){}
-  return JSON.parse(JSON.stringify(DEFAULT_TEXTS));
-}
+function getTexts(){ try { var s = JSON.parse(localStorage.getItem(STORAGE_TEXTS) || 'null'); if(s && typeof s === 'object'){ var m = JSON.parse(JSON.stringify(DEFAULT_TEXTS)); Object.keys(s).forEach(function(k){ if(s[k]) m[k] = s[k]; }); return m; } } catch(e){} return JSON.parse(JSON.stringify(DEFAULT_TEXTS)); }
 function saveTextsLocal(t){ try{localStorage.setItem(STORAGE_TEXTS,JSON.stringify(t));}catch(e){} }
-
-function getColors(){
-  try { var s = JSON.parse(localStorage.getItem(STORAGE_COLORS) || 'null'); if(Array.isArray(s) && s.length > 0) return s; } catch(e){}
-  return JSON.parse(JSON.stringify(DEFAULT_COLORS));
-}
+function getColors(){ try { var s = JSON.parse(localStorage.getItem(STORAGE_COLORS) || 'null'); if(Array.isArray(s) && s.length > 0) return s; } catch(e){} return JSON.parse(JSON.stringify(DEFAULT_COLORS)); }
 function saveColorsLocal(c){ try{localStorage.setItem(STORAGE_COLORS,JSON.stringify(c));}catch(e){} }
-
-function getSizes(){
-  try { var s = JSON.parse(localStorage.getItem(STORAGE_SIZES) || 'null'); if(Array.isArray(s) && s.length > 0) return s; } catch(e){}
-  return JSON.parse(JSON.stringify(DEFAULT_SIZES));
-}
+function getSizes(){ try { var s = JSON.parse(localStorage.getItem(STORAGE_SIZES) || 'null'); if(Array.isArray(s) && s.length > 0) return s; } catch(e){} return JSON.parse(JSON.stringify(DEFAULT_SIZES)); }
 function saveSizesLocal(s){ try{localStorage.setItem(STORAGE_SIZES,JSON.stringify(s));}catch(e){} }
-
 function getPrice(){ var p = localStorage.getItem(STORAGE_PRICE); return p ? Number(p) : DEFAULT_PRICE; }
 function getOldPrice(){ var p = localStorage.getItem(STORAGE_OLD_PRICE); return p ? Number(p) : DEFAULT_OLD_PRICE; }
-var PRICE = getPrice();
-var OLD_PRICE = getOldPrice();
+var PRICE = getPrice(); var OLD_PRICE = getOldPrice();
 
 function applyTexts(){
   var t = getTexts();
@@ -521,14 +693,14 @@ function applyTexts(){
   var hl = document.getElementById('heroFeaturesList');
   if(hl && t.features){
     hl.innerHTML = '';
-    t.features.forEach(function(f){ var p = f.split('||'); var li = document.createElement('li'); li.className = 'flex items-center gap-3 text-[14px] text-brand-dark'; li.innerHTML = '<span class="text-brand-gold">◆</span> <span>' + p[0] + '</span>'; hl.appendChild(li); });
+    t.features.forEach(function(f){ var p = f.split('||'); var li = document.createElement('li'); li.className = 'flex items-center gap-3 text-[14.5px] text-gray-700 font-semibold'; li.innerHTML = '<span class="grid h-6 w-6 place-items-center rounded-full bg-green-100 text-green-600 text-xs font-black">✓</span> <span>' + p[0] + '</span>'; hl.appendChild(li); });
   }
   var g = document.getElementById('featuresGrid');
   if(g && t.features){
     var html = '';
     t.features.forEach(function(f){
       var p = f.split('||');
-      html += '<div class="text-center p-6 border border-brand-gold/20 bg-brand-cream/40 hover:border-brand-gold/50 transition" data-reveal><div class="mx-auto w-14 h-14 rounded-full border border-brand-gold/40 grid place-items-center text-xl text-brand-gold bg-white">' + (p[2]||'◆') + '</div><h3 class="mt-5 font-amiri text-lg font-bold text-brand-dark">' + (p[0]||'') + '</h3><div class="divider-gold" style="width:30px;margin:.75rem auto"></div><p class="text-[13px] text-brand-gray leading-relaxed">' + (p[1]||'') + '</p></div>';
+      html += '<div class="card-luxury text-center p-6" data-reveal><div class="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-pinkLight to-brand-goldLight grid place-items-center text-3xl shadow-inner">' + (p[2]||'✨') + '</div><h3 class="mt-5 font-amiri text-xl font-bold text-brand-wineDeep">' + (p[0]||'') + '</h3><div class="divider-gold" style="width:40px;margin:.75rem auto"></div><p class="text-[13.5px] text-gray-600 leading-relaxed font-medium">' + (p[1]||'') + '</p></div>';
     });
     g.innerHTML = html;
     g.querySelectorAll('[data-reveal]').forEach(function(el){ setTimeout(function(){el.classList.add('is-visible');},100); });
@@ -540,9 +712,9 @@ function renderColorChips(){
   var c = document.getElementById('colorChips'); var colors = getColors(); var h = '';
   colors.forEach(function(x){
     var a = state.color === x.name, s = x.available === false;
-    var cls = 'color-chip flex items-center gap-2 px-3.5 py-2.5 text-[12.5px] font-semibold';
+    var cls = 'color-chip flex items-center gap-2 px-4 py-2.5 text-[13px] font-bold';
     if(a) cls += ' is-active'; if(s) cls += ' is-soldout';
-    h += '<button type="button" data-color="' + x.name + '" class="' + cls + '"' + (s?' disabled':'') + '><span class="w-3.5 h-3.5 rounded-full ring-1 ring-offset-1 ring-gray-300" style="background:' + x.hex + '"></span> ' + x.name + '</button>';
+    h += '<button type="button" data-color="' + x.name + '" class="' + cls + '"' + (s?' disabled':'') + '><span class="w-4 h-4 rounded-full ring-2 ring-white shadow" style="background:' + x.hex + '"></span> ' + x.name + '</button>';
   });
   c.innerHTML = h;
   c.querySelectorAll('[data-color]').forEach(function(b){ b.addEventListener('click', function(){ applyColor(b.dataset.color, true); }); });
@@ -553,7 +725,7 @@ function renderFormColors(){
   colors.forEach(function(x){
     var ck = state.color === x.name, s = x.available === false;
     var dAttr = s ? ' disabled' : '';
-    h += '<label class="cursor-pointer" data-form-color="' + x.name + '"' + (s?' style="opacity:.4;pointer-events:none"':'') + '><input type="radio" name="color" value="' + x.name + '" class="peer sr-only"' + (ck?' checked':'') + dAttr + '><span class="flex items-center gap-2 border border-gray-300 px-3 py-2 text-[12px] font-semibold transition peer-checked:border-brand-wine peer-checked:bg-brand-wineLight text-brand-dark"><span class="h-3 w-3 rounded-full ring-1 ring-offset-1 ring-gray-300" style="background:' + x.hex + '"></span> ' + x.name + '</span></label>';
+    h += '<label class="cursor-pointer" data-form-color="' + x.name + '"' + (s?' style="opacity:.4;pointer-events:none"':'') + '><input type="radio" name="color" value="' + x.name + '" class="peer sr-only"' + (ck?' checked':'') + dAttr + '><span class="flex items-center gap-2 border-2 border-gray-200 rounded-xl px-3.5 py-2.5 text-[12.5px] font-bold transition peer-checked:border-brand-wine peer-checked:bg-brand-wineLight peer-checked:shadow-md text-brand-wineDeep"><span class="h-4 w-4 rounded-full ring-2 ring-white shadow" style="background:' + x.hex + '"></span> ' + x.name + '</span></label>';
   });
   c.innerHTML = h;
   c.querySelectorAll('input[name="color"]').forEach(function(r){ r.addEventListener('change', function(){ applyColor(r.value, true); }); });
@@ -561,8 +733,7 @@ function renderFormColors(){
 
 function renderFormSizes(){
   var c = document.getElementById('formSizes'); if(!c) return;
-  var sizes = getSizes();
-  var sec = document.getElementById('sizeSection');
+  var sizes = getSizes(); var sec = document.getElementById('sizeSection');
   if(sizes.length === 0){ sec.style.display = 'none'; return; }
   sec.style.display = 'block';
   var h = '';
@@ -578,15 +749,10 @@ function renderFormSizes(){
   c.innerHTML = h;
   c.querySelectorAll('input[name="size"]').forEach(function(r){
     r.addEventListener('change', function(){
-      state.size = r.value;
-      updateSummary();
-      c.querySelectorAll('.size-chip').forEach(function(chip){
-        chip.classList.remove('is-active');
-      });
+      state.size = r.value; updateSummary();
+      c.querySelectorAll('.size-chip').forEach(function(chip){ chip.classList.remove('is-active'); });
       var chip = r.nextElementSibling;
-      if(chip && chip.classList.contains('size-chip')){
-        chip.classList.add('is-active');
-      }
+      if(chip && chip.classList.contains('size-chip')){ chip.classList.add('is-active'); }
     });
   });
 }
@@ -616,61 +782,27 @@ function renderAdminImageRows(){
   var c = document.getElementById('adminImageRows'); if(!c) return; c.innerHTML = '';
   getColors().forEach(function(x){
     var r = document.createElement('div'); r.style.cssText = 'padding:10px 0;border-bottom:1px solid #262626';
-    r.innerHTML =
-      '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">' +
-        '<span class="admin-color-dot" style="background:' + x.hex + '"></span>' +
-        '<input type="text" class="admin-name-input" value="' + x.name + '" placeholder="اسم اللون" data-name-for="' + x.name + '">' +
-        '<span style="font-size:10px;color:#888;white-space:nowrap">' + x.hex + '</span>' +
-      '</div>' +
-      '<div style="display:flex;gap:6px;align-items:center">' +
-        '<img src="' + x.img + '" style="width:36px;height:36px;object-fit:cover;border-radius:4px;border:1px solid #333;flex-shrink:0" data-preview>' +
-        '<input type="text" class="admin-img-input" data-img-color="' + x.name + '" value="' + x.img + '">' +
-      '</div>';
+    r.innerHTML = '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span class="admin-color-dot" style="background:' + x.hex + '"></span><input type="text" class="admin-name-input" value="' + x.name + '" placeholder="اسم اللون" data-name-for="' + x.name + '"><span style="font-size:10px;color:#888;white-space:nowrap">' + x.hex + '</span></div><div style="display:flex;gap:6px;align-items:center"><img src="' + x.img + '" style="width:36px;height:36px;object-fit:cover;border-radius:4px;border:1px solid #333;flex-shrink:0" data-preview><input type="text" class="admin-img-input" data-img-color="' + x.name + '" value="' + x.img + '"></div>';
     c.appendChild(r);
-
-    var nameInput = r.querySelector('[data-name-for]');
-    var imgInput = r.querySelector('input[data-img-color]');
-    var preview = r.querySelector('[data-preview]');
-
+    var nameInput = r.querySelector('[data-name-for]'); var imgInput = r.querySelector('input[data-img-color]'); var preview = r.querySelector('[data-preview]');
     var oldName = x.name;
     nameInput.addEventListener('input', function(){
-      var newName = nameInput.value.trim();
-      if(!newName || newName === oldName) return;
-      var cs = getColors();
-      if(cs.find(function(y){ return y.name === newName; })){
-        nameInput.style.borderColor = '#ef4444';
-        return;
-      }
+      var newName = nameInput.value.trim(); if(!newName || newName === oldName) return;
+      var cs = getColors(); if(cs.find(function(y){ return y.name === newName; })){ nameInput.style.borderColor = '#ef4444'; return; }
       nameInput.style.borderColor = '#C9A961';
-      cs.forEach(function(y){ if(y.name === oldName) y.name = newName; });
-      saveColorsLocal(cs);
+      cs.forEach(function(y){ if(y.name === oldName) y.name = newName; }); saveColorsLocal(cs);
       if(state.color === oldName) state.color = newName;
-      oldName = newName;
-      imgInput.setAttribute('data-img-color', newName);
-      applyAll();
-      renderAdminStockRows();
+      oldName = newName; imgInput.setAttribute('data-img-color', newName);
+      applyAll(); renderAdminStockRows();
     });
-    nameInput.addEventListener('blur', function(){
-      var v = nameInput.value.trim();
-      if(!v){ nameInput.value = oldName; nameInput.style.borderColor = '#C9A961'; }
-    });
-
+    nameInput.addEventListener('blur', function(){ var v = nameInput.value.trim(); if(!v){ nameInput.value = oldName; nameInput.style.borderColor = '#C9A961'; } });
     imgInput.addEventListener('input', async function(){
       var v = imgInput.value.trim();
       if(v.indexOf('http') === 0){
-        var d = await toDirectImgBB(v);
-        preview.src = d;
-        var cs = getColors();
-        cs.forEach(function(y){ if(y.name === oldName) y.img = d; });
-        saveColorsLocal(cs); applyAll();
+        var d = await toDirectImgBB(v); preview.src = d;
+        var cs = getColors(); cs.forEach(function(y){ if(y.name === oldName) y.img = d; }); saveColorsLocal(cs); applyAll();
         var detected = await extractDominantColor(d);
-        if(detected){
-          cs = getColors();
-          cs.forEach(function(y){ if(y.name === oldName) y.hex = detected; });
-          saveColorsLocal(cs); applyAll();
-          var hexSpan = r.querySelector('span[style*="font-size:10px"]');
-          if(hexSpan) hexSpan.textContent = detected;
-        }
+        if(detected){ cs = getColors(); cs.forEach(function(y){ if(y.name === oldName) y.hex = detected; }); saveColorsLocal(cs); applyAll(); var hexSpan = r.querySelector('span[style*="font-size:10px"]'); if(hexSpan) hexSpan.textContent = detected; }
       }
     });
   });
@@ -679,38 +811,15 @@ function renderAdminImageRows(){
 function renderAdminSizeRows(){
   var c = document.getElementById('adminSizeRows'); if(!c) return; c.innerHTML = '';
   var sizes = getSizes();
-  if(sizes.length === 0){
-    c.innerHTML = '<div style="text-align:center;color:#666;padding:20px;font-size:12px">ما كاينش أحجام — زيد واحد</div>';
-    return;
-  }
+  if(sizes.length === 0){ c.innerHTML = '<div style="text-align:center;color:#666;padding:20px;font-size:12px">ما كاينش أحجام</div>'; return; }
   sizes.forEach(function(s){
     var avail = s.available !== false;
     var r = document.createElement('div'); r.className = 'admin-row';
-    r.innerHTML =
-      '<input type="checkbox" data-size-avail="' + s.name + '" ' + (avail?'checked':'') + ' style="width:18px;height:18px;accent-color:#C9A961;cursor:pointer">' +
-      '<span style="flex:1;font-weight:700;color:#fff;font-size:14px">' + s.name + '</span>' +
-      '<span style="font-size:10px;color:' + (avail?'#4ade80':'#ef4444') + ';font-weight:700;padding:2px 6px;background:rgba(' + (avail?'74,222,128':'239,68,68') + ',.15);border-radius:4px">' + (avail?'متوفر':'نفذ') + '</span>' +
-      '<button type="button" class="admin-del" data-del-size="' + s.name + '">×</button>';
+    r.innerHTML = '<input type="checkbox" data-size-avail="' + s.name + '" ' + (avail?'checked':'') + ' style="width:18px;height:18px;accent-color:#C9A961;cursor:pointer"><span style="flex:1;font-weight:700;color:#fff;font-size:14px">' + s.name + '</span><span style="font-size:10px;color:' + (avail?'#4ade80':'#ef4444') + ';font-weight:700;padding:2px 6px;background:rgba(' + (avail?'74,222,128':'239,68,68') + ',.15);border-radius:4px">' + (avail?'متوفر':'نفذ') + '</span><button type="button" class="admin-del" data-del-size="' + s.name + '">×</button>';
     c.appendChild(r);
   });
-  c.querySelectorAll('input[data-size-avail]').forEach(function(cb){
-    cb.addEventListener('change', function(){
-      var ss = getSizes();
-      var n = cb.dataset.sizeAvail;
-      ss.forEach(function(x){ if(x.name === n) x.available = cb.checked; });
-      saveSizesLocal(ss); renderAdminSizeRows(); renderFormSizes();
-    });
-  });
-  c.querySelectorAll('[data-del-size]').forEach(function(b){
-    b.addEventListener('click', function(){
-      var n = b.dataset.delSize;
-      if(!confirm('حذف الحجم "' + n + '"؟')) return;
-      var ss = getSizes().filter(function(x){ return x.name !== n; });
-      saveSizesLocal(ss);
-      if(state.size === n) state.size = ss.length > 0 ? ss[0].name : null;
-      renderAdminSizeRows(); renderFormSizes(); updateSummary();
-    });
-  });
+  c.querySelectorAll('input[data-size-avail]').forEach(function(cb){ cb.addEventListener('change', function(){ var ss = getSizes(); var n = cb.dataset.sizeAvail; ss.forEach(function(x){ if(x.name === n) x.available = cb.checked; }); saveSizesLocal(ss); renderAdminSizeRows(); renderFormSizes(); }); });
+  c.querySelectorAll('[data-del-size]').forEach(function(b){ b.addEventListener('click', function(){ var n = b.dataset.delSize; if(!confirm('حذف الحجم "' + n + '"؟')) return; var ss = getSizes().filter(function(x){ return x.name !== n; }); saveSizesLocal(ss); if(state.size === n) state.size = ss.length > 0 ? ss[0].name : null; renderAdminSizeRows(); renderFormSizes(); updateSummary(); }); });
 }
 
 function renderAdminTexts(){
@@ -721,23 +830,10 @@ function renderAdminTexts(){
   s('txtFeaturesTitle', t.featuresTitle); s('txtReviewsTitle', t.reviewsTitle); s('txtStockAlert', t.stockAlert);
 }
 
-function renderAdminPanel(){
-  renderAdminStockRows();
-  renderAdminImageRows();
-  renderAdminSizeRows();
-  renderAdminTexts();
-  document.getElementById('adminPriceInput').value = PRICE;
-  document.getElementById('adminOldPriceInput').value = OLD_PRICE;
-}
+function renderAdminPanel(){ renderAdminStockRows(); renderAdminImageRows(); renderAdminSizeRows(); renderAdminTexts(); document.getElementById('adminPriceInput').value = PRICE; document.getElementById('adminOldPriceInput').value = OLD_PRICE; }
 
 function applyAll(){
-  renderColorChips();
-  renderFormColors();
-  renderFormSizes();
-  applyTexts();
-  updateAllPrices();
-  applyStockVisibility();
-  updateSummary();
+  renderColorChips(); renderFormColors(); renderFormSizes(); applyTexts(); updateAllPrices(); applyStockVisibility(); updateSummary();
   var a = state.color; var o = getColors().find(function(x){return x.name === a;});
   if(!o || o.available === false){ var f = getColors().find(function(x){return x.available !== false;}); if(f) a = f.name; }
   if(a) applyColor(a, false);
@@ -764,19 +860,11 @@ async function saveToServer(){
 
 async function fetchFromServer(){
   if(!SHEET_URL || SHEET_URL.indexOf('ضع هنا') !== -1) return null;
-  try {
-    var r = await fetch(SHEET_URL + '?t=' + Date.now(), {method:'GET', cache:'no-store'});
-    var d = await r.json();
-    if(!d) return null;
-    if(d.brand !== BRAND_MARKER) return null;
-    return d;
-  } catch(e) { return null; }
+  try { var r = await fetch(SHEET_URL + '?t=' + Date.now(), {method:'GET', cache:'no-store'}); var d = await r.json(); if(!d) return null; if(d.brand !== BRAND_MARKER) return null; return d; } catch(e) { return null; }
 }
 
 function applyServerData(d){
-  if(!d) return false;
-  if(d.brand !== BRAND_MARKER) return false;
-  var c = false;
+  if(!d) return false; if(d.brand !== BRAND_MARKER) return false; var c = false;
   if(d.colors && Array.isArray(d.colors) && d.colors.length > 0){ localStorage.setItem(STORAGE_COLORS, JSON.stringify(d.colors)); c = true; }
   if(d.texts && typeof d.texts === 'object'){ localStorage.setItem(STORAGE_TEXTS, JSON.stringify(d.texts)); c = true; }
   if(d.sizes && Array.isArray(d.sizes) && d.sizes.length > 0){ localStorage.setItem(STORAGE_SIZES, JSON.stringify(d.sizes)); c = true; }
@@ -786,12 +874,7 @@ function applyServerData(d){
 }
 
 (function(){ try { localStorage.removeItem('admin_texts'); localStorage.removeItem('wd_warda_texts_v3'); localStorage.removeItem('admin_colors'); localStorage.removeItem('admin_price'); localStorage.removeItem('admin_old_price'); localStorage.removeItem('admin_stock'); localStorage.removeItem('admin_images'); } catch(e){} })();
-
-function migrateOld(){
-  if(!localStorage.getItem(STORAGE_COLORS)) saveColorsLocal(JSON.parse(JSON.stringify(DEFAULT_COLORS)));
-  if(!localStorage.getItem(STORAGE_TEXTS)) saveTextsLocal(JSON.parse(JSON.stringify(DEFAULT_TEXTS)));
-  if(!localStorage.getItem(STORAGE_SIZES)) saveSizesLocal(JSON.parse(JSON.stringify(DEFAULT_SIZES)));
-}
+function migrateOld(){ if(!localStorage.getItem(STORAGE_COLORS)) saveColorsLocal(JSON.parse(JSON.stringify(DEFAULT_COLORS))); if(!localStorage.getItem(STORAGE_TEXTS)) saveTextsLocal(JSON.parse(JSON.stringify(DEFAULT_TEXTS))); if(!localStorage.getItem(STORAGE_SIZES)) saveSizesLocal(JSON.parse(JSON.stringify(DEFAULT_SIZES))); }
 
 (function(){ if(location.hash) history.replaceState(null,'',location.pathname+location.search); window.scrollTo(0,0); window.addEventListener('load',function(){ window.scrollTo(0,0); if(document.activeElement && document.activeElement !== document.body) document.activeElement.blur(); }); setTimeout(function(){window.scrollTo(0,0);},300); setTimeout(function(){window.scrollTo(0,0);},800); })();
 (function(){ var b = document.getElementById('stickyBar'); var s = false; function u(){ var y = window.scrollY > 400; if(y !== s){ s = y; b.classList.toggle('translate-y-full', !y); } } window.addEventListener('scroll', u, {passive:true}); u(); })();
@@ -802,16 +885,22 @@ var CITIES = ["الدار البيضاء","الرباط","مراكش","فاس","
 var NOTIFS = [{n:"فاطمة",c:"الدار البيضاء",t:"قبل دقيقة"},{n:"سلمى",c:"الرباط",t:"قبل 3 دقائق"},{n:"ياسمين",c:"مراكش",t:"قبل دقيقتين"},{n:"هند",c:"طنجة",t:"قبل 5 دقائق"},{n:"مريم",c:"أكادير",t:"قبل دقيقة"},{n:"نور",c:"فاس",t:"قبل 4 دقائق"},{n:"إيمان",c:"مكناس",t:"قبل دقيقتين"},{n:"خديجة",c:"وجدة",t:"قبل 6 دقائق"},{n:"زينب",c:"تطوان",t:"قبل 3 دقائق"},{n:"أمينة",c:"القنيطرة",t:"قبل دقيقة"}];
 
 var REVIEWS = [
-  {i:"ف",n:"فاطمة الزهراء",c:"الدار البيضاء",t:"الموديل راقي بزاف، القماش فاخر والخياطة نقية. عجبني الحال!"},
-  {i:"س",n:"سلمى بنعلي",c:"الرباط",t:"خدمة ممتازة، توصيل سريع، والموديل بحال ما كاين فالصورة."},
-  {i:"ي",n:"ياسمين الإدريسي",c:"مراكش",t:"وصلاتني الطلبية بسرعة، والتغليف كان أنيق. شكراً وردة دريسينغ!"},
-  {i:"ه",n:"هند الطاهري",c:"طنجة",t:"خديت موديل للمناسبات، الكل سألني منين شريتو. تستاهل!"},
-  {i:"م",n:"مريم الشرقاوي",c:"أكادير",t:"أحسن متجر مغربي للأزياء. القياسات مضبوطة والخدمة محترمة."},
-  {i:"ن",n:"نور الهدى",c:"فاس",t:"طلبت 3 موديلات مختلفين، كلهم رائعين. غنعاود نطلب إن شاء الله."}
+  {i:"ف",n:"فاطمة الزهراء",c:"الدار البيضاء",t:"الموديل راقي بزاف، القماش فاخر والخياطة نقية. عجبني الحال!",s:5},
+  {i:"س",n:"سلمى بنعلي",c:"الرباط",t:"خدمة ممتازة، توصيل سريع، والموديل بحال ما كاين فالصورة.",s:5},
+  {i:"ي",n:"ياسمين الإدريسي",c:"مراكش",t:"وصلاتني الطلبية بسرعة، والتغليف كان أنيق. شكراً وردة دريسينغ!",s:5},
+  {i:"ه",n:"هند الطاهري",c:"طنجة",t:"خديت موديل للمناسبات، الكل سألني منين شريتو. تستاهل!",s:5},
+  {i:"م",n:"مريم الشرقاوي",c:"أكادير",t:"أحسن متجر مغربي للأزياء. القياسات مضبوطة والخدمة محترمة.",s:5},
+  {i:"ن",n:"نور الهدى",c:"فاس",t:"طلبت 3 موديلات مختلفين، كلهم رائعين. غنعاود نطلب إن شاء الله.",s:5}
 ];
 (function(){
   var h = '';
-  REVIEWS.forEach(function(r){ h += '<article class="bg-white border border-brand-gold/20 p-6" data-reveal><div class="text-brand-gold text-xl mb-4">★★★★★</div><p class="text-[14px] leading-relaxed text-brand-dark italic">"' + r.t + '"</p><div class="mt-5 pt-4 border-t border-brand-gold/20 flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-brand-wine text-white grid place-items-center font-amiri font-bold text-base">' + r.i + '</div><div><div class="font-bold text-[13.5px] text-brand-dark">' + r.n + '</div><div class="text-[11.5px] text-brand-gray">' + r.c + '</div></div></div></article>'; });
+  REVIEWS.forEach(function(r){
+    h += '<article class="card-luxury p-6" data-reveal>';
+    h += '<div class="flex items-center gap-3 mb-4"><div class="w-12 h-12 rounded-full bg-gradient-to-br from-brand-wine to-brand-wineDeep text-white grid place-items-center font-amiri font-bold text-lg shadow-lg">' + r.i + '</div><div class="flex-1"><div class="font-black text-[14px] text-brand-wineDeep">' + r.n + '</div><div class="text-[11.5px] text-gray-500 font-bold">' + r.c + '</div></div><div class="text-brand-gold text-lg">★★★★★</div></div>';
+    h += '<div class="relative"><span class="absolute -top-2 -right-1 text-4xl text-brand-gold/30 font-serif">"</span><p class="text-[13.5px] leading-relaxed text-gray-700 font-medium italic pr-4">' + r.t + '</p></div>';
+    h += '<div class="mt-5 pt-4 border-t border-brand-gold/20 flex items-center gap-2 text-[11px] font-black text-green-600"><span>✓</span> زبونة موثقة</div>';
+    h += '</article>';
+  });
   document.getElementById('reviewsWrap').innerHTML = h;
 })();
 
@@ -825,7 +914,12 @@ var FAQS = [
 ];
 (function(){
   var h = '';
-  FAQS.forEach(function(f){ h += '<div class="faq-item border border-brand-gold/20 bg-white" data-reveal><button type="button" class="faq-head w-full flex items-center justify-between gap-4 p-5 text-right"><span class="font-bold text-[14.5px] text-brand-dark">' + f.q + '</span><span class="faq-icon shrink-0 w-7 h-7 rounded-full border border-brand-gold/40 text-brand-wine grid place-items-center text-sm font-bold transition-all">+</span></button><div class="faq-body px-5"><p class="pb-5 text-[13.5px] leading-relaxed text-brand-gray">' + f.a + '</p></div></div>'; });
+  FAQS.forEach(function(f){
+    h += '<div class="faq-item card-luxury !p-0 overflow-hidden" data-reveal>';
+    h += '<button type="button" class="faq-head w-full flex items-center justify-between gap-4 p-5 text-right"><span class="font-black text-[15px] text-brand-wineDeep">' + f.q + '</span><span class="faq-icon shrink-0 w-8 h-8 rounded-full border-2 border-brand-gold/40 text-brand-wine grid place-items-center font-black transition-all">+</span></button>';
+    h += '<div class="faq-body px-5"><p class="pb-5 text-[13.5px] leading-relaxed text-gray-600 font-medium">' + f.a + '</p></div>';
+    h += '</div>';
+  });
   document.getElementById('faqWrap').innerHTML = h;
   document.querySelectorAll('.faq-head').forEach(function(x){ x.addEventListener('click', function(){ var it = x.closest('.faq-item'); var o = it.classList.contains('is-open'); document.querySelectorAll('.faq-item').forEach(function(y){ y.classList.remove('is-open'); }); if(!o) it.classList.add('is-open'); }); });
 })();
@@ -841,6 +935,8 @@ function updateAllPrices(){
   document.querySelectorAll('[data-price-display]').forEach(function(el){ el.textContent = PRICE; });
   document.querySelectorAll('[data-old-price-display]').forEach(function(el){ el.textContent = OLD_PRICE + ' درهم'; });
   document.querySelectorAll('[data-old-price-short]').forEach(function(el){ el.textContent = OLD_PRICE + ' د.م'; });
+  var savings = document.getElementById('savingsAmount');
+  if(savings) savings.textContent = (OLD_PRICE - PRICE);
   renderQty();
 }
 
@@ -866,7 +962,7 @@ setInterval(function(){
   var i = av.findIndex(function(x){ return x.name === state.color; });
   i = (i + 1) % av.length;
   applyColor(av[i].name, false);
-}, 4500);
+}, 5000);
 
 var qtyEl = document.getElementById('qtyValue'), sumQty = document.getElementById('sumQty'), sumTotal = document.getElementById('sumTotal');
 function renderQty(){ qtyEl.textContent = state.qty; sumQty.textContent = state.qty; sumTotal.textContent = PRICE * state.qty; }
@@ -882,14 +978,40 @@ document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el);
 var sObs = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ playRating(); sObs.disconnect(); } }); }, {threshold:0.4});
 sObs.observe(document.getElementById('starsRow'));
 
+// Live viewers counter
+(function(){
+  var el = document.getElementById('viewersCount');
+  if(!el) return;
+  function update(){ var v = 40 + Math.floor(Math.random() * 25); el.textContent = v; }
+  update();
+  setInterval(update, 5000);
+})();
+
+// Stock countdown (decreases over time)
+(function(){
+  var el = document.getElementById('stockCount');
+  var fill = document.getElementById('stockBarFill');
+  if(!el) return;
+  var stock = 7;
+  var max = 20;
+  function update(){
+    el.textContent = stock;
+    fill.style.width = ((stock / max) * 100) + '%';
+  }
+  update();
+  setInterval(function(){
+    if(stock > 3){ stock--; update(); }
+  }, 45000);
+})();
+
 var toast = document.getElementById('toast'); var ni = 0;
 function showToast(){ var n = NOTIFS[ni % NOTIFS.length]; ni++; document.getElementById('toastName').textContent = n.n; document.getElementById('toastCity').textContent = n.c; document.getElementById('toastTime').textContent = n.t; toast.classList.remove('hidden'); toast.firstElementChild.style.animation = 'slideIn .45s both'; setTimeout(function(){ toast.firstElementChild.style.animation = 'slideOut .4s both'; setTimeout(function(){ toast.classList.add('hidden'); }, 400); }, 5000); }
-setTimeout(showToast, 4000); setInterval(showToast, 7000);
+setTimeout(showToast, 5000); setInterval(showToast, 7000);
 
 var form = document.getElementById('orderForm'), submitBtn = document.getElementById('submitBtn'), successBox = document.getElementById('formSuccess');
-var BTN_DEF = "btn-gold w-full py-4 text-base font-bold bg-brand-gold text-brand-dark hover:bg-brand-goldDark transition disabled:opacity-60";
-var BTN_LD = "w-full bg-brand-wine py-4 text-base font-bold text-white opacity-70";
-var BTN_OK = "w-full bg-green-700 py-4 text-base font-bold text-white";
+var BTN_DEF = "btn-gold cta-pulse w-full py-5 rounded-2xl text-lg font-black";
+var BTN_LD = "w-full bg-brand-wine py-5 rounded-2xl text-lg font-black text-white opacity-70";
+var BTN_OK = "w-full bg-green-600 py-5 rounded-2xl text-lg font-black text-white";
 
 function setErr(el, s){ var e = el.parentElement.querySelector('.err'); if(e) e.classList.toggle('hidden', !s); el.classList.toggle('!border-red-400', s); el.classList.toggle('!bg-red-50', s); }
 
@@ -911,14 +1033,8 @@ form.addEventListener('submit', async function(e){
   if(!city){ setErr(cEl, true); ok = false; } else setErr(cEl, false);
   if(address.length < 8){ setErr(aEl, true); ok = false; } else setErr(aEl, false);
   var sizes = getSizes();
-  if(sizes.length > 0 && !size){
-    var sizeErr = document.querySelector('#sizeSection .err');
-    if(sizeErr) sizeErr.classList.remove('hidden');
-    ok = false;
-  } else {
-    var sizeErr2 = document.querySelector('#sizeSection .err');
-    if(sizeErr2) sizeErr2.classList.add('hidden');
-  }
+  if(sizes.length > 0 && !size){ var sizeErr = document.querySelector('#sizeSection .err'); if(sizeErr) sizeErr.classList.remove('hidden'); ok = false; }
+  else { var sizeErr2 = document.querySelector('#sizeSection .err'); if(sizeErr2) sizeErr2.classList.add('hidden'); }
   if(!ok) return;
   var wa = null; try { wa = window.open('', '_blank'); } catch(_) {}
   submitBtn.disabled = true; submitBtn.className = BTN_LD; submitBtn.innerHTML = '<span class="spinner"></span> جاري الإرسال...';
@@ -927,9 +1043,9 @@ form.addEventListener('submit', async function(e){
   var m = 'سلام ' + t.brandName + '، بغيت ' + t.productName + ' اللون ' + color + (size? ' الحجم ' + size : '') + ' الكمية ' + qty + ' المدينة ' + city + ' السمية ' + name;
   var u = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(m);
   if(wa && !wa.closed) wa.location.href = u; else window.open(u, '_blank');
-  submitBtn.className = BTN_OK; submitBtn.innerHTML = '✓ تم إرسال طلبك بنجاح';
+  submitBtn.className = BTN_OK; submitBtn.innerHTML = '✅ تم إرسال طلبك بنجاح';
   successBox.classList.remove('hidden'); successBox.scrollIntoView({behavior:'smooth', block:'center'});
-  setTimeout(function(){ form.reset(); state.qty = 1; renderQty(); submitBtn.disabled = false; submitBtn.className = BTN_DEF; submitBtn.innerHTML = 'تأكيد الطلب — الدفع عند الاستلام'; applyColor(state.color, false); renderFormSizes(); updateSummary(); }, 6000);
+  setTimeout(function(){ form.reset(); state.qty = 1; renderQty(); submitBtn.disabled = false; submitBtn.className = BTN_DEF; submitBtn.innerHTML = '🛍️ تأكيد الطلب — الدفع عند الاستلام'; applyColor(state.color, false); renderFormSizes(); updateSummary(); }, 6000);
 });
 
 document.getElementById('year').textContent = new Date().getFullYear();
@@ -962,43 +1078,29 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
   });
 
   document.getElementById('adminRefreshAllColors').addEventListener('click', async function(){
-    var btn = this;
-    btn.textContent = '⏳ جاري التحديث...'; btn.disabled = true;
+    var btn = this; btn.textContent = '⏳ جاري التحديث...'; btn.disabled = true;
     var result = await autoUpdateAllColors();
     btn.textContent = '🔄 تحديث الألوان تلقائياً'; btn.disabled = false;
     var m = document.getElementById('adminMsg');
     m.textContent = '✓ تحديث ' + result.updated + ' | فشل ' + result.failed;
-    m.style.color = result.updated > 0 ? '#4ade80' : '#fbbf24';
-    m.style.opacity = '1';
+    m.style.color = result.updated > 0 ? '#4ade80' : '#fbbf24'; m.style.opacity = '1';
     setTimeout(function(){ m.style.opacity = '0'; }, 4000);
   });
 
   document.getElementById('adminAddSize').addEventListener('click', async function(){
-    var inp = document.getElementById('adminNewSize');
-    var name = inp.value.trim();
+    var inp = document.getElementById('adminNewSize'); var name = inp.value.trim();
     if(!name){ alert('اكتب اسم الحجم'); return; }
     var sizes = getSizes();
     if(sizes.find(function(x){ return x.name === name; })){ alert('الحجم موجود!'); return; }
-    sizes.push({name: name, available: true});
-    saveSizesLocal(sizes);
-    inp.value = '';
-    renderAdminSizeRows();
-    renderFormSizes();
-    await saveToServer();
-    var m = document.getElementById('adminMsg');
-    m.textContent = '✓ تمت إضافة الحجم "' + name + '"';
-    m.style.color = '#4ade80';
-    m.style.opacity = '1';
+    sizes.push({name: name, available: true}); saveSizesLocal(sizes);
+    inp.value = ''; renderAdminSizeRows(); renderFormSizes(); await saveToServer();
+    var m = document.getElementById('adminMsg'); m.textContent = '✓ تمت إضافة "' + name + '"'; m.style.color = '#4ade80'; m.style.opacity = '1';
     setTimeout(function(){ m.style.opacity = '0'; }, 2500);
   });
 
-  document.getElementById('adminNewSize').addEventListener('keypress', function(e){
-    if(e.key === 'Enter'){ e.preventDefault(); document.getElementById('adminAddSize').click(); }
-  });
+  document.getElementById('adminNewSize').addEventListener('keypress', function(e){ if(e.key === 'Enter'){ e.preventDefault(); document.getElementById('adminAddSize').click(); } });
 
-  var ni = document.getElementById('adminNewImg');
-  var np = document.getElementById('adminNewPreview');
-
+  var ni = document.getElementById('adminNewImg'); var np = document.getElementById('adminNewPreview');
   ni.addEventListener('input', async function(){
     var v = ni.value.trim();
     if(v.indexOf('http') !== 0){ np.textContent = 'معاينة'; return; }
@@ -1006,107 +1108,71 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
     var d = await toDirectImgBB(v);
     np.innerHTML = '<img src="' + d + '" style="max-width:100%;max-height:100%;object-fit:contain" onerror="this.parentElement.textContent=\'فشل\'">';
     np.style.position = 'relative';
-    var oldBadge = document.getElementById('autoColorBadge');
-    if(oldBadge) oldBadge.remove();
-    var colorBadge = document.createElement('div');
-    colorBadge.id = 'autoColorBadge';
+    var oldBadge = document.getElementById('autoColorBadge'); if(oldBadge) oldBadge.remove();
+    var colorBadge = document.createElement('div'); colorBadge.id = 'autoColorBadge';
     colorBadge.style.cssText = 'position:absolute;bottom:4px;right:4px;background:rgba(26,26,26,.9);color:#C9A961;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;z-index:5';
-    colorBadge.textContent = '🎨 جاري استخراج اللون...';
-    np.appendChild(colorBadge);
+    colorBadge.textContent = '🎨 جاري استخراج اللون...'; np.appendChild(colorBadge);
     var detectedColor = await extractDominantColor(d);
-    if(detectedColor){
-      document.getElementById('adminNewHex').value = detectedColor;
-      colorBadge.textContent = '🎨 ' + detectedColor;
-      colorBadge.style.background = detectedColor;
-      colorBadge.style.color = '#fff';
-      setTimeout(function(){ if(colorBadge.parentElement) colorBadge.remove(); }, 4000);
-    } else {
-      colorBadge.textContent = '⚠️ ما لقاش لون — اكتب الاسم بنفسك';
-      colorBadge.style.color = '#fbbf24';
-      setTimeout(function(){ if(colorBadge.parentElement) colorBadge.remove(); }, 3500);
-    }
+    if(detectedColor){ document.getElementById('adminNewHex').value = detectedColor; colorBadge.textContent = '🎨 ' + detectedColor; colorBadge.style.background = detectedColor; colorBadge.style.color = '#fff'; setTimeout(function(){ if(colorBadge.parentElement) colorBadge.remove(); }, 4000); }
+    else { colorBadge.textContent = '⚠️ ما لقاش لون'; colorBadge.style.color = '#fbbf24'; setTimeout(function(){ if(colorBadge.parentElement) colorBadge.remove(); }, 3500); }
   });
 
   document.getElementById('adminDetectColor').addEventListener('click', async function(){
     var url = document.getElementById('adminNewImg').value.trim();
     if(!url || url.indexOf('http') !== 0){ alert('حط رابط صورة أولاً'); return; }
-    var btn = document.getElementById('adminDetectColor');
-    btn.textContent = '⏳ جاري...'; btn.disabled = true;
-    var direct = await toDirectImgBB(url);
-    var color = await extractDominantColor(direct);
+    var btn = document.getElementById('adminDetectColor'); btn.textContent = '⏳ جاري...'; btn.disabled = true;
+    var direct = await toDirectImgBB(url); var color = await extractDominantColor(direct);
     btn.textContent = '🎨 استخراج اللون من الصورة'; btn.disabled = false;
-    if(color){
-      document.getElementById('adminNewHex').value = color;
-      btn.textContent = '✓ ' + color;
-      setTimeout(function(){ btn.textContent = '🎨 استخراج اللون من الصورة'; }, 2500);
-    } else {
-      alert('تعذر استخراج اللون — اكتب اللون والاسم يدوياً');
-    }
+    if(color){ document.getElementById('adminNewHex').value = color; btn.textContent = '✓ ' + color; setTimeout(function(){ btn.textContent = '🎨 استخراج اللون من الصورة'; }, 2500); }
+    else { alert('تعذر استخراج اللون'); }
   });
 
   document.getElementById('adminAddColor').addEventListener('click', async function(){
-    var n = document.getElementById('adminNewName').value.trim();
-    var h = document.getElementById('adminNewHex').value;
-    var im = document.getElementById('adminNewImg').value.trim();
+    var n = document.getElementById('adminNewName').value.trim(); var h = document.getElementById('adminNewHex').value; var im = document.getElementById('adminNewImg').value.trim();
     if(!im || im.indexOf('http') !== 0){ alert('حط رابط صورة'); return; }
     if(!n){ alert('اكتب اسم اللون'); return; }
-    var b = document.getElementById('adminAddColor');
-    b.textContent = 'جاري...'; b.disabled = true;
-    im = await toDirectImgBB(im);
-    b.textContent = 'إضافة اللون'; b.disabled = false;
+    var b = document.getElementById('adminAddColor'); b.textContent = 'جاري...'; b.disabled = true;
+    im = await toDirectImgBB(im); b.textContent = 'إضافة اللون'; b.disabled = false;
     var cs = getColors();
     if(cs.find(function(x){ return x.name === n; })){ alert('الاسم موجود!'); return; }
     cs.push({name:n, hex:h, img:im, available:true}); saveColorsLocal(cs);
-    document.getElementById('adminNewName').value = '';
-    document.getElementById('adminNewImg').value = '';
-    np.textContent = 'معاينة';
-    state.color = n; state.userPicked = true;
-    applyAll(); renderAdminPanel();
-    var r = await saveToServer();
-    var m = document.getElementById('adminMsg');
+    document.getElementById('adminNewName').value = ''; document.getElementById('adminNewImg').value = ''; np.textContent = 'معاينة';
+    state.color = n; state.userPicked = true; applyAll(); renderAdminPanel();
+    var r = await saveToServer(); var m = document.getElementById('adminMsg');
     m.textContent = r.ok ? '✓ تمت إضافة "' + n + '"' : '⚠ فشل الحفظ';
-    m.style.color = r.ok ? '#4ade80' : '#fbbf24';
-    m.style.opacity = '1';
+    m.style.color = r.ok ? '#4ade80' : '#fbbf24'; m.style.opacity = '1';
     setTimeout(function(){ m.style.opacity = '0'; }, 3000);
   });
 
   document.getElementById('adminSave').addEventListener('click', async function(){
     var npz = Number(document.getElementById('adminPriceInput').value) || DEFAULT_PRICE;
     var nop = Number(document.getElementById('adminOldPriceInput').value) || DEFAULT_OLD_PRICE;
-    localStorage.setItem(STORAGE_PRICE, npz);
-    localStorage.setItem(STORAGE_OLD_PRICE, nop);
+    localStorage.setItem(STORAGE_PRICE, npz); localStorage.setItem(STORAGE_OLD_PRICE, nop);
     PRICE = npz; OLD_PRICE = nop;
-    var t = getTexts();
-    var g = function(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; };
+    var t = getTexts(); var g = function(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; };
     t.brandName = g('txtBrandName') || t.brandName; t.brandSub = g('txtBrandSub') || t.brandSub;
     t.heroTitle = g('txtHeroTitle') || t.heroTitle; t.heroDesc = g('txtHeroDesc') || t.heroDesc;
     t.productName = g('txtProductName') || t.productName; t.orderTitle = g('txtOrderTitle') || t.orderTitle;
     t.featuresTitle = g('txtFeaturesTitle') || t.featuresTitle; t.reviewsTitle = g('txtReviewsTitle') || t.reviewsTitle;
     t.stockAlert = g('txtStockAlert') || t.stockAlert;
-    var fR = g('txtFeatures');
-    if(fR){ t.features = fR.split('\n').filter(function(l){ return l.trim(); }); }
+    var fR = g('txtFeatures'); if(fR){ t.features = fR.split('\n').filter(function(l){ return l.trim(); }); }
     saveTextsLocal(t); applyAll();
-    var m = document.getElementById('adminMsg');
-    m.textContent = 'جاري الحفظ...'; m.style.color = '#C9A961'; m.style.opacity = '1';
+    var m = document.getElementById('adminMsg'); m.textContent = 'جاري الحفظ...'; m.style.color = '#C9A961'; m.style.opacity = '1';
     var r = await saveToServer();
-    if(r.ok){ m.textContent = '✓ تم الحفظ بنجاح'; m.style.color = '#4ade80'; st.className = 'admin-status ok'; st.textContent = '✓ متزامن'; }
+    if(r.ok){ m.textContent = '✓ تم الحفظ'; m.style.color = '#4ade80'; st.className = 'admin-status ok'; st.textContent = '✓ متزامن'; }
     else { m.textContent = '× فشل: ' + r.msg; m.style.color = '#ef4444'; st.className = 'admin-status err'; st.textContent = '× ' + r.msg; }
     setTimeout(function(){ m.style.opacity = '0'; }, 4000);
   });
 
   document.getElementById('adminSync').addEventListener('click', async function(){
-    var m = document.getElementById('adminMsg');
-    m.textContent = 'جاري التحميل...'; m.style.color = '#C9A961'; m.style.opacity = '1';
+    var m = document.getElementById('adminMsg'); m.textContent = 'جاري التحميل...'; m.style.color = '#C9A961'; m.style.opacity = '1';
     var d = await fetchFromServer();
     if(d){ applyServerData(d); PRICE = getPrice(); OLD_PRICE = getOldPrice(); applyAll(); renderAdminPanel(); m.textContent = '✓ تم التحميل'; m.style.color = '#4ade80'; }
     else { m.textContent = '× لا توجد بيانات'; m.style.color = '#ef4444'; }
     setTimeout(function(){ m.style.opacity = '0'; }, 3000);
   });
 
-  document.getElementById('adminClose').addEventListener('click', function(){
-    panel.classList.remove('show');
-    history.replaceState(null, '', location.pathname);
-  });
+  document.getElementById('adminClose').addEventListener('click', function(){ panel.classList.remove('show'); history.replaceState(null, '', location.pathname); });
 })();
 </script>
 </body>
