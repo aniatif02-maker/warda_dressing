@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-tailwind.config={theme:{extend:{colors:{brand:{wine:'#7B2D3E',wineDark:'#5A1F2D',wineDeep:'#3D1420',wineLight:'#F5E8EC',gold:'#C9A961',goldDark:'#A88B45',goldLight:'#F7F0E1',cream:'#FAF6F0',dark:'#1A1A1A',gray:'#6B6B6B'}},fontFamily:{tajawal:['Tajawal','sans-serif'],amiri:['Amiri','serif']},keyframes:{fadeUp:{'0%':{opacity:0,transform:'translateY(20px)'},'100%':{opacity:1,transform:'translateY(0)'}},slideIn:{'0%':{opacity:0,transform:'translateX(40px)'},'100%':{opacity:1,transform:'translateX(0)'}},slideOut:{'0%':{opacity:1},'100%':{opacity:0,transform:'translateX(40px)'}},starPop:{'0%':{opacity:0,transform:'scale(0)'},'70%':{transform:'scale(1.2)'},'100%':{opacity:1,transform:'scale(1)'}},float:{'0%,100%':{transform:'translateY(0)'},'50%':{transform:'translateY(-8px)'}},shine:{'0%':{transform:'translateX(-100%)'},'100%':{transform:'translateX(200%)'}},pulseRing:{'0%':{transform:'scale(.9)',opacity:.7},'100%':{transform:'scale(1.6)',opacity:0}}},animation:{fadeUp:'fadeUp .8s ease-out both',slideIn:'slideIn .5s ease-out both',starPop:'starPop .6s ease-out both',float:'float 3s ease-in-out infinite',shine:'shine 3s infinite'}}}}
+tailwind.config={theme:{extend:{colors:{brand:{wine:'#7B2D3E',wineDark:'#5A1F2D',wineDeep:'#3D1420',wineLight:'#F5E8EC',gold:'#C9A961',goldDark:'#A88B45',goldLight:'#F7F0E1',cream:'#FAF6F0',dark:'#1A1A1A',gray:'#6B6B6B'}},fontFamily:{tajawal:['Tajawal','sans-serif'],amiri:['Amiri','serif']},keyframes:{fadeUp:{'0%':{opacity:0,transform:'translateY(20px)'},'100%':{opacity:1,transform:'translateY(0)'}},slideIn:{'0%':{opacity:0,transform:'translateX(40px)'},'100%':{opacity:1,transform:'translateX(0)'}},slideOut:{'0%':{opacity:1},'100%':{opacity:0,transform:'translateX(40px)'}},starPop:{'0%':{opacity:0,transform:'scale(0)'},'70%':{transform:'scale(1.2)'},'100%':{opacity:1,transform:'scale(1)'}},float:{'0%,100%':{transform:'translateY(0)'},'50%':{transform:'translateY(-8px)'}},shine:{'0%':{transform:'translateX(-100%)'},'100%':{transform:'translateX(200%)'}}},animation:{fadeUp:'fadeUp .8s ease-out both',slideIn:'slideIn .5s ease-out both',starPop:'starPop .6s ease-out both',float:'float 3s ease-in-out infinite'}}}}
 </script>
 <style>
 *{-webkit-tap-highlight-color:transparent}
@@ -20,82 +20,45 @@ body{padding-bottom:90px;font-family:Tajawal,sans-serif;background:#FAF6F0}
 h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 [data-reveal]{opacity:0;transform:translateY(24px);transition:all .9s cubic-bezier(.16,1,.3,1)}
 [data-reveal].is-visible{opacity:1;transform:none}
-
-/* Luxury background pattern */
 .bg-luxury{background-color:#FAF6F0;background-image:radial-gradient(circle at 20% 0%, rgba(201,169,97,.08) 0%, transparent 40%),radial-gradient(circle at 100% 100%, rgba(123,45,62,.06) 0%, transparent 40%)}
 .bg-luxury-dark{background-color:#3D1420;background-image:radial-gradient(circle at 20% 20%, rgba(201,169,97,.15) 0%, transparent 50%),radial-gradient(circle at 90% 80%, rgba(123,45,62,.4) 0%, transparent 50%)}
-
-/* Gold text */
-.text-gold-gradient{background:linear-gradient(135deg,#A88B45 0%,#E8D9A8 50%,#C9A961 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
-
-/* Buttons */
-.btn-primary{background:linear-gradient(135deg,#7B2D3E 0%,#5A1F2D 100%);color:#fff;font-weight:800;position:relative;overflow:hidden;transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:0 12px 30px -10px rgba(123,45,62,.5)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 40px -15px rgba(123,45,62,.7)}
-.btn-primary::after{content:'';position:absolute;top:0;left:0;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:translateX(-100%) skewX(-20deg);animation:shine 3s infinite}
-@keyframes shine{0%{transform:translateX(-100%) skewX(-20deg)}50%{transform:translateX(250%) skewX(-20deg)}100%{transform:translateX(250%) skewX(-20deg)}}
 .btn-gold{background:linear-gradient(135deg,#C9A961 0%,#E8D9A8 50%,#C9A961 100%);color:#3D1420;font-weight:900;transition:all .3s;box-shadow:0 12px 30px -10px rgba(201,169,97,.6), inset 0 -3px 0 rgba(168,139,69,.5)}
 .btn-gold:hover{transform:translateY(-2px);box-shadow:0 18px 40px -12px rgba(201,169,97,.8), inset 0 -3px 0 rgba(168,139,69,.5)}
-
-/* Pulse animation for CTA */
 @keyframes ctaPulse{0%,100%{box-shadow:0 12px 30px -10px rgba(201,169,97,.6), 0 0 0 0 rgba(201,169,97,.7)}50%{box-shadow:0 12px 30px -10px rgba(201,169,97,.6), 0 0 0 18px rgba(201,169,97,0)}}
 .cta-pulse{animation:ctaPulse 2s infinite}
-
-/* Product image frame with luxury border */
 .product-frame{position:relative;border-radius:1rem;overflow:hidden}
 .product-frame::before{content:'';position:absolute;inset:-2px;background:linear-gradient(135deg,#C9A961,#E8D9A8,#7B2D3E,#C9A961);border-radius:1rem;z-index:-1;background-size:300% 300%;animation:borderFlow 6s ease infinite}
 @keyframes borderFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-
-/* Color chips */
 .color-chip{border:1.5px solid #E5DDD0;background:#FFF;cursor:pointer;transition:.25s;position:relative;border-radius:0.75rem}
 .color-chip:hover{border-color:#C9A961;transform:translateY(-2px)}
 .color-chip.is-active{border-color:#7B2D3E;background:#F5E8EC;box-shadow:0 6px 16px -6px rgba(123,45,62,.4)}
 .color-chip.is-soldout{opacity:.45;pointer-events:none}
 .color-chip.is-soldout::after{content:'نفذ';position:absolute;inset:0;background:rgba(26,26,26,.85);color:#C9A961;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;letter-spacing:1px;border-radius:0.75rem}
-
-/* Size chips */
 .size-chip{border:1.5px solid #E5DDD0;background:#FFF;cursor:pointer;transition:.25s;position:relative;border-radius:0.75rem;padding:.6rem 1.1rem;font-size:14px;font-weight:800;min-width:52px;text-align:center}
 .size-chip:hover{border-color:#C9A961}
 .size-chip.is-active{border-color:#7B2D3E;background:linear-gradient(135deg,#F5E8EC,#FFE3EF);color:#7B2D3E;box-shadow:0 6px 16px -6px rgba(123,45,62,.4);transform:translateY(-2px)}
 .size-chip.is-soldout{opacity:.4;pointer-events:none;text-decoration:line-through}
-
-/* Inputs */
 .input{width:100%;border-radius:0.75rem;border:1.5px solid #E5DDD0;background:#FFF;padding:.85rem 1rem;font-size:15px;font-weight:400;outline:0;transition:.2s;font-family:Tajawal,sans-serif}
 .input:focus{border-color:#7B2D3E;box-shadow:0 0 0 4px rgba(123,45,62,.1)}
 .input:hover{border-color:#C9A961}
-
-/* Divider */
 .divider-gold{width:80px;height:2px;background:linear-gradient(90deg,transparent,#C9A961,transparent);margin:1.2rem auto;position:relative}
 .divider-gold::before{content:'◆';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#C9A961;font-size:12px;background:#FAF6F0;padding:0 8px}
-
-/* Trust badge */
 .trust-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:#fff;border:1px solid rgba(201,169,97,.3);border-radius:99px;font-size:12px;font-weight:700;color:#3D1420;transition:.3s}
 .trust-badge:hover{transform:translateY(-2px);box-shadow:0 8px 20px -8px rgba(201,169,97,.5)}
-
-/* Live viewers pulse */
 @keyframes livePulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.15)}}
 .live-dot{width:8px;height:8px;background:#22c55e;border-radius:50%;animation:livePulse 1.5s infinite;box-shadow:0 0 0 0 rgba(34,197,94,.7)}
-
-/* Stock bar */
 .stock-bar{height:10px;background:#F5E8EC;border-radius:99px;overflow:hidden;position:relative}
 .stock-bar-fill{height:100%;background:linear-gradient(90deg,#7B2D3E,#C9A961);border-radius:99px;transition:width 1s ease;position:relative;overflow:hidden}
 .stock-bar-fill::after{content:'';position:absolute;top:0;left:0;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);animation:shine 2.5s infinite}
-
-/* Cards */
 .card-luxury{background:#fff;border-radius:1.25rem;border:1px solid rgba(201,169,97,.2);transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
 .card-luxury::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#C9A961,transparent);opacity:0;transition:.4s}
 .card-luxury:hover{transform:translateY(-6px);box-shadow:0 30px 60px -20px rgba(123,45,62,.25);border-color:rgba(201,169,97,.5)}
 .card-luxury:hover::before{opacity:1}
-
-/* Spinner */
 .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* FAQ */
 .faq-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
 .faq-item.is-open .faq-body{max-height:340px}
 .faq-item.is-open .faq-icon{transform:rotate(45deg);background:#7B2D3E;color:#fff;border-color:#7B2D3E}
-
-/* Admin */
 #adminPanel{display:none}
 #adminPanel.show{display:block}
 .admin-tab{background:#262626;color:#C9A961;border:1px solid #333;padding:8px 5px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:10px;font-weight:700;flex:1;transition:.2s}
@@ -121,14 +84,11 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 .admin-status.err{background:rgba(239,68,68,.15);color:#ef4444}
 .admin-label{display:block;font-size:11.5px;font-weight:700;margin-bottom:5px;color:#C9A961}
 .admin-hint{font-size:10.5px;color:#888;margin-bottom:6px;line-height:1.5}
-
 .badge-luxury{display:inline-block;padding:7px 18px;border:1px solid #C9A961;color:#7B2D3E;font-size:12px;font-weight:700;letter-spacing:2px;border-radius:2rem;background:linear-gradient(135deg,rgba(201,169,97,.1),rgba(255,255,255,.5))}
 .image-frame{width:100%;aspect-ratio:4/5;background:#F5F0E8;overflow:hidden;position:relative}
 .image-frame img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .image-frame:hover img{transform:scale(1.05)}
 @media(max-width:640px){.image-frame{aspect-ratio:1/1}}
-
-/* Section title decoration */
 .section-title{position:relative;display:inline-block}
 .section-title::before,.section-title::after{content:'';position:absolute;top:50%;width:30px;height:1px;background:linear-gradient(90deg,transparent,#C9A961)}
 .section-title::before{right:100%;margin-right:16px}
@@ -137,7 +97,6 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 </head>
 <body class="text-brand-dark antialiased overflow-x-hidden bg-luxury">
 
-<!-- ✅ Top announcement with rotating messages -->
 <div class="bg-gradient-to-r from-brand-wineDeep via-brand-wine to-brand-wineDeep text-white text-center text-[12px] py-3 px-4 font-bold tracking-wider relative overflow-hidden">
   <div class="absolute inset-0 opacity-10" style="background-image:repeating-linear-gradient(45deg,transparent,transparent 10px,#C9A961 10px,#C9A961 11px)"></div>
   <div class="relative flex items-center justify-center gap-3 flex-wrap">
@@ -149,7 +108,6 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   </div>
 </div>
 
-<!-- ✅ Header -->
 <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-lg border-b border-brand-gold/20 shadow-sm">
   <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
     <a href="#" class="flex items-center gap-3">
@@ -167,17 +125,13 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   </div>
 </header>
 
-<!-- ✅ Hero Section -->
 <section class="relative overflow-hidden">
-  <!-- Decorative -->
   <div class="pointer-events-none absolute -top-40 -right-40 w-96 h-96 bg-brand-gold/10 rounded-full blur-3xl"></div>
   <div class="pointer-events-none absolute -bottom-40 -left-40 w-96 h-96 bg-brand-wine/10 rounded-full blur-3xl"></div>
 
   <div class="relative max-w-6xl mx-auto px-4 py-10 sm:py-16 grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
 
-    <!-- ✅ Product Image -->
     <div data-reveal class="relative lg:sticky lg:top-24">
-      <!-- Discount Badge -->
       <div class="absolute -top-3 -right-3 z-20 bg-gradient-to-br from-brand-wine to-brand-wineDeep text-white font-black text-sm px-5 py-3 rounded-2xl shadow-2xl -rotate-6 border-2 border-brand-gold">
         <div class="text-center leading-tight">
           <div class="text-[10px] text-brand-gold">خصم</div>
@@ -185,24 +139,20 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
         </div>
       </div>
 
-      <!-- Live viewers -->
       <div class="absolute -top-2 -left-2 z-20 bg-white rounded-full px-3.5 py-2 shadow-xl border border-brand-gold/30 flex items-center gap-2">
         <span class="live-dot"></span>
         <span class="text-[11px] font-bold text-brand-wine"><span id="viewersCount">47</span> يشاهدون الآن</span>
       </div>
 
-      <!-- Product frame -->
       <div class="product-frame">
         <div class="relative rounded-2xl overflow-hidden">
           <div class="image-frame">
             <img id="mainImage" src="" alt="موديل" loading="eager">
           </div>
-          <!-- Gradient overlay bottom -->
           <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>
         </div>
       </div>
 
-      <!-- Stock alert -->
       <div class="mt-5 text-center">
         <div class="inline-flex items-center gap-2 bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 px-4 py-2.5 rounded-xl shadow-sm">
           <span class="text-lg">🔥</span>
@@ -210,10 +160,8 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
         </div>
       </div>
 
-      <!-- Color chips -->
       <div id="colorChips" class="mt-5 flex flex-wrap items-center justify-center gap-2"></div>
 
-      <!-- Rating -->
       <div class="mt-5 flex items-center justify-center gap-2.5">
         <div id="starsRow" class="flex gap-0.5 text-2xl text-brand-gold"></div>
         <span class="font-black text-brand-dark text-lg" id="ratingValue">0.0</span>
@@ -221,7 +169,6 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
         <span class="text-gray-500 text-[13px] font-bold">(<span id="ratingCount">0</span> تقييم)</span>
       </div>
 
-      <!-- Trust badges -->
       <div class="mt-5 flex flex-wrap items-center justify-center gap-2">
         <span class="trust-badge"><span>🚚</span> توصيل سريع</span>
         <span class="trust-badge"><span>💵</span> دفع عند الاستلام</span>
@@ -230,7 +177,6 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
       </div>
     </div>
 
-    <!-- ✅ Content -->
     <div>
       <div class="text-center lg:text-right">
         <span class="badge-luxury" data-text="heroBadge"></span>
@@ -241,10 +187,8 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 
         <p class="text-[15.5px] leading-relaxed text-gray-600 font-medium" data-text="heroDesc"></p>
 
-        <!-- Features with icons -->
         <ul class="mt-6 space-y-3 inline-block text-right" id="heroFeaturesList"></ul>
 
-        <!-- ✅ Big Price block -->
         <div class="mt-8 rounded-2xl bg-gradient-to-br from-white to-brand-goldLight p-5 border-2 border-brand-gold/40 shadow-lg relative overflow-hidden">
           <div class="absolute -top-12 -right-12 w-32 h-32 bg-brand-gold/10 rounded-full"></div>
           <div class="relative flex items-center justify-between flex-wrap gap-3">
@@ -264,7 +208,6 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
           </div>
         </div>
 
-        <!-- Countdown -->
         <div class="mt-5 rounded-2xl bg-gradient-to-br from-brand-wineDeep via-brand-wine to-brand-wineDark px-5 py-4 shadow-xl relative overflow-hidden">
           <div class="absolute inset-0 opacity-5" style="background-image:radial-gradient(circle,#C9A961 1px,transparent 1px);background-size:15px 15px"></div>
           <div class="relative flex items-center justify-between gap-3 flex-wrap">
@@ -283,19 +226,18 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
         </div>
       </div>
 
-      <!-- ✅ Stock progress bar -->
+      <!-- ✅ Stock bar avec 27 par défaut -->
       <div class="mt-5 bg-white rounded-2xl p-4 border border-brand-gold/20 shadow-sm">
         <div class="flex items-center justify-between mb-2">
           <span class="text-[12.5px] font-bold text-brand-wine">🔥 الكمية المتوفرة</span>
-          <span class="text-[12.5px] font-black text-red-500"><span id="stockCount">7</span> قطعة فقط</span>
+          <span class="text-[12.5px] font-black text-red-500"><span id="stockCount">27</span> قطعة فقط</span>
         </div>
         <div class="stock-bar">
-          <div id="stockBarFill" class="stock-bar-fill" style="width:35%"></div>
+          <div id="stockBarFill" class="stock-bar-fill" style="width:54%"></div>
         </div>
         <div class="mt-2 text-[11px] font-bold text-gray-500 text-center">سارعي قبل نفاذ الكمية</div>
       </div>
 
-      <!-- ✅ Order Form -->
       <div id="order" class="mt-8 bg-white p-6 sm:p-8 rounded-3xl shadow-[0_30px_80px_-40px_rgba(123,45,62,.4)] border-2 border-brand-gold/20 scroll-mt-24 relative">
         <div class="absolute -top-3 right-6 bg-brand-gold text-brand-wineDeep text-[11px] font-black px-4 py-1.5 rounded-full shadow-lg">⚡ اطلبي الآن</div>
 
@@ -353,7 +295,6 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
             <p class="err mt-1 hidden text-[11px] font-bold text-red-500">المرجو كتابة العنوان</p>
           </div>
 
-          <!-- Order summary -->
           <div class="rounded-2xl border-2 border-dashed border-brand-gold/40 bg-gradient-to-br from-brand-goldLight/50 to-white p-4">
             <div class="flex items-center justify-between text-[13px] text-brand-wineDeep font-bold mb-2"><span class="font-black" data-text="productName"></span><span><span data-price-display>0</span> درهم</span></div>
             <div class="space-y-1.5 text-[12.5px] text-gray-600 font-semibold">
@@ -386,7 +327,6 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   </div>
 </section>
 
-<!-- ✅ Features Section -->
 <section class="bg-white py-16 sm:py-24 relative overflow-hidden">
   <div class="pointer-events-none absolute top-10 right-10 w-40 h-40 bg-brand-gold/5 rounded-full blur-2xl"></div>
   <div class="max-w-6xl mx-auto px-4">
@@ -398,7 +338,6 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   </div>
 </section>
 
-<!-- ✅ Reviews Section -->
 <section class="bg-gradient-to-b from-brand-cream to-white py-16 sm:py-24">
   <div class="max-w-6xl mx-auto px-4">
     <div class="text-center max-w-xl mx-auto" data-reveal>
@@ -410,7 +349,6 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   </div>
 </section>
 
-<!-- ✅ FAQ Section -->
 <section class="bg-white py-16 sm:py-24">
   <div class="max-w-3xl mx-auto px-4">
     <div class="text-center" data-reveal>
@@ -421,7 +359,6 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   </div>
 </section>
 
-<!-- ✅ Final CTA Section -->
 <section class="bg-luxury-dark py-16 relative overflow-hidden">
   <div class="pointer-events-none absolute inset-0 opacity-10" style="background-image:radial-gradient(circle,#C9A961 1px,transparent 1px);background-size:30px 30px"></div>
   <div class="relative max-w-3xl mx-auto px-4 text-center">
@@ -435,7 +372,6 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   </div>
 </section>
 
-<!-- ✅ Footer -->
 <footer class="bg-brand-wineDeep text-white pt-16 pb-10">
   <div class="max-w-6xl mx-auto px-4">
     <div class="grid sm:grid-cols-3 gap-10">
@@ -468,7 +404,6 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   </div>
 </footer>
 
-<!-- ✅ Sticky Bar -->
 <div id="stickyBar" class="fixed bottom-0 left-0 right-0 z-40 bg-white border-t-2 border-brand-gold shadow-[0_-10px_30px_-10px_rgba(123,45,62,.3)] translate-y-full transition-transform duration-300">
   <div class="max-w-6xl mx-auto px-3 py-3 flex items-center gap-3">
     <a href="https://wa.me/212614190010" target="_blank" rel="noopener" class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-green-500 text-xl text-white shadow-lg hover:scale-105 transition">💬</a>
@@ -482,7 +417,6 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   </div>
 </div>
 
-<!-- ✅ Toast -->
 <div id="toast" class="pointer-events-none fixed bottom-28 right-4 z-30 hidden w-[min(340px,calc(100vw-2rem))]">
   <div class="flex items-center gap-3 bg-white border-2 border-brand-gold/30 p-3 rounded-2xl shadow-2xl">
     <div class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-wine to-brand-wineDeep text-xl text-brand-gold">🛍️</div>
@@ -493,7 +427,6 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   </div>
 </div>
 
-<!-- ✅ Admin Panel -->
 <div id="adminPanel" style="position:fixed;bottom:100px;left:16px;z-index:9999;background:#1A1A1A;color:#fff;border-radius:12px;padding:14px;box-shadow:0 20px 60px rgba(0,0,0,.7);font-family:Tajawal,sans-serif;width:420px;max-width:94vw;direction:rtl;border:1px solid #C9A961;max-height:85vh;overflow-y:auto">
   <div style="font-weight:800;font-size:16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:8px"><span>لوحة التحكم</span><span style="font-size:10px;background:#C9A961;color:#1A1A1A;padding:3px 8px;border-radius:4px;font-weight:800;letter-spacing:1px">ADMIN</span></div>
   <div id="adminSyncStatus" class="admin-status warn">جاري التحقق من السيرفر...</div>
@@ -987,20 +920,20 @@ sObs.observe(document.getElementById('starsRow'));
   setInterval(update, 5000);
 })();
 
-// Stock countdown (decreases over time)
+/* ✅ Stock countdown — يبدأ من 27 ويوصل لـ 15 */
 (function(){
   var el = document.getElementById('stockCount');
   var fill = document.getElementById('stockBarFill');
   if(!el) return;
-  var stock = 7;
-  var max = 20;
+  var stock = 27;
+  var max = 50;
   function update(){
     el.textContent = stock;
     fill.style.width = ((stock / max) * 100) + '%';
   }
   update();
   setInterval(function(){
-    if(stock > 3){ stock--; update(); }
+    if(stock > 15){ stock--; update(); }
   }, 45000);
 })();
 
