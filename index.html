@@ -343,7 +343,7 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 
 <script>
 var STORAGE_COLORS = 'wd_warda_colors_v3';
-var STORAGE_TEXTS = 'wd_warda_texts_v3';
+var STORAGE_TEXTS = 'wd_warda_texts_v4';
 var STORAGE_PRICE = 'wd_warda_price_v3';
 var STORAGE_OLD_PRICE = 'wd_warda_oldprice_v3';
 var STORAGE_SIZES = 'wd_warda_sizes_v3';
@@ -351,8 +351,7 @@ var STORAGE_SIZES = 'wd_warda_sizes_v3';
 var SHEET_URL = "https://script.google.com/macros/s/AKfycbyu3O90JhESRpVHoCjlPFPccpGSzuOZ4jlzs39G3EXli-MEW04LHliAYbyBLVDDeL-M/exec";
 var BRAND_MARKER = "warda_dressing_v3";
 
-/* ✅✅✅ الهاتف و الواتساب ✅✅✅ */
-var WHATSAPP_NUMBER = "212614190010";  /* 0614190010 بصيغة دولية */
+var WHATSAPP_NUMBER = "212614190010";
 var PHONE_DISPLAY = "0614190010";
 var INSTAGRAM_URL = "https://www.instagram.com/warda_dressing/";
 var INSTAGRAM_HANDLE = "warda_dressing";
@@ -376,13 +375,14 @@ var DEFAULT_SIZES = [
   {name:"XXL", available:true}
 ];
 
+/* ✅✅✅ اسم المنتج: Survet piknik ✅✅✅ */
 var DEFAULT_TEXTS = {
   brandName: "وردة دريسينغ",
   brandSub: "warda_dressing",
   heroTitle: "أزياء نسائية عصرية تليق بذوقك",
   heroDesc: "موديلات مختارة بعناية من أحدث صيحات الموضة، بجودة عالية وأقمشة مريحة، توصلك حتى باب دارك مع إمكانية الدفع عند الاستلام.",
   heroBadge: "✦ موديلات مختارة بعناية ✦",
-  productName: "موديل مختار بعناية",
+  productName: "Survet piknik",
   orderTitle: "الدفع عند الاستلام",
   orderSub: "عمري المعلومات وسنتواصل معك عبر الواتساب",
   featuresTitle: "لماذا تختارين وردة دريسينغ؟",
@@ -559,7 +559,6 @@ function renderFormColors(){
   c.querySelectorAll('input[name="color"]').forEach(function(r){ r.addEventListener('change', function(){ applyColor(r.value, true); }); });
 }
 
-/* ✅✅✅ إصلاح اختيار الحجم — تحديث المظهر البصري ✅✅✅ */
 function renderFormSizes(){
   var c = document.getElementById('formSizes'); if(!c) return;
   var sizes = getSizes();
@@ -581,11 +580,9 @@ function renderFormSizes(){
     r.addEventListener('change', function(){
       state.size = r.value;
       updateSummary();
-      /* ✅ حيّد is-active من كل الأحجام */
       c.querySelectorAll('.size-chip').forEach(function(chip){
         chip.classList.remove('is-active');
       });
-      /* ✅ زيد is-active للحجم المختار */
       var chip = r.nextElementSibling;
       if(chip && chip.classList.contains('size-chip')){
         chip.classList.add('is-active');
@@ -788,7 +785,7 @@ function applyServerData(d){
   return c;
 }
 
-(function(){ try { localStorage.removeItem('admin_texts'); localStorage.removeItem('admin_colors'); localStorage.removeItem('admin_price'); localStorage.removeItem('admin_old_price'); localStorage.removeItem('admin_stock'); localStorage.removeItem('admin_images'); } catch(e){} })();
+(function(){ try { localStorage.removeItem('admin_texts'); localStorage.removeItem('wd_warda_texts_v3'); localStorage.removeItem('admin_colors'); localStorage.removeItem('admin_price'); localStorage.removeItem('admin_old_price'); localStorage.removeItem('admin_stock'); localStorage.removeItem('admin_images'); } catch(e){} })();
 
 function migrateOld(){
   if(!localStorage.getItem(STORAGE_COLORS)) saveColorsLocal(JSON.parse(JSON.stringify(DEFAULT_COLORS)));
@@ -952,7 +949,7 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
   renderAdminPanel();
   var st = document.getElementById('adminSyncStatus');
   st.className = 'admin-status ok';
-  st.textContent = '✓ جاهز — يمكنك تعديل الأسماء';
+  st.textContent = '✓ جاهز — المنتج: Survet piknik';
 
   panel.querySelectorAll('.admin-tab').forEach(function(tab){
     tab.addEventListener('click', function(){
