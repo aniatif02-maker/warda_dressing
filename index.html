@@ -2,8 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#7B2D3E">
+<meta name="format-detection" content="telephone=no">
 <title>وردة دريسينغ | أزياء نسائية عصرية</title>
 <link rel="icon" href="https://i.postimg.cc/pV7rhCMm/514347097-18075713759506570-1219391976996982719-n.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,9 +16,10 @@ tailwind.config={theme:{extend:{colors:{brand:{wine:'#7B2D3E',wineDark:'#5A1F2D'
 </script>
 <style>
 *{-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{padding-bottom:90px;font-family:Tajawal,sans-serif;background:#FAF6F0}
 h1,h2,h3,.font-amiri{font-family:Amiri,serif}
+img{max-width:100%;height:auto}
 [data-reveal]{opacity:0;transform:translateY(24px);transition:all .9s cubic-bezier(.16,1,.3,1)}
 [data-reveal].is-visible{opacity:1;transform:none}
 .bg-luxury{background-color:#FAF6F0;background-image:radial-gradient(circle at 20% 0%, rgba(201,169,97,.08) 0%, transparent 40%),radial-gradient(circle at 100% 100%, rgba(123,45,62,.06) 0%, transparent 40%)}
@@ -88,18 +90,46 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 .image-frame{width:100%;aspect-ratio:4/5;background:#F5F0E8;overflow:hidden;position:relative}
 .image-frame img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .image-frame:hover img{transform:scale(1.05)}
-@media(max-width:640px){.image-frame{aspect-ratio:1/1}}
 .section-title{position:relative;display:inline-block}
 .section-title::before,.section-title::after{content:'';position:absolute;top:50%;width:30px;height:1px;background:linear-gradient(90deg,transparent,#C9A961)}
 .section-title::before{right:100%;margin-right:16px}
 .section-title::after{left:100%;margin-left:16px}
+
+/* ===== تحسينات التوافق مع الهاتف والتابلت ===== */
+@media(max-width:640px){
+  body{padding-bottom:96px}
+  .image-frame{aspect-ratio:1/1}
+  .section-title::before,.section-title::after{display:none}
+  .input,.admin-input,.admin-textarea,select.input,textarea.input{font-size:16px}
+  .trust-badge{padding:.45rem .8rem;font-size:11px}
+  .color-chip{padding:.55rem .8rem;font-size:12px}
+  .size-chip{padding:.55rem .95rem;font-size:13.5px;min-width:48px}
+  .badge-luxury{padding:6px 14px;font-size:11px;letter-spacing:1.5px}
+  #adminPanel{padding:12px;bottom:96px !important}
+  .admin-tab{font-size:9.5px;padding:7px 3px}
+}
+@media(max-width:380px){
+  .trust-badge{padding:.4rem .65rem;font-size:10.5px;gap:.35rem}
+  .color-chip{padding:.5rem .7rem;font-size:11.5px}
+}
+/* منع تكبير iOS التلقائي للحقول */
+@supports (-webkit-touch-callout:none){
+  .input,select.input,textarea.input{font-size:16px}
+}
+/* تمرير سلس على الأجهزة اللمسية */
+@media(hover:none){
+  .card-luxury:hover{transform:none;box-shadow:none}
+  .card-luxury:hover::before{opacity:0}
+  .image-frame:hover img{transform:none}
+  .btn-gold:hover{transform:none}
+}
 </style>
 </head>
 <body class="text-brand-dark antialiased overflow-x-hidden bg-luxury">
 
-<div class="bg-gradient-to-r from-brand-wineDeep via-brand-wine to-brand-wineDeep text-white text-center text-[12px] py-3 px-4 font-bold tracking-wider relative overflow-hidden">
+<div class="bg-gradient-to-r from-brand-wineDeep via-brand-wine to-brand-wineDeep text-white text-center text-[11px] sm:text-[12px] py-2.5 sm:py-3 px-3 sm:px-4 font-bold tracking-wider relative overflow-hidden">
   <div class="absolute inset-0 opacity-10" style="background-image:repeating-linear-gradient(45deg,transparent,transparent 10px,#C9A961 10px,#C9A961 11px)"></div>
-  <div class="relative flex items-center justify-center gap-3 flex-wrap">
+  <div class="relative flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
     <span class="inline-flex items-center gap-1.5"><span class="text-brand-gold">✦</span> توصيل مجاني لجميع المناطق</span>
     <span class="text-brand-gold/50 hidden sm:inline">|</span>
     <span class="inline-flex items-center gap-1.5"><span class="text-brand-gold">✦</span> الدفع عند الاستلام</span>
@@ -109,17 +139,17 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 </div>
 
 <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-lg border-b border-brand-gold/20 shadow-sm">
-  <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
-    <a href="#" class="flex items-center gap-3">
-      <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-brand-gold/50 shadow-lg ring-2 ring-white">
+  <div class="max-w-6xl mx-auto px-3 sm:px-4 h-16 sm:h-20 flex items-center justify-between gap-2">
+    <a href="#" class="flex items-center gap-2 sm:gap-3 min-w-0">
+      <div class="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-full overflow-hidden border-2 border-brand-gold/50 shadow-lg ring-2 ring-white">
         <img src="https://i.postimg.cc/pV7rhCMm/514347097-18075713759506570-1219391976996982719-n.jpg" alt="WARDAA" class="w-full h-full object-cover">
       </div>
-      <div class="leading-none">
-        <div class="font-amiri font-bold text-[22px] text-brand-wine tracking-wide" data-text="brandName"></div>
-        <div class="text-[10px] text-brand-gold font-bold tracking-[3px] mt-1 lowercase" data-text="brandSub"></div>
+      <div class="leading-none min-w-0">
+        <div class="font-amiri font-bold text-[18px] sm:text-[22px] text-brand-wine tracking-wide truncate" data-text="brandName"></div>
+        <div class="text-[9px] sm:text-[10px] text-brand-gold font-bold tracking-[2px] sm:tracking-[3px] mt-1 lowercase truncate" data-text="brandSub"></div>
       </div>
     </a>
-    <a href="https://wa.me/212614190010" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-green-500 to-green-600 px-5 py-2.5 text-[13px] font-bold text-white shadow-lg shadow-green-500/30 hover:shadow-xl hover:-translate-y-0.5 transition">
+    <a href="https://wa.me/212614190010" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-green-500 to-green-600 px-4 lg:px-5 py-2.5 text-[13px] font-bold text-white shadow-lg shadow-green-500/30 hover:shadow-xl hover:-translate-y-0.5 transition shrink-0">
       <span>💬</span><span>راسلينا واتساب</span>
     </a>
   </div>
@@ -129,19 +159,19 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   <div class="pointer-events-none absolute -top-40 -right-40 w-96 h-96 bg-brand-gold/10 rounded-full blur-3xl"></div>
   <div class="pointer-events-none absolute -bottom-40 -left-40 w-96 h-96 bg-brand-wine/10 rounded-full blur-3xl"></div>
 
-  <div class="relative max-w-6xl mx-auto px-4 py-10 sm:py-16 grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+  <div class="relative max-w-6xl mx-auto px-3 sm:px-4 py-6 sm:py-10 lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-14 items-start">
 
     <div data-reveal class="relative lg:sticky lg:top-24">
-      <div class="absolute -top-3 -right-3 z-20 bg-gradient-to-br from-brand-wine to-brand-wineDeep text-white font-black text-sm px-5 py-3 rounded-2xl shadow-2xl -rotate-6 border-2 border-brand-gold">
+      <div class="absolute -top-3 -right-2 sm:-right-3 z-20 bg-gradient-to-br from-brand-wine to-brand-wineDeep text-white font-black text-sm px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl shadow-2xl -rotate-6 border-2 border-brand-gold">
         <div class="text-center leading-tight">
           <div class="text-[10px] text-brand-gold">خصم</div>
-          <div class="text-xl">40%</div>
+          <div class="text-lg sm:text-xl">40%</div>
         </div>
       </div>
 
-      <div class="absolute -top-2 -left-2 z-20 bg-white rounded-full px-3.5 py-2 shadow-xl border border-brand-gold/30 flex items-center gap-2">
+      <div class="absolute -top-2 -left-2 z-20 bg-white rounded-full px-3 sm:px-3.5 py-1.5 sm:py-2 shadow-xl border border-brand-gold/30 flex items-center gap-2">
         <span class="live-dot"></span>
-        <span class="text-[11px] font-bold text-brand-wine"><span id="viewersCount">47</span> يشاهدون الآن</span>
+        <span class="text-[10px] sm:text-[11px] font-bold text-brand-wine"><span id="viewersCount">47</span> يشاهدون الآن</span>
       </div>
 
       <div class="product-frame">
@@ -153,23 +183,23 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
         </div>
       </div>
 
-      <div class="mt-5 text-center">
-        <div class="inline-flex items-center gap-2 bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 px-4 py-2.5 rounded-xl shadow-sm">
-          <span class="text-lg">🔥</span>
-          <span class="text-[12.5px] text-red-600 font-bold" data-text="stockAlert"></span>
+      <div class="mt-4 sm:mt-5 text-center">
+        <div class="inline-flex items-center gap-2 bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl shadow-sm">
+          <span class="text-base sm:text-lg">🔥</span>
+          <span class="text-[11.5px] sm:text-[12.5px] text-red-600 font-bold" data-text="stockAlert"></span>
         </div>
       </div>
 
-      <div id="colorChips" class="mt-5 flex flex-wrap items-center justify-center gap-2"></div>
+      <div id="colorChips" class="mt-4 sm:mt-5 flex flex-wrap items-center justify-center gap-2"></div>
 
-      <div class="mt-5 flex items-center justify-center gap-2.5">
-        <div id="starsRow" class="flex gap-0.5 text-2xl text-brand-gold"></div>
-        <span class="font-black text-brand-dark text-lg" id="ratingValue">0.0</span>
+      <div class="mt-4 sm:mt-5 flex items-center justify-center gap-2 sm:gap-2.5 flex-wrap">
+        <div id="starsRow" class="flex gap-0.5 text-xl sm:text-2xl text-brand-gold"></div>
+        <span class="font-black text-brand-dark text-base sm:text-lg" id="ratingValue">0.0</span>
         <span class="text-gray-400 font-bold">/5</span>
-        <span class="text-gray-500 text-[13px] font-bold">(<span id="ratingCount">0</span> تقييم)</span>
+        <span class="text-gray-500 text-[12px] sm:text-[13px] font-bold">(<span id="ratingCount">0</span> تقييم)</span>
       </div>
 
-      <div class="mt-5 flex flex-wrap items-center justify-center gap-2">
+      <div class="mt-4 sm:mt-5 flex flex-wrap items-center justify-center gap-2">
         <span class="trust-badge"><span>🚚</span> توصيل سريع</span>
         <span class="trust-badge"><span>💵</span> دفع عند الاستلام</span>
         <span class="trust-badge"><span>✅</span> ضمان الجودة</span>
@@ -181,55 +211,55 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
       <div class="text-center lg:text-right">
         <span class="badge-luxury" data-text="heroBadge"></span>
 
-        <h1 class="mt-5 font-amiri text-[32px] sm:text-[42px] lg:text-[46px] leading-tight font-bold text-brand-wineDeep" data-text="heroTitle"></h1>
+        <h1 class="mt-4 sm:mt-5 font-amiri text-[26px] sm:text-[34px] md:text-[42px] lg:text-[46px] leading-tight font-bold text-brand-wineDeep" data-text="heroTitle"></h1>
 
         <div class="divider-gold lg:!mx-0 lg:!mr-auto"></div>
 
-        <p class="text-[15.5px] leading-relaxed text-gray-600 font-medium" data-text="heroDesc"></p>
+        <p class="text-[14px] sm:text-[15.5px] leading-relaxed text-gray-600 font-medium" data-text="heroDesc"></p>
 
-        <ul class="mt-6 space-y-3 inline-block text-right" id="heroFeaturesList"></ul>
+        <ul class="mt-5 sm:mt-6 space-y-3 inline-block text-right" id="heroFeaturesList"></ul>
 
-        <div class="mt-8 rounded-2xl bg-gradient-to-br from-white to-brand-goldLight p-5 border-2 border-brand-gold/40 shadow-lg relative overflow-hidden">
+        <div class="mt-6 sm:mt-8 rounded-2xl bg-gradient-to-br from-white to-brand-goldLight p-4 sm:p-5 border-2 border-brand-gold/40 shadow-lg relative overflow-hidden">
           <div class="absolute -top-12 -right-12 w-32 h-32 bg-brand-gold/10 rounded-full"></div>
           <div class="relative flex items-center justify-between flex-wrap gap-3">
             <div class="text-right">
               <div class="text-[11px] font-bold text-brand-gold tracking-wider">سعر العرض</div>
               <div class="flex items-end gap-2 mt-1">
-                <span class="font-amiri text-5xl sm:text-6xl font-bold text-brand-wine leading-none" data-price-display>0</span>
-                <span class="text-lg font-extrabold text-brand-wine mb-2">درهم</span>
+                <span class="font-amiri text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-wine leading-none" data-price-display>0</span>
+                <span class="text-base sm:text-lg font-extrabold text-brand-wine mb-1.5 sm:mb-2">درهم</span>
               </div>
-              <div class="text-[13px] font-bold text-gray-500 line-through mt-1" data-old-price-display></div>
+              <div class="text-[12.5px] sm:text-[13px] font-bold text-gray-500 line-through mt-1" data-old-price-display></div>
             </div>
-            <div class="bg-brand-wine text-white rounded-xl px-4 py-3 text-center shadow-lg">
+            <div class="bg-brand-wine text-white rounded-xl px-3.5 sm:px-4 py-2.5 sm:py-3 text-center shadow-lg">
               <div class="text-[10px] font-bold text-brand-gold">توفير</div>
-              <div class="text-2xl font-black" id="savingsAmount">0</div>
+              <div class="text-xl sm:text-2xl font-black" id="savingsAmount">0</div>
               <div class="text-[10px] font-bold text-brand-gold">درهم</div>
             </div>
           </div>
         </div>
 
-        <div class="mt-5 rounded-2xl bg-gradient-to-br from-brand-wineDeep via-brand-wine to-brand-wineDark px-5 py-4 shadow-xl relative overflow-hidden">
+        <div class="mt-4 sm:mt-5 rounded-2xl bg-gradient-to-br from-brand-wineDeep via-brand-wine to-brand-wineDark px-4 sm:px-5 py-3.5 sm:py-4 shadow-xl relative overflow-hidden">
           <div class="absolute inset-0 opacity-5" style="background-image:radial-gradient(circle,#C9A961 1px,transparent 1px);background-size:15px 15px"></div>
           <div class="relative flex items-center justify-between gap-3 flex-wrap">
-            <div class="flex items-center gap-2 text-sm font-bold text-white">
-              <span class="text-brand-gold text-xl animate-pulse">⏰</span>
+            <div class="flex items-center gap-2 text-[13px] sm:text-sm font-bold text-white">
+              <span class="text-brand-gold text-lg sm:text-xl animate-pulse">⏰</span>
               <span>ينتهي العرض في</span>
             </div>
-            <div class="flex items-center gap-1.5 font-black text-xl text-white" dir="ltr">
-              <span id="cdH" class="bg-white/15 backdrop-blur px-3 py-1.5 rounded-lg tabular-nums border border-brand-gold/30 min-w-[46px] text-center">02</span>
+            <div class="flex items-center gap-1.5 font-black text-base sm:text-xl text-white" dir="ltr">
+              <span id="cdH" class="bg-white/15 backdrop-blur px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg tabular-nums border border-brand-gold/30 min-w-[38px] sm:min-w-[46px] text-center">02</span>
               <span class="text-brand-gold">:</span>
-              <span id="cdM" class="bg-white/15 backdrop-blur px-3 py-1.5 rounded-lg tabular-nums border border-brand-gold/30 min-w-[46px] text-center">14</span>
+              <span id="cdM" class="bg-white/15 backdrop-blur px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg tabular-nums border border-brand-gold/30 min-w-[38px] sm:min-w-[46px] text-center">14</span>
               <span class="text-brand-gold">:</span>
-              <span id="cdS" class="bg-white/15 backdrop-blur px-3 py-1.5 rounded-lg tabular-nums border border-brand-gold/30 min-w-[46px] text-center">33</span>
+              <span id="cdS" class="bg-white/15 backdrop-blur px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg tabular-nums border border-brand-gold/30 min-w-[38px] sm:min-w-[46px] text-center">33</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="mt-5 bg-white rounded-2xl p-4 border border-brand-gold/20 shadow-sm">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-[12.5px] font-bold text-brand-wine">🔥 الكمية المتوفرة</span>
-          <span class="text-[12.5px] font-black text-red-500"><span id="stockCount">27</span> قطعة فقط</span>
+      <div class="mt-4 sm:mt-5 bg-white rounded-2xl p-4 border border-brand-gold/20 shadow-sm">
+        <div class="flex items-center justify-between mb-2 gap-2 flex-wrap">
+          <span class="text-[12px] sm:text-[12.5px] font-bold text-brand-wine">🔥 الكمية المتوفرة</span>
+          <span class="text-[12px] sm:text-[12.5px] font-black text-red-500"><span id="stockCount">27</span> قطعة فقط</span>
         </div>
         <div class="stock-bar">
           <div id="stockBarFill" class="stock-bar-fill" style="width:54%"></div>
@@ -237,13 +267,13 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
         <div class="mt-2 text-[11px] font-bold text-gray-500 text-center">سارعي قبل نفاذ الكمية</div>
       </div>
 
-      <div id="order" class="mt-8 bg-white p-6 sm:p-8 rounded-3xl shadow-[0_30px_80px_-40px_rgba(123,45,62,.4)] border-2 border-brand-gold/20 scroll-mt-24 relative">
-        <div class="absolute -top-3 right-6 bg-brand-gold text-brand-wineDeep text-[11px] font-black px-4 py-1.5 rounded-full shadow-lg">⚡ اطلبي الآن</div>
+      <div id="order" class="mt-6 sm:mt-8 bg-white p-4 sm:p-6 lg:p-8 rounded-3xl shadow-[0_30px_80px_-40px_rgba(123,45,62,.4)] border-2 border-brand-gold/20 scroll-mt-24 relative">
+        <div class="absolute -top-3 right-4 sm:right-6 bg-brand-gold text-brand-wineDeep text-[10.5px] sm:text-[11px] font-black px-3 sm:px-4 py-1.5 rounded-full shadow-lg">⚡ اطلبي الآن</div>
 
-        <div class="text-center mb-6 mt-2">
-          <h2 class="font-amiri text-2xl sm:text-3xl font-bold text-brand-wineDeep" data-text="orderTitle"></h2>
+        <div class="text-center mb-5 sm:mb-6 mt-2">
+          <h2 class="font-amiri text-xl sm:text-2xl md:text-3xl font-bold text-brand-wineDeep" data-text="orderTitle"></h2>
           <div class="divider-gold"></div>
-          <p class="text-[12.5px] text-gray-500 font-medium" data-text="orderSub"></p>
+          <p class="text-[12px] sm:text-[12.5px] text-gray-500 font-medium" data-text="orderSub"></p>
         </div>
 
         <div id="formSuccess" class="hidden mb-5 rounded-2xl border-2 border-green-300 bg-green-50 p-5 text-center">
@@ -253,7 +283,7 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
         </div>
 
         <form id="orderForm" novalidate autocomplete="off" class="grid gap-4">
-          <div class="grid grid-cols-2 gap-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label for="fName" class="mb-1.5 block text-[12.5px] font-extrabold text-brand-wineDeep">الاسم الكامل <span class="text-brand-wine">*</span></label>
               <input id="fName" type="text" class="input" placeholder="فاطمة الزهراء" autocomplete="off">
@@ -281,11 +311,11 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
           </div>
           <div>
             <span class="mb-2 block text-[12.5px] font-extrabold text-brand-wineDeep">الكمية</span>
-            <div class="flex items-center gap-3">
-              <button type="button" id="qtyMinus" class="h-11 w-11 rounded-xl bg-gray-100 text-xl font-black text-brand-wine hover:bg-gray-200 active:scale-95 transition">−</button>
+            <div class="flex items-center gap-3 flex-wrap">
+              <button type="button" id="qtyMinus" class="h-11 w-11 shrink-0 rounded-xl bg-gray-100 text-xl font-black text-brand-wine hover:bg-gray-200 active:scale-95 transition">−</button>
               <span id="qtyValue" class="w-14 text-center text-2xl font-black text-brand-wineDeep">1</span>
-              <button type="button" id="qtyPlus" class="h-11 w-11 rounded-xl bg-brand-gold text-xl font-black text-brand-wineDeep hover:brightness-110 active:scale-95 transition shadow-md">+</button>
-              <span class="ms-auto text-[12px] text-gray-500 font-bold">الحد الأقصى: 5</span>
+              <button type="button" id="qtyPlus" class="h-11 w-11 shrink-0 rounded-xl bg-brand-gold text-xl font-black text-brand-wineDeep hover:brightness-110 active:scale-95 transition shadow-md">+</button>
+              <span class="ms-auto text-[11.5px] sm:text-[12px] text-gray-500 font-bold">الحد الأقصى: 5</span>
             </div>
           </div>
           <div>
@@ -294,28 +324,28 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
             <p class="err mt-1 hidden text-[11px] font-bold text-red-500">المرجو كتابة العنوان</p>
           </div>
 
-          <div class="rounded-2xl border-2 border-dashed border-brand-gold/40 bg-gradient-to-br from-brand-goldLight/50 to-white p-4">
-            <div class="flex items-center justify-between text-[13px] text-brand-wineDeep font-bold mb-2"><span class="font-black" data-text="productName"></span><span><span data-price-display>0</span> درهم</span></div>
-            <div class="space-y-1.5 text-[12.5px] text-gray-600 font-semibold">
-              <div class="flex justify-between"><span>اللون:</span><span id="sumColor" class="text-brand-wineDeep font-bold">-</span></div>
-              <div class="flex justify-between"><span>الحجم:</span><span id="sumSize" class="text-brand-wineDeep font-bold">-</span></div>
-              <div class="flex justify-between"><span>الكمية:</span><span class="text-brand-wineDeep font-bold">× <span id="sumQty">1</span></span></div>
-              <div class="flex justify-between text-green-600"><span>التوصيل:</span><span class="font-bold">مجاني 🚚</span></div>
+          <div class="rounded-2xl border-2 border-dashed border-brand-gold/40 bg-gradient-to-br from-brand-goldLight/50 to-white p-3.5 sm:p-4">
+            <div class="flex items-center justify-between gap-2 flex-wrap text-[12.5px] sm:text-[13px] text-brand-wineDeep font-bold mb-2"><span class="font-black" data-text="productName"></span><span class="whitespace-nowrap"><span data-price-display>0</span> درهم</span></div>
+            <div class="space-y-1.5 text-[12px] sm:text-[12.5px] text-gray-600 font-semibold">
+              <div class="flex justify-between gap-2"><span>اللون:</span><span id="sumColor" class="text-brand-wineDeep font-bold">-</span></div>
+              <div class="flex justify-between gap-2"><span>الحجم:</span><span id="sumSize" class="text-brand-wineDeep font-bold">-</span></div>
+              <div class="flex justify-between gap-2"><span>الكمية:</span><span class="text-brand-wineDeep font-bold">× <span id="sumQty">1</span></span></div>
+              <div class="flex justify-between gap-2 text-green-600"><span>التوصيل:</span><span class="font-bold">مجاني 🚚</span></div>
             </div>
-            <div class="mt-3 pt-3 border-t-2 border-dashed border-brand-gold/40 flex items-center justify-between">
+            <div class="mt-3 pt-3 border-t-2 border-dashed border-brand-gold/40 flex items-center justify-between gap-2 flex-wrap">
               <span class="font-black text-brand-wineDeep">المجموع</span>
-              <span class="font-amiri text-3xl font-bold text-brand-wine"><span id="sumTotal">0</span> <span class="text-base">درهم</span></span>
+              <span class="font-amiri text-2xl sm:text-3xl font-bold text-brand-wine"><span id="sumTotal">0</span> <span class="text-sm sm:text-base">درهم</span></span>
             </div>
           </div>
 
-          <button type="submit" id="submitBtn" class="btn-gold cta-pulse w-full py-5 rounded-2xl text-lg font-black">
+          <button type="submit" id="submitBtn" class="btn-gold cta-pulse w-full py-4 sm:py-5 rounded-2xl text-[15px] sm:text-lg font-black">
             <span class="flex items-center justify-center gap-2">
               <span>🛍️</span>
               <span>تأكيد الطلب — الدفع عند الاستلام</span>
             </span>
           </button>
 
-          <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11.5px] font-bold text-gray-500">
+          <div class="flex flex-wrap items-center justify-center gap-x-4 sm:gap-x-5 gap-y-2 text-[11px] sm:text-[11.5px] font-bold text-gray-500">
             <span class="flex items-center gap-1.5"><span class="text-green-500 text-base">✓</span> دفع عند الاستلام</span>
             <span class="flex items-center gap-1.5"><span class="text-green-500 text-base">✓</span> توصيل مجاني</span>
             <span class="flex items-center gap-1.5"><span class="text-green-500 text-base">✓</span> ضمان الإرجاع</span>
@@ -326,92 +356,92 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   </div>
 </section>
 
-<section class="bg-white py-16 sm:py-24 relative overflow-hidden">
+<section class="bg-white py-12 sm:py-16 lg:py-24 relative overflow-hidden">
   <div class="pointer-events-none absolute top-10 right-10 w-40 h-40 bg-brand-gold/5 rounded-full blur-2xl"></div>
-  <div class="max-w-6xl mx-auto px-4">
+  <div class="max-w-6xl mx-auto px-3 sm:px-4">
     <div class="text-center max-w-xl mx-auto" data-reveal>
       <span class="text-[11px] tracking-[4px] text-brand-gold font-black" data-text="featuresBadge"></span>
-      <h2 class="mt-4 font-amiri text-3xl sm:text-4xl font-bold text-brand-wineDeep section-title" data-text="featuresTitle"></h2>
+      <h2 class="mt-4 font-amiri text-2xl sm:text-3xl md:text-4xl font-bold text-brand-wineDeep section-title" data-text="featuresTitle"></h2>
     </div>
-    <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6" id="featuresGrid"></div>
+    <div class="mt-10 sm:mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6" id="featuresGrid"></div>
   </div>
 </section>
 
-<section class="bg-gradient-to-b from-brand-cream to-white py-16 sm:py-24">
-  <div class="max-w-6xl mx-auto px-4">
+<section class="bg-gradient-to-b from-brand-cream to-white py-12 sm:py-16 lg:py-24">
+  <div class="max-w-6xl mx-auto px-3 sm:px-4">
     <div class="text-center max-w-xl mx-auto" data-reveal>
       <span class="text-[11px] tracking-[4px] text-brand-gold font-black">آراء حقيقية</span>
-      <h2 class="mt-4 font-amiri text-3xl sm:text-4xl font-bold text-brand-wineDeep section-title" data-text="reviewsTitle"></h2>
-      <p class="mt-5 text-gray-500 font-medium" data-text="reviewsSub"></p>
+      <h2 class="mt-4 font-amiri text-2xl sm:text-3xl md:text-4xl font-bold text-brand-wineDeep section-title" data-text="reviewsTitle"></h2>
+      <p class="mt-4 sm:mt-5 text-[13.5px] sm:text-base text-gray-500 font-medium" data-text="reviewsSub"></p>
     </div>
-    <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="reviewsWrap"></div>
+    <div class="mt-10 sm:mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" id="reviewsWrap"></div>
   </div>
 </section>
 
-<section class="bg-white py-16 sm:py-24">
-  <div class="max-w-3xl mx-auto px-4">
+<section class="bg-white py-12 sm:py-16 lg:py-24">
+  <div class="max-w-3xl mx-auto px-3 sm:px-4">
     <div class="text-center" data-reveal>
       <span class="text-[11px] tracking-[4px] text-brand-gold font-black">الأسئلة الشائعة</span>
-      <h2 class="mt-4 font-amiri text-3xl sm:text-4xl font-bold text-brand-wineDeep section-title">كل ما تحتاجين معرفته</h2>
+      <h2 class="mt-4 font-amiri text-2xl sm:text-3xl md:text-4xl font-bold text-brand-wineDeep section-title">كل ما تحتاجين معرفته</h2>
     </div>
-    <div class="mt-12 space-y-3" id="faqWrap"></div>
+    <div class="mt-8 sm:mt-12 space-y-3" id="faqWrap"></div>
   </div>
 </section>
 
-<section class="bg-luxury-dark py-16 relative overflow-hidden">
+<section class="bg-luxury-dark py-12 sm:py-16 relative overflow-hidden">
   <div class="pointer-events-none absolute inset-0 opacity-10" style="background-image:radial-gradient(circle,#C9A961 1px,transparent 1px);background-size:30px 30px"></div>
-  <div class="relative max-w-3xl mx-auto px-4 text-center">
-    <div class="text-5xl mb-4">🎁</div>
-    <h2 class="font-amiri text-3xl sm:text-4xl font-bold text-white mb-4">لا تفوتي الفرصة</h2>
-    <p class="text-white/70 font-medium mb-6 max-w-lg mx-auto">العرض ساري لفترة محدودة، والكمية تنقص بسرعة. أطلبي الآن واستفيدي من التوصيل المجاني والدفع عند الاستلام.</p>
-    <a href="#order" class="btn-gold cta-pulse inline-flex items-center gap-2 px-10 py-4 rounded-2xl text-base font-black">
+  <div class="relative max-w-3xl mx-auto px-3 sm:px-4 text-center">
+    <div class="text-4xl sm:text-5xl mb-4">🎁</div>
+    <h2 class="font-amiri text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">لا تفوتي الفرصة</h2>
+    <p class="text-white/70 font-medium mb-6 max-w-lg mx-auto text-[13.5px] sm:text-base">العرض ساري لفترة محدودة، والكمية تنقص بسرعة. أطلبي الآن واستفيدي من التوصيل المجاني والدفع عند الاستلام.</p>
+    <a href="#order" class="btn-gold cta-pulse inline-flex items-center gap-2 px-6 sm:px-10 py-3.5 sm:py-4 rounded-2xl text-[14px] sm:text-base font-black">
       <span>🛍️</span>
       <span>اطلبي الآن بسعر 299 درهم</span>
     </a>
   </div>
 </section>
 
-<footer class="bg-brand-wineDeep text-white pt-16 pb-10">
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="grid sm:grid-cols-3 gap-10">
+<footer class="bg-brand-wineDeep text-white pt-12 sm:pt-16 pb-10">
+  <div class="max-w-6xl mx-auto px-3 sm:px-4">
+    <div class="grid sm:grid-cols-3 gap-8 sm:gap-10">
       <div>
         <div class="flex items-center gap-3">
-          <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-brand-gold/50 shadow-lg"><img src="https://i.postimg.cc/pV7rhCMm/514347097-18075713759506570-1219391976996982719-n.jpg" alt="WARDAA" class="w-full h-full object-cover"></div>
-          <div>
-            <div class="font-amiri text-xl font-bold text-brand-gold" data-text="brandName"></div>
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-brand-gold/50 shadow-lg shrink-0"><img src="https://i.postimg.cc/pV7rhCMm/514347097-18075713759506570-1219391976996982719-n.jpg" alt="WARDAA" class="w-full h-full object-cover"></div>
+          <div class="min-w-0">
+            <div class="font-amiri text-lg sm:text-xl font-bold text-brand-gold" data-text="brandName"></div>
             <div class="text-[10px] tracking-[3px] text-brand-gold/60 mt-1 lowercase">warda_dressing</div>
           </div>
         </div>
         <p class="mt-5 text-[13px] leading-relaxed text-white/60 font-medium" data-text="footerDesc"></p>
       </div>
       <div>
-        <h4 class="font-amiri text-lg font-bold text-brand-gold mb-5">روابط</h4>
+        <h4 class="font-amiri text-lg font-bold text-brand-gold mb-4 sm:mb-5">روابط</h4>
         <ul class="space-y-3 text-[13.5px] font-semibold text-white/70">
           <li><a href="#" class="hover:text-brand-gold transition inline-flex items-center gap-2"><span>◆</span> الرئيسية</a></li>
           <li><a href="#order" class="hover:text-brand-gold transition inline-flex items-center gap-2"><span>◆</span> اطلبي الآن</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="font-amiri text-lg font-bold text-brand-gold mb-5">تواصلي معنا</h4>
+        <h4 class="font-amiri text-lg font-bold text-brand-gold mb-4 sm:mb-5">تواصلي معنا</h4>
         <div class="space-y-3">
           <a href="https://wa.me/212614190010" target="_blank" rel="noopener" class="flex items-center gap-3 text-[13.5px] font-semibold text-white/70 hover:text-brand-gold transition"><span class="text-lg">💬</span> واتساب: 0614190010</a>
           <a href="https://www.instagram.com/warda_dressing/" target="_blank" rel="noopener" class="flex items-center gap-3 text-[13.5px] font-semibold text-white/70 hover:text-brand-gold transition"><span class="text-lg">📸</span> @warda_dressing</a>
         </div>
       </div>
     </div>
-    <div class="mt-12 pt-6 border-t border-white/10 text-center text-[12px] font-bold text-white/40">© <span id="year">2025</span> وردة دريسينغ — جميع الحقوق محفوظة</div>
+    <div class="mt-10 sm:mt-12 pt-6 border-t border-white/10 text-center text-[11.5px] sm:text-[12px] font-bold text-white/40">© <span id="year">2025</span> وردة دريسينغ — جميع الحقوق محفوظة</div>
   </div>
 </footer>
 
-<div id="stickyBar" class="fixed bottom-0 left-0 right-0 z-40 bg-white border-t-2 border-brand-gold shadow-[0_-10px_30px_-10px_rgba(123,45,62,.3)] translate-y-full transition-transform duration-300">
-  <div class="max-w-6xl mx-auto px-3 py-3 flex items-center gap-3">
-    <a href="https://wa.me/212614190010" target="_blank" rel="noopener" class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-green-500 text-xl text-white shadow-lg hover:scale-105 transition">💬</a>
+<div id="stickyBar" class="fixed bottom-0 left-0 right-0 z-40 bg-white border-t-2 border-brand-gold shadow-[0_-10px_30px_-10px_rgba(123,45,62,.3)] translate-y-full transition-transform duration-300" style="padding-bottom:env(safe-area-inset-bottom)">
+  <div class="max-w-6xl mx-auto px-2.5 sm:px-3 py-2.5 sm:py-3 flex items-center gap-2 sm:gap-3">
+    <a href="https://wa.me/212614190010" target="_blank" rel="noopener" class="grid h-11 w-11 sm:h-12 sm:w-12 shrink-0 place-items-center rounded-full bg-green-500 text-lg sm:text-xl text-white shadow-lg hover:scale-105 transition">💬</a>
     <div class="shrink-0 text-center">
-      <div class="font-amiri text-2xl font-bold text-brand-wine leading-none" data-price-display>0</div>
-      <div class="text-[10px] font-bold text-gray-400 line-through" data-old-price-short></div>
+      <div class="font-amiri text-xl sm:text-2xl font-bold text-brand-wine leading-none" data-price-display>0</div>
+      <div class="text-[9.5px] sm:text-[10px] font-bold text-gray-400 line-through" data-old-price-short></div>
     </div>
-    <a href="#order" class="flex-1 btn-gold py-3.5 rounded-xl text-center text-[14px] font-black">
-      🛍️ اطلبي الآن — الدفع عند الاستلام
+    <a href="#order" class="flex-1 btn-gold py-3 sm:py-3.5 px-2 rounded-xl text-center text-[12px] sm:text-[14px] font-black whitespace-nowrap overflow-hidden text-ellipsis">
+      🛍️ اطلبي الآن<span class="hidden xs:inline sm:inline"> — الدفع عند الاستلام</span>
     </a>
   </div>
 </div>
@@ -426,7 +456,7 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   </div>
 </div>
 
-<div id="adminPanel" style="position:fixed;bottom:100px;left:16px;z-index:9999;background:#1A1A1A;color:#fff;border-radius:12px;padding:14px;box-shadow:0 20px 60px rgba(0,0,0,.7);font-family:Tajawal,sans-serif;width:420px;max-width:94vw;direction:rtl;border:1px solid #C9A961;max-height:85vh;overflow-y:auto">
+<div id="adminPanel" style="position:fixed;bottom:100px;left:16px;z-index:9999;background:#1A1A1A;color:#fff;border-radius:12px;padding:14px;box-shadow:0 20px 60px rgba(0,0,0,.7);font-family:Tajawal,sans-serif;width:420px;max-width:94vw;direction:rtl;border:1px solid #C9A961;max-height:85vh;overflow-y:auto;-webkit-overflow-scrolling:touch">
   <div style="font-weight:800;font-size:16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:8px"><span>لوحة التحكم</span><span style="font-size:10px;background:#C9A961;color:#1A1A1A;padding:3px 8px;border-radius:4px;font-weight:800;letter-spacing:1px">ADMIN</span></div>
   <div id="adminSyncStatus" class="admin-status warn">جاري التحقق من السيرفر...</div>
   <div style="display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap">
@@ -628,14 +658,14 @@ function applyTexts(){
   var hl = document.getElementById('heroFeaturesList');
   if(hl && t.features){
     hl.innerHTML = '';
-    t.features.forEach(function(f){ var p = f.split('||'); var li = document.createElement('li'); li.className = 'flex items-center gap-3 text-[14.5px] text-gray-700 font-semibold'; li.innerHTML = '<span class="grid h-6 w-6 place-items-center rounded-full bg-green-100 text-green-600 text-xs font-black">✓</span> <span>' + p[0] + '</span>'; hl.appendChild(li); });
+    t.features.forEach(function(f){ var p = f.split('||'); var li = document.createElement('li'); li.className = 'flex items-center gap-3 text-[13.5px] sm:text-[14.5px] text-gray-700 font-semibold'; li.innerHTML = '<span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-green-100 text-green-600 text-xs font-black">✓</span> <span>' + p[0] + '</span>'; hl.appendChild(li); });
   }
   var g = document.getElementById('featuresGrid');
   if(g && t.features){
     var html = '';
     t.features.forEach(function(f){
       var p = f.split('||');
-      html += '<div class="card-luxury text-center p-6" data-reveal><div class="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-pinkLight to-brand-goldLight grid place-items-center text-3xl shadow-inner">' + (p[2]||'✨') + '</div><h3 class="mt-5 font-amiri text-xl font-bold text-brand-wineDeep">' + (p[0]||'') + '</h3><div class="divider-gold" style="width:40px;margin:.75rem auto"></div><p class="text-[13.5px] text-gray-600 leading-relaxed font-medium">' + (p[1]||'') + '</p></div>';
+      html += '<div class="card-luxury text-center p-5 sm:p-6" data-reveal><div class="mx-auto w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-brand-pinkLight to-brand-goldLight grid place-items-center text-2xl sm:text-3xl shadow-inner">' + (p[2]||'✨') + '</div><h3 class="mt-4 sm:mt-5 font-amiri text-lg sm:text-xl font-bold text-brand-wineDeep">' + (p[0]||'') + '</h3><div class="divider-gold" style="width:40px;margin:.75rem auto"></div><p class="text-[13px] sm:text-[13.5px] text-gray-600 leading-relaxed font-medium">' + (p[1]||'') + '</p></div>';
     });
     g.innerHTML = html;
     g.querySelectorAll('[data-reveal]').forEach(function(el){ setTimeout(function(){el.classList.add('is-visible');},100); });
@@ -660,7 +690,7 @@ function renderFormColors(){
   colors.forEach(function(x){
     var ck = state.color === x.name, s = x.available === false;
     var dAttr = s ? ' disabled' : '';
-    h += '<label class="cursor-pointer" data-form-color="' + x.name + '"' + (s?' style="opacity:.4;pointer-events:none"':'') + '><input type="radio" name="color" value="' + x.name + '" class="peer sr-only"' + (ck?' checked':'') + dAttr + '><span class="flex items-center gap-2 border-2 border-gray-200 rounded-xl px-3.5 py-2.5 text-[12.5px] font-bold transition peer-checked:border-brand-wine peer-checked:bg-brand-wineLight peer-checked:shadow-md text-brand-wineDeep"><span class="h-4 w-4 rounded-full ring-2 ring-white shadow" style="background:' + x.hex + '"></span> ' + x.name + '</span></label>';
+    h += '<label class="cursor-pointer" data-form-color="' + x.name + '"' + (s?' style="opacity:.4;pointer-events:none"':'') + '><input type="radio" name="color" value="' + x.name + '" class="peer sr-only"' + (ck?' checked':'') + dAttr + '><span class="flex items-center gap-2 border-2 border-gray-200 rounded-xl px-3 py-2.5 sm:px-3.5 text-[12px] sm:text-[12.5px] font-bold transition peer-checked:border-brand-wine peer-checked:bg-brand-wineLight peer-checked:shadow-md text-brand-wineDeep"><span class="h-4 w-4 rounded-full ring-2 ring-white shadow" style="background:' + x.hex + '"></span> ' + x.name + '</span></label>';
   });
   c.innerHTML = h;
   c.querySelectorAll('input[name="color"]').forEach(function(r){ r.addEventListener('change', function(){ applyColor(r.value, true); }); });
@@ -851,9 +881,9 @@ var REVIEWS = [
 (function(){
   var h = '';
   REVIEWS.forEach(function(r){
-    h += '<article class="card-luxury p-6" data-reveal>';
-    h += '<div class="flex items-center gap-3 mb-4"><div class="w-12 h-12 rounded-full bg-gradient-to-br from-brand-wine to-brand-wineDeep text-white grid place-items-center font-amiri font-bold text-lg shadow-lg">' + r.i + '</div><div class="flex-1"><div class="font-black text-[14px] text-brand-wineDeep">' + r.n + '</div><div class="text-[11.5px] text-gray-500 font-bold">' + r.c + '</div></div><div class="text-brand-gold text-lg">★★★★★</div></div>';
-    h += '<div class="relative"><span class="absolute -top-2 -right-1 text-4xl text-brand-gold/30 font-serif">"</span><p class="text-[13.5px] leading-relaxed text-gray-700 font-medium italic pr-4">' + r.t + '</p></div>';
+    h += '<article class="card-luxury p-5 sm:p-6" data-reveal>';
+    h += '<div class="flex items-center gap-3 mb-4"><div class="w-11 h-11 sm:w-12 sm:h-12 shrink-0 rounded-full bg-gradient-to-br from-brand-wine to-brand-wineDeep text-white grid place-items-center font-amiri font-bold text-lg shadow-lg">' + r.i + '</div><div class="flex-1 min-w-0"><div class="font-black text-[13.5px] sm:text-[14px] text-brand-wineDeep truncate">' + r.n + '</div><div class="text-[11px] sm:text-[11.5px] text-gray-500 font-bold">' + r.c + '</div></div><div class="text-brand-gold text-base sm:text-lg whitespace-nowrap">★★★★★</div></div>';
+    h += '<div class="relative"><span class="absolute -top-2 -right-1 text-4xl text-brand-gold/30 font-serif">"</span><p class="text-[13px] sm:text-[13.5px] leading-relaxed text-gray-700 font-medium italic pr-4">' + r.t + '</p></div>';
     h += '<div class="mt-5 pt-4 border-t border-brand-gold/20 flex items-center gap-2 text-[11px] font-black text-green-600"><span>✓</span> زبونة موثقة</div>';
     h += '</article>';
   });
@@ -872,8 +902,8 @@ var FAQS = [
   var h = '';
   FAQS.forEach(function(f){
     h += '<div class="faq-item card-luxury !p-0 overflow-hidden" data-reveal>';
-    h += '<button type="button" class="faq-head w-full flex items-center justify-between gap-4 p-5 text-right"><span class="font-black text-[15px] text-brand-wineDeep">' + f.q + '</span><span class="faq-icon shrink-0 w-8 h-8 rounded-full border-2 border-brand-gold/40 text-brand-wine grid place-items-center font-black transition-all">+</span></button>';
-    h += '<div class="faq-body px-5"><p class="pb-5 text-[13.5px] leading-relaxed text-gray-600 font-medium">' + f.a + '</p></div>';
+    h += '<button type="button" class="faq-head w-full flex items-center justify-between gap-4 p-4 sm:p-5 text-right"><span class="font-black text-[14px] sm:text-[15px] text-brand-wineDeep">' + f.q + '</span><span class="faq-icon shrink-0 w-8 h-8 rounded-full border-2 border-brand-gold/40 text-brand-wine grid place-items-center font-black transition-all">+</span></button>';
+    h += '<div class="faq-body px-4 sm:px-5"><p class="pb-5 text-[13px] sm:text-[13.5px] leading-relaxed text-gray-600 font-medium">' + f.a + '</p></div>';
     h += '</div>';
   });
   document.getElementById('faqWrap').innerHTML = h;
@@ -963,9 +993,9 @@ function showToast(){ var n = NOTIFS[ni % NOTIFS.length]; ni++; document.getElem
 setTimeout(showToast, 5000); setInterval(showToast, 7000);
 
 var form = document.getElementById('orderForm'), submitBtn = document.getElementById('submitBtn'), successBox = document.getElementById('formSuccess');
-var BTN_DEF = "btn-gold cta-pulse w-full py-5 rounded-2xl text-lg font-black";
-var BTN_LD = "w-full bg-brand-wine py-5 rounded-2xl text-lg font-black text-white opacity-70";
-var BTN_OK = "w-full bg-green-600 py-5 rounded-2xl text-lg font-black text-white";
+var BTN_DEF = "btn-gold cta-pulse w-full py-4 sm:py-5 rounded-2xl text-[15px] sm:text-lg font-black";
+var BTN_LD = "w-full bg-brand-wine py-4 sm:py-5 rounded-2xl text-[15px] sm:text-lg font-black text-white opacity-70";
+var BTN_OK = "w-full bg-green-600 py-4 sm:py-5 rounded-2xl text-[15px] sm:text-lg font-black text-white";
 
 function setErr(el, s){ var e = el.parentElement.querySelector('.err'); if(e) e.classList.toggle('hidden', !s); el.classList.toggle('!border-red-400', s); el.classList.toggle('!bg-red-50', s); }
 
