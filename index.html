@@ -30,7 +30,7 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 .color-chip.is-soldout::after{content:'نفذ';position:absolute;inset:0;background:rgba(26,26,26,.85);color:#C9A961;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;letter-spacing:1px;border-radius:0.5rem}
 .size-chip{border:1.5px solid #E5DDD0;background:#FFF;cursor:pointer;transition:.25s;position:relative;border-radius:0.5rem;padding:.5rem 1rem;font-size:13px;font-weight:700;min-width:48px;text-align:center}
 .size-chip:hover{border-color:#C9A961}
-.size-chip.is-active{border-color:#7B2D3E;background:#F5E8EC;color:#7B2D3E}
+.size-chip.is-active{border-color:#7B2D3E;background:#F5E8EC;color:#7B2D3E;box-shadow:0 4px 12px -4px rgba(123,45,62,.3)}
 .size-chip.is-soldout{opacity:.4;pointer-events:none;text-decoration:line-through}
 .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -86,7 +86,7 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
         <div class="text-[10px] text-brand-gold font-medium tracking-[3px] mt-1 lowercase" data-text="brandSub"></div>
       </div>
     </a>
-    <a href="https://wa.me/2126XXXXXXXX" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-brand-wine px-5 py-2.5 text-[13px] font-bold text-white hover:bg-brand-wineDark transition"><span>✆</span><span>تواصلي معنا</span></a>
+    <a href="https://wa.me/212614190010" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-brand-wine px-5 py-2.5 text-[13px] font-bold text-white hover:bg-brand-wineDark transition"><span>✆</span><span>تواصلي معنا</span></a>
   </div>
 </header>
 
@@ -255,7 +255,10 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
       </div>
       <div>
         <h4 class="font-amiri text-lg font-bold text-brand-gold">تواصلي معنا</h4>
-        <div class="mt-5 space-y-3"><a href="https://wa.me/2126XXXXXXXX" target="_blank" rel="noopener" class="block text-[13.5px] text-white/70 hover:text-brand-gold transition">✆ واتساب</a><a href="https://www.instagram.com/warda_dressing/" target="_blank" rel="noopener" class="block text-[13.5px] text-white/70 hover:text-brand-gold transition">◈ انستغرام</a></div>
+        <div class="mt-5 space-y-3">
+          <a href="https://wa.me/212614190010" target="_blank" rel="noopener" class="block text-[13.5px] text-white/70 hover:text-brand-gold transition">✆ واتساب: 0614190010</a>
+          <a href="https://www.instagram.com/warda_dressing/" target="_blank" rel="noopener" class="block text-[13.5px] text-white/70 hover:text-brand-gold transition">◈ انستغرام: @warda_dressing</a>
+        </div>
       </div>
     </div>
     <div class="mt-12 pt-6 border-t border-white/10 text-center text-[12px] text-white/50">© <span id="year">2025</span> وردة دريسينغ — جميع الحقوق محفوظة</div>
@@ -264,7 +267,7 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 
 <div id="stickyBar" class="fixed bottom-0 left-0 right-0 z-40 bg-brand-dark border-t border-brand-gold/30 translate-y-full transition-transform duration-300">
   <div class="max-w-6xl mx-auto px-3 py-3 flex items-center gap-3">
-    <a href="https://wa.me/2126XXXXXXXX" target="_blank" rel="noopener" class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-green-600 text-lg text-white">✆</a>
+    <a href="https://wa.me/212614190010" target="_blank" rel="noopener" class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-green-600 text-lg text-white">✆</a>
     <div class="shrink-0 text-center"><div class="font-amiri text-xl font-bold text-brand-gold leading-none" data-price-display>0</div><div class="text-[10px] text-white/50 line-through" data-old-price-short></div></div>
     <a href="#order" class="flex-1 bg-brand-gold text-brand-dark py-3 text-center text-[13px] sm:text-base font-bold tracking-wide">اطلبي الآن</a>
   </div>
@@ -345,11 +348,15 @@ var STORAGE_PRICE = 'wd_warda_price_v3';
 var STORAGE_OLD_PRICE = 'wd_warda_oldprice_v3';
 var STORAGE_SIZES = 'wd_warda_sizes_v3';
 
-/* ✅✅✅ الرابط الجديد ديال Google Apps Script ✅✅✅ */
 var SHEET_URL = "https://script.google.com/macros/s/AKfycbyu3O90JhESRpVHoCjlPFPccpGSzuOZ4jlzs39G3EXli-MEW04LHliAYbyBLVDDeL-M/exec";
 var BRAND_MARKER = "warda_dressing_v3";
 
-var WHATSAPP_NUMBER = "2126XXXXXXXX";
+/* ✅✅✅ الهاتف و الواتساب ✅✅✅ */
+var WHATSAPP_NUMBER = "212614190010";  /* 0614190010 بصيغة دولية */
+var PHONE_DISPLAY = "0614190010";
+var INSTAGRAM_URL = "https://www.instagram.com/warda_dressing/";
+var INSTAGRAM_HANDLE = "warda_dressing";
+
 var DEFAULT_PRICE = 299;
 var DEFAULT_OLD_PRICE = 450;
 
@@ -394,7 +401,6 @@ var DEFAULT_TEXTS = {
 
 var IS_ADMIN = new URLSearchParams(location.search).has('admin');
 
-/* استخراج اللون */
 async function extractDominantColor(imgUrl){
   if(!imgUrl) return null;
   var cleanUrl = imgUrl.replace(/^https?:\/\//, '');
@@ -553,6 +559,7 @@ function renderFormColors(){
   c.querySelectorAll('input[name="color"]').forEach(function(r){ r.addEventListener('change', function(){ applyColor(r.value, true); }); });
 }
 
+/* ✅✅✅ إصلاح اختيار الحجم — تحديث المظهر البصري ✅✅✅ */
 function renderFormSizes(){
   var c = document.getElementById('formSizes'); if(!c) return;
   var sizes = getSizes();
@@ -571,7 +578,19 @@ function renderFormSizes(){
   });
   c.innerHTML = h;
   c.querySelectorAll('input[name="size"]').forEach(function(r){
-    r.addEventListener('change', function(){ state.size = r.value; updateSummary(); });
+    r.addEventListener('change', function(){
+      state.size = r.value;
+      updateSummary();
+      /* ✅ حيّد is-active من كل الأحجام */
+      c.querySelectorAll('.size-chip').forEach(function(chip){
+        chip.classList.remove('is-active');
+      });
+      /* ✅ زيد is-active للحجم المختار */
+      var chip = r.nextElementSibling;
+      if(chip && chip.classList.contains('size-chip')){
+        chip.classList.add('is-active');
+      }
+    });
   });
 }
 
