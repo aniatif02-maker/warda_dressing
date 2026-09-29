@@ -226,7 +226,6 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
         </div>
       </div>
 
-      <!-- ✅ Stock bar avec 27 par défaut -->
       <div class="mt-5 bg-white rounded-2xl p-4 border border-brand-gold/20 shadow-sm">
         <div class="flex items-center justify-between mb-2">
           <span class="text-[12.5px] font-bold text-brand-wine">🔥 الكمية المتوفرة</span>
@@ -472,7 +471,7 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
   </div>
   <div class="admin-section" data-section="add">
     <label class="admin-label">اسم اللون</label>
-    <input id="adminNewName" type="text" class="admin-input" placeholder="مثال: بني">
+    <input id="adminNewName" type="text" class="admin-input" placeholder="مثال: Vert foncé">
     <label class="admin-label">اللون</label>
     <input id="adminNewHex" type="color" value="#7B2D3E" style="width:100%;height:42px;background:#1a1a1a;border:1px solid #333;border-radius:0.5rem;cursor:pointer;margin-bottom:8px">
     <button type="button" id="adminDetectColor" style="background:#4A5568;color:#fff;font-weight:700;border:0;padding:8px;border-radius:0.5rem;cursor:pointer;font-family:Tajawal;font-size:12px;width:100%;margin-bottom:8px">🎨 استخراج اللون من الصورة</button>
@@ -489,11 +488,11 @@ h1,h2,h3,.font-amiri{font-family:Amiri,serif}
 </div>
 
 <script>
-var STORAGE_COLORS = 'wd_warda_colors_v3';
-var STORAGE_TEXTS = 'wd_warda_texts_v4';
-var STORAGE_PRICE = 'wd_warda_price_v3';
-var STORAGE_OLD_PRICE = 'wd_warda_oldprice_v3';
-var STORAGE_SIZES = 'wd_warda_sizes_v3';
+var STORAGE_COLORS = 'wd_warda_colors_v5';
+var STORAGE_TEXTS = 'wd_warda_texts_v5';
+var STORAGE_PRICE = 'wd_warda_price_v5';
+var STORAGE_OLD_PRICE = 'wd_warda_oldprice_v5';
+var STORAGE_SIZES = 'wd_warda_sizes_v5';
 
 var SHEET_URL = "https://script.google.com/macros/s/AKfycbyu3O90JhESRpVHoCjlPFPccpGSzuOZ4jlzs39G3EXli-MEW04LHliAYbyBLVDDeL-M/exec";
 var BRAND_MARKER = "warda_dressing_v3";
@@ -504,12 +503,15 @@ var INSTAGRAM_URL = "https://www.instagram.com/warda_dressing/";
 var DEFAULT_PRICE = 299;
 var DEFAULT_OLD_PRICE = 450;
 
+/* ✅✅✅ الألوان السبعة الجديدة (فرنسية) ✅✅✅ */
 var DEFAULT_COLORS = [
-  {name:"أسود",   hex:"#000000", img:"https://placehold.co/600x800/1A1A1A/C9A961?text=Black", available:true},
-  {name:"بيج",    hex:"#E8D5B7", img:"https://placehold.co/600x800/E8D5B7/7B2D3E?text=Beige", available:true},
-  {name:"بني",    hex:"#8B4513", img:"https://placehold.co/600x800/8B4513/C9A961?text=Brown", available:true},
-  {name:"كحلي",   hex:"#1B2A4A", img:"https://placehold.co/600x800/1B2A4A/C9A961?text=Navy", available:true},
-  {name:"خمري",   hex:"#7B2D3E", img:"https://placehold.co/600x800/7B2D3E/C9A961?text=Wine", available:true}
+  {name:"marron chocolat", hex:"#3E1F0F", img:"https://placehold.co/600x800/3E1F0F/FFFFFF?text=marron+chocolat", available:true},
+  {name:"Vert foncé",      hex:"#1B3A1B", img:"https://placehold.co/600x800/1B3A1B/FFFFFF?text=Vert+fonc%C3%A9",    available:true},
+  {name:"bordaux",         hex:"#6B1F2E", img:"https://placehold.co/600x800/6B1F2E/FFFFFF?text=bordaux",           available:true},
+  {name:"gris",            hex:"#808080", img:"https://placehold.co/600x800/808080/FFFFFF?text=gris",              available:true},
+  {name:"Vert pistach",    hex:"#A8C66C", img:"https://placehold.co/600x800/A8C66C/FFFFFF?text=Vert+pistach",      available:true},
+  {name:"noire",           hex:"#000000", img:"https://placehold.co/600x800/000000/FFFFFF?text=noire",             available:true},
+  {name:"rose",            hex:"#FFC0CB", img:"https://placehold.co/600x800/FFC0CB/FFFFFF?text=rose",              available:true}
 ];
 
 var DEFAULT_SIZES = [
@@ -806,8 +808,29 @@ function applyServerData(d){
   return c;
 }
 
-(function(){ try { localStorage.removeItem('admin_texts'); localStorage.removeItem('wd_warda_texts_v3'); localStorage.removeItem('admin_colors'); localStorage.removeItem('admin_price'); localStorage.removeItem('admin_old_price'); localStorage.removeItem('admin_stock'); localStorage.removeItem('admin_images'); } catch(e){} })();
-function migrateOld(){ if(!localStorage.getItem(STORAGE_COLORS)) saveColorsLocal(JSON.parse(JSON.stringify(DEFAULT_COLORS))); if(!localStorage.getItem(STORAGE_TEXTS)) saveTextsLocal(JSON.parse(JSON.stringify(DEFAULT_TEXTS))); if(!localStorage.getItem(STORAGE_SIZES)) saveSizesLocal(JSON.parse(JSON.stringify(DEFAULT_SIZES))); }
+/* ✅ حذف كل الأسماء القديمة */
+(function(){
+  try {
+    localStorage.removeItem('admin_texts');
+    localStorage.removeItem('admin_colors');
+    localStorage.removeItem('admin_price');
+    localStorage.removeItem('admin_old_price');
+    localStorage.removeItem('admin_stock');
+    localStorage.removeItem('admin_images');
+    localStorage.removeItem('wd_warda_colors_v3');
+    localStorage.removeItem('wd_warda_texts_v3');
+    localStorage.removeItem('wd_warda_texts_v4');
+    localStorage.removeItem('wd_warda_price_v3');
+    localStorage.removeItem('wd_warda_oldprice_v3');
+    localStorage.removeItem('wd_warda_sizes_v3');
+  } catch(e){}
+})();
+
+function migrateOld(){
+  if(!localStorage.getItem(STORAGE_COLORS)) saveColorsLocal(JSON.parse(JSON.stringify(DEFAULT_COLORS)));
+  if(!localStorage.getItem(STORAGE_TEXTS)) saveTextsLocal(JSON.parse(JSON.stringify(DEFAULT_TEXTS)));
+  if(!localStorage.getItem(STORAGE_SIZES)) saveSizesLocal(JSON.parse(JSON.stringify(DEFAULT_SIZES)));
+}
 
 (function(){ if(location.hash) history.replaceState(null,'',location.pathname+location.search); window.scrollTo(0,0); window.addEventListener('load',function(){ window.scrollTo(0,0); if(document.activeElement && document.activeElement !== document.body) document.activeElement.blur(); }); setTimeout(function(){window.scrollTo(0,0);},300); setTimeout(function(){window.scrollTo(0,0);},800); })();
 (function(){ var b = document.getElementById('stickyBar'); var s = false; function u(){ var y = window.scrollY > 400; if(y !== s){ s = y; b.classList.toggle('translate-y-full', !y); } } window.addEventListener('scroll', u, {passive:true}); u(); })();
@@ -857,7 +880,7 @@ var FAQS = [
   document.querySelectorAll('.faq-head').forEach(function(x){ x.addEventListener('click', function(){ var it = x.closest('.faq-item'); var o = it.classList.contains('is-open'); document.querySelectorAll('.faq-item').forEach(function(y){ y.classList.remove('is-open'); }); if(!o) it.classList.add('is-open'); }); });
 })();
 
-var state = {color:"أسود", size:"M", qty:1, userPicked:false};
+var state = {color:"marron chocolat", size:"M", qty:1, userPicked:false};
 
 var cd = 2*3600 + 14*60 + 33;
 function renderCd(){ var h = Math.floor(cd/3600), m = Math.floor((cd%3600)/60), s = cd%60; function p(n){ return String(n).padStart(2,'0'); } document.getElementById('cdH').textContent = p(h); document.getElementById('cdM').textContent = p(m); document.getElementById('cdS').textContent = p(s); }
@@ -911,7 +934,6 @@ document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el);
 var sObs = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ playRating(); sObs.disconnect(); } }); }, {threshold:0.4});
 sObs.observe(document.getElementById('starsRow'));
 
-// Live viewers counter
 (function(){
   var el = document.getElementById('viewersCount');
   if(!el) return;
@@ -920,7 +942,6 @@ sObs.observe(document.getElementById('starsRow'));
   setInterval(update, 5000);
 })();
 
-/* ✅ Stock countdown — يبدأ من 27 ويوصل لـ 15 */
 (function(){
   var el = document.getElementById('stockCount');
   var fill = document.getElementById('stockBarFill');
@@ -998,7 +1019,7 @@ fetchFromServer().then(function(d){ if(d){ applyServerData(d); PRICE = getPrice(
   renderAdminPanel();
   var st = document.getElementById('adminSyncStatus');
   st.className = 'admin-status ok';
-  st.textContent = '✓ جاهز — المنتج: Survet piknik';
+  st.textContent = '✓ جاهز — 7 ألوان فرنسية';
 
   panel.querySelectorAll('.admin-tab').forEach(function(tab){
     tab.addEventListener('click', function(){
